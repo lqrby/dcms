@@ -1,0 +1,519 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>dcms智控城市接口测试报告</title>
+    <meta name="generator" content="HTMLTestRunner 0.8.2"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    
+<style type="text/css" media="screen">
+body        { font-family: verdana, arial, helvetica, sans-serif; font-size: 80%; }
+table       { font-size: 100%; }
+pre         { }
+
+/* -- heading ---------------------------------------------------------------------- */
+h1 {
+	font-size: 16pt;
+	color: gray;
+}
+.heading {
+    margin-top: 0ex;
+    margin-bottom: 1ex;
+}
+
+.heading .attribute {
+    margin-top: 1ex;
+    margin-bottom: 0;
+}
+
+.heading .description {
+    margin-top: 4ex;
+    margin-bottom: 6ex;
+}
+
+/* -- css div popup ------------------------------------------------------------------------ */
+a.popup_link {
+}
+
+a.popup_link:hover {
+    color: red;
+}
+
+.popup_window {
+    display: none;
+    position: relative;
+    left: 0px;
+    top: 0px;
+    /*border: solid #627173 1px; */
+    padding: 10px;
+    background-color: #E6E6D6;
+    font-family: "Lucida Console", "Courier New", Courier, monospace;
+    text-align: left;
+    font-size: 8pt;
+    width: 500px;
+}
+
+}
+/* -- report ------------------------------------------------------------------------ */
+#show_detail_line {
+    margin-top: 3ex;
+    margin-bottom: 1ex;
+}
+#result_table {
+    width: 80%;
+    border-collapse: collapse;
+    border: 1px solid #777;
+}
+#header_row {
+    font-weight: bold;
+    color: white;
+    background-color: #777;
+}
+#result_table td {
+    border: 1px solid #777;
+    padding: 2px;
+}
+#total_row  { font-weight: bold; }
+.passClass  { background-color: #6c6; }
+.failClass  { background-color: #c60; }
+.errorClass { background-color: #c00; }
+.passCase   { color: #6c6; }
+.failCase   { color: #c60; font-weight: bold; }
+.errorCase  { color: #c00; font-weight: bold; }
+.hiddenRow  { display: none; }
+.testcase   { margin-left: 2em; }
+
+
+/* -- ending ---------------------------------------------------------------------- */
+#ending {
+}
+
+</style>
+
+</head>
+<body>
+<script language="javascript" type="text/javascript"><!--
+output_list = Array();
+
+/* level - 0:Summary; 1:Failed; 2:All */
+function showCase(level) {
+    trs = document.getElementsByTagName("tr");
+    for (var i = 0; i < trs.length; i++) {
+        tr = trs[i];
+        id = tr.id;
+        if (id.substr(0,2) == 'ft') {
+            if (level < 1) {
+                tr.className = 'hiddenRow';
+            }
+            else {
+                tr.className = '';
+            }
+        }
+        if (id.substr(0,2) == 'pt') {
+            if (level > 1) {
+                tr.className = '';
+            }
+            else {
+                tr.className = 'hiddenRow';
+            }
+        }
+    }
+}
+
+
+function showClassDetail(cid, count) {
+    var id_list = Array(count);
+    var toHide = 1;
+    for (var i = 0; i < count; i++) {
+        tid0 = 't' + cid.substr(1) + '.' + (i+1);
+        tid = 'f' + tid0;
+        tr = document.getElementById(tid);
+        if (!tr) {
+            tid = 'p' + tid0;
+            tr = document.getElementById(tid);
+        }
+        id_list[i] = tid;
+        if (tr.className) {
+            toHide = 0;
+        }
+    }
+    for (var i = 0; i < count; i++) {
+        tid = id_list[i];
+        if (toHide) {
+            document.getElementById('div_'+tid).style.display = 'none'
+            document.getElementById(tid).className = 'hiddenRow';
+        }
+        else {
+            document.getElementById(tid).className = '';
+        }
+    }
+}
+
+
+function showTestDetail(div_id){
+    var details_div = document.getElementById(div_id)
+    var displayState = details_div.style.display
+    // alert(displayState)
+    if (displayState != 'block' ) {
+        displayState = 'block'
+        details_div.style.display = 'block'
+    }
+    else {
+        details_div.style.display = 'none'
+    }
+}
+
+
+function html_escape(s) {
+    s = s.replace(/&/g,'&amp;');
+    s = s.replace(/</g,'&lt;');
+    s = s.replace(/>/g,'&gt;');
+    return s;
+}
+
+/* obsoleted by detail in <div>
+function showOutput(id, name) {
+    var w = window.open("", //url
+                    name,
+                    "resizable,scrollbars,status,width=800,height=450");
+    d = w.document;
+    d.write("<pre>");
+    d.write(html_escape(output_list[id]));
+    d.write("\n");
+    d.write("<a href='javascript:window.close()'>close</a>\n");
+    d.write("</pre>\n");
+    d.close();
+}
+*/
+--></script>
+
+<div class='heading'>
+<h1>dcms智控城市接口测试报告</h1>
+<p class='attribute'><strong>Start Time:</strong> 2018-06-21 15:58:38</p>
+<p class='attribute'><strong>Duration:</strong> 0:00:07.189078</p>
+<p class='attribute'><strong>Status:</strong> Pass 5 Error 1</p>
+
+<p class='description'>dcms智控测试用例执行情况:</p>
+</div>
+
+
+
+<p id='show_detail_line'>Show
+<a href='javascript:showCase(0)'>Summary</a>
+<a href='javascript:showCase(1)'>Failed</a>
+<a href='javascript:showCase(2)'>All</a>
+</p>
+<table id='result_table'>
+<colgroup>
+<col align='left' />
+<col align='right' />
+<col align='right' />
+<col align='right' />
+<col align='right' />
+<col align='right' />
+</colgroup>
+<tr id='header_row'>
+    <td>Test Group/Test case</td>
+    <td>Count</td>
+    <td>Pass</td>
+    <td>Fail</td>
+    <td>Error</td>
+    <td>View</td>
+</tr>
+
+<tr class='passClass'>
+    <td>test_1app_jcjs_cl.test_app_jcjs_post: ''接口名称：app_江城集市_事件处理</td>
+    <td>1</td>
+    <td>1</td>
+    <td>0</td>
+    <td>0</td>
+    <td><a href="javascript:showClassDetail('c1',1)">Detail</a></td>
+</tr>
+
+<tr id='pt1.1' class='hiddenRow'>
+    <td class='none'><div class='testcase'>test_jcjs_cl_post: ''测试用例1：执法局下派_江城集市处理</div></td>
+    <td colspan='5' align='center'>
+
+    <!--css div popup start-->
+    <a class="popup_link" onfocus='this.blur();' href="javascript:showTestDetail('div_pt1.1')" >
+        pass</a>
+
+    <div id='div_pt1.1' class="popup_window">
+        <div style='text-align: right; color:red;cursor:pointer'>
+        <a onfocus='this.blur();' onclick="document.getElementById('div_pt1.1').style.display = 'none' " >
+           [x]</a>
+        </div>
+        <pre>
+        
+pt1.1: start test
+执法局下派成功{"message":"保存成功","result":{},"status":"1"}
+江城集市处理成功{"message":"修改成功","result":{},"status":"1"}
+end test
+
+
+        </pre>
+    </div>
+    <!--css div popup end-->
+
+    </td>
+</tr>
+
+<tr class='passClass'>
+    <td>test_2app_zfj_cl.test_zfj_post: ''接口名称：app_执法局_江城集市</td>
+    <td>1</td>
+    <td>1</td>
+    <td>0</td>
+    <td>0</td>
+    <td><a href="javascript:showClassDetail('c2',1)">Detail</a></td>
+</tr>
+
+<tr id='pt2.1' class='hiddenRow'>
+    <td class='none'><div class='testcase'>test_jcjs_down: ''测试用例2：江城集市处上报_执法局处理</div></td>
+    <td colspan='5' align='center'>
+
+    <!--css div popup start-->
+    <a class="popup_link" onfocus='this.blur();' href="javascript:showTestDetail('div_pt2.1')" >
+        pass</a>
+
+    <div id='div_pt2.1' class="popup_window">
+        <div style='text-align: right; color:red;cursor:pointer'>
+        <a onfocus='this.blur();' onclick="document.getElementById('div_pt2.1').style.display = 'none' " >
+           [x]</a>
+        </div>
+        <pre>
+        
+pt2.1: start test
+江城集市上报成功:{"message":"保存成功","result":{},"status":"1"}
+b'{"message":"\xe6\x9c\x8d\xe5\x8a\xa1\xe8\xb0\x83\xe7\x94\xa8\xe6\x88\x90\xe5\x8a\x9f","result":{"curPage":1,"list":[{"cbfmc":"\xe5\xa4\x9a\xe5\xb8\x82\xe5\x9c\xba\xe5\xaf\xb9\xe5\xba\x94\xe4\xb8\x80\xe6\x89\xbf\xe5\x8c\x85\xe5\x95\x86","clrxm":"","createtime":"2018-06-21 15:58:34","fjtp":"","fjyj":"","id":1216,"jssj":null,"kfxid":null,"pfry":"","pfryid":"","pfsj":null,"pftp":"","pfyj":"","pfzt":2,"qssj":null,"rwwcsj":null,"scbryid":"","scdlwz":"\xe5\x90\x89\xe6\x9e\x97\xe5\xb8\x82 \xe6\x98\x8c\xe9\x82\x91\xe5\x8c\xba","scdz":"\xe6\x9d\x8e\xe6\xb3\xbd\xe6\x9e\x97\xe6\xb5\x8b\xe8\xaf\x951","scjd":"126.6241176018957","scmc":"\xe6\xb5\x8b\xe8\xaf\x95\xe5\xb8\x82\xe5\x9c\xba1","scwd":"43.85082597791774","sjfssj":"2018-06-21 00:00:00","status":1,"tsbh":"201805020920","tsfjtp":"/image/20180511/00ea49d3fa2d4dd48d8ad735e1a321aa.jpeg","tsly":3,"tsrdh":"13021979651","tsrid":"29","tsrxb":"","tsrxm":"\xe7\xae\xa1\xe7\x90\x86\xe6\x9d\x8e\xe6\xb3\xbd\xe6\x9e\x97\xe6\xb5\x8b\xe8\xaf\x951\xe5\xb8\x82\xe5\x9c\xba","tsscid":23,"tssj":"2018-06-21 15:58:34","tstwbh":"1313","tstwdz":"\xe5\x90\x89\xe6\x9e\x97\xe5\xb8\x82 \xe6\x98\x8c\xe9\x82\x91\xe5\x8c\xba","tswgbh":"","tsxxms":"\xe6\xb1\x9f\xe5\x9f\x8e\xe9\x9b\x86\xe5\xb8\x82\xe4\xb8\x8a\xe6\x8a\xa5","tsyy":"","zxjg":"","zxrid":null,"zxzt":2,"zxzts":""},{"cbfmc":"\xe5\xa4\x9a\xe5\xb8\x82\xe5\x9c\xba\xe5\xaf\xb9\xe5\xba\x94\xe4\xb8\x80\xe6\x89\xbf\xe5\x8c\x85\xe5\x95\x86","clrxm":"","createtime":"2018-06-20 09:45:54","fjtp":"","fjyj":"","id":1126,"jssj":null,"kfxid":null,"pfry":"","pfryid":"","pfsj":null,"pftp":"","pfyj":"","pfzt":2,"qssj":null,"rwwcsj":null,"scbryid":"","scdlwz":"\xe5\x90\x89\xe6\x9e\x97\xe5\xb8\x82 \xe6\x98\x8c\xe9\x82\x91\xe5\x8c\xba","scdz":"\xe6\x9d\x8e\xe6\xb3\xbd\xe6\x9e\x97\xe6\xb5\x8b\xe8\xaf\x951","scjd":"126.6241176018957","scmc":"\xe6\xb5\x8b\xe8\xaf\x95\xe5\xb8\x82\xe5\x9c\xba1","scwd":"43.85082597791774","sjfssj":"2018-06-20 00:00:00","status":1,"tsbh":"201805020830","tsfjtp":"/image/20180510/8ce9561d52e44adebbbefd761708c328.jpeg","tsly":4,"tsrdh":"13021979651","tsrid":"4028838462ae48f70162ae9426b8003d","tsrxb":"","tsrxm":"\xe6\x9d\x8e\xe6\xb3\xbd\xe6\x9e\x971","tsscid":23,"tssj":"2018-06-20 09:45:54","tstwbh":"12","tstwdz":"\xe6\x9d\x8e\xe6\xb3\xbd\xe6\x9e\x97\xe6\xb5\x8b\xe8\xaf\x951","tswgbh":"","tsxxms":"\xe6\x89\xa7\xe6\xb3\x95\xe5\xb1\x80\xe4\xb8\x8a\xe6\x8a\xa5","tsyy":"","zxjg":"","zxrid":null,"zxzt":2,"zxzts":""},{"cbfmc":"\xe5\xa4\x9a\xe5\xb8\x82\xe5\x9c\xba\xe5\xaf\xb9\xe5\xba\x94\xe4\xb8\x80\xe6\x89\xbf\xe5\x8c\x85\xe5\x95\x86","clrxm":"","createtime":"2018-06-17 17:40:00","fjtp":"","fjyj":"","id":1068,"jssj":null,"kfxid":null,"pfry":"","pfryid":"","pfsj":null,"pftp":"","pfyj":"","pfzt":2,"qssj":null,"rwwcsj":null,"scbryid":"","scdlwz":"\xe5\x90\x89\xe6\x9e\x97\xe5\xb8\x82 \xe6\x98\x8c\xe9\x82\x91\xe5\x8c\xba","scdz":"\xe6\x9d\x8e\xe6\xb3\xbd\xe6\x9e\x97\xe6\xb5\x8b\xe8\xaf\x951","scjd":"126.6241176018957","scmc":"\xe6\xb5\x8b\xe8\xaf\x95\xe5\xb8\x82\xe5\x9c\xba1","scwd":"43.85082597791774","sjfssj":"2018-06-17 00:00:00","status":1,"tsbh":"201805020772","tsfjtp":"/image/20180510/8ce9561d52e44adebbbefd761708c328.jpeg","tsly":4,"tsrdh":"13021979651","tsrid":"4028838462ae48f70162ae9426b8003d","tsrxb":"","tsrxm":"\xe6\x9d\x8e\xe6\xb3\xbd\xe6\x9e\x971","tsscid":23,"tssj":"2018-06-17 17:40:00","tstwbh":"12","tstwdz":"\xe6\x9d\x8e\xe6\xb3\xbd\xe6\x9e\x97\xe6\xb5\x8b\xe8\xaf\x951","tswgbh":"","tsxxms":"\xe6\x89\xa7\xe6\xb3\x95\xe5\xb1\x80\xe4\xb8\x8a\xe6\x8a\xa5","tsyy":"","zxjg":"","zxrid":null,"zxzt":2,"zxzts":""},{"cbfmc":"\xe5\xa4\x9a\xe5\xb8\x82\xe5\x9c\xba\xe5\xaf\xb9\xe5\xba\x94\xe4\xb8\x80\xe6\x89\xbf\xe5\x8c\x85\xe5\x95\x86","clrxm":"","createtime":"2018-06-08 15:19:25","fjtp":"","fjyj":"","id":994,"jssj":null,"kfxid":null,"pfry":"","pfryid":"","pfsj":null,"pftp":"","pfyj":"","pfzt":2,"qssj":null,"rwwcsj":null,"scbryid":"","scdlwz":"\xe5\x90\x89\xe6\x9e\x97\xe5\xb8\x82 \xe6\x98\x8c\xe9\x82\x91\xe5\x8c\xba","scdz":"\xe6\x9d\x8e\xe6\xb3\xbd\xe6\x9e\x97\xe6\xb5\x8b\xe8\xaf\x951","scjd":"126.6241176018957","scmc":"\xe6\xb5\x8b\xe8\xaf\x95\xe5\xb8\x82\xe5\x9c\xba1","scwd":"43.85082597791774","sjfssj":"2018-06-08 00:00:00","status":1,"tsbh":"201805020698","tsfjtp":"/image/20180510/8ce9561d52e44adebbbefd761708c328.jpeg","tsly":4,"tsrdh":"13021979651","tsrid":"4028838462ae48f70162ae9426b8003d","tsrxb":"","tsrxm":"\xe6\x9d\x8e\xe6\xb3\xbd\xe6\x9e\x971","tsscid":23,"tssj":"2018-06-08 15:19:25","tstwbh":"12","tstwdz":"\xe6\x9d\x8e\xe6\xb3\xbd\xe6\x9e\x97\xe6\xb5\x8b\xe8\xaf\x951","tswgbh":"","tsxxms":"\xe6\x89\xa7\xe6\xb3\x95\xe5\xb1\x80\xe4\xb8\x8a\xe6\x8a\xa5","tsyy":"","zxjg":"","zxrid":null,"zxzt":2,"zxzts":""},{"cbfmc":"\xe5\xa4\x9a\xe5\xb8\x82\xe5\x9c\xba\xe5\xaf\xb9\xe5\xba\x94\xe4\xb8\x80\xe6\x89\xbf\xe5\x8c\x85\xe5\x95\x86","clrxm":"","createtime":"2018-06-07 11:49:54","fjtp":"","fjyj":"","id":937,"jssj":null,"kfxid":null,"pfry":"","pfryid":"","pfsj":null,"pftp":"","pfyj":"","pfzt":2,"qssj":null,"rwwcsj":null,"scbryid":"","scdlwz":"\xe5\x90\x89\xe6\x9e\x97\xe5\xb8\x82 \xe6\x98\x8c\xe9\x82\x91\xe5\x8c\xba","scdz":"\xe6\x9d\x8e\xe6\xb3\xbd\xe6\x9e\x97\xe6\xb5\x8b\xe8\xaf\x951","scjd":"126.6241176018957","scmc":"\xe6\xb5\x8b\xe8\xaf\x95\xe5\xb8\x82\xe5\x9c\xba1","scwd":"43.85082597791774","sjfssj":"2018-06-07 00:00:00","status":1,"tsbh":"201805020641","tsfjtp":"/image/20180510/8ce9561d52e44adebbbefd761708c328.jpeg","tsly":2,"tsrdh":"13021979651","tsrid":"4028838462ae48f70162b28604ee014a","tsrxb":"","tsrxm":"\xe6\x9d\x8e\xe6\xb3\xbd\xe6\x9e\x97\xe5\xb8\x82\xe5\x9c\xba\xe9\xa2\x86\xe5\xaf\xbc","tsscid":23,"tssj":"2018-06-07 11:49:54","tstwbh":"\xe6\xb5\x8b\xe8\xaf\x95\xe7\xbc\x96\xe5\x8f\xb7","tstwdz":"\xe6\x9d\x8e\xe6\xb3\xbd\xe6\x9e\x97\xe6\xb5\x8b\xe8\xaf\x951","tswgbh":"","tsxxms":"\xe6\x89\xa7\xe6\xb3\x95\xe5\xb1\x80\xe4\xb8\x8b\xe6\xb4\xbe22","tsyy":"","zxjg":"","zxrid":null,"zxzt":2,"zxzts":""},{"cbfmc":"\xe5\xa4\x9a\xe5\xb8\x82\xe5\x9c\xba\xe5\xaf\xb9\xe5\xba\x94\xe4\xb8\x80\xe6\x89\xbf\xe5\x8c\x85\xe5\x95\x86","clrxm":"","createtime":"2018-06-07 11:49:05","fjtp":"","fjyj":"","id":936,"jssj":null,"kfxid":null,"pfry":"","pfryid":"","pfsj":null,"pftp":"","pfyj":"","pfzt":2,"qssj":null,"rwwcsj":null,"scbryid":"","scdlwz":"\xe5\x90\x89\xe6\x9e\x97\xe5\xb8\x82 \xe6\x98\x8c\xe9\x82\x91\xe5\x8c\xba","scdz":"\xe6\x9d\x8e\xe6\xb3\xbd\xe6\x9e\x97\xe6\xb5\x8b\xe8\xaf\x951","scjd":"126.6241176018957","scmc":"\xe6\xb5\x8b\xe8\xaf\x95\xe5\xb8\x82\xe5\x9c\xba1","scwd":"43.85082597791774","sjfssj":"2018-06-07 00:00:00","status":1,"tsbh":"201805020640","tsfjtp":"/image/20180510/8ce9561d52e44adebbbefd761708c328.jpeg","tsly":2,"tsrdh":"13021979651","tsrid":"4028838462ae48f70162b28604ee014a","tsrxb":"","tsrxm":"\xe6\x9d\x8e\xe6\xb3\xbd\xe6\x9e\x97\xe5\xb8\x82\xe5\x9c\xba\xe9\xa2\x86\xe5\xaf\xbc","tsscid":23,"tssj":"2018-06-07 11:49:05","tstwbh":"\xe6\xb5\x8b\xe8\xaf\x95\xe7\xbc\x96\xe5\x8f\xb7","tstwdz":"\xe6\x9d\x8e\xe6\xb3\xbd\xe6\x9e\x97\xe6\xb5\x8b\xe8\xaf\x951","tswgbh":"","tsxxms":"\xe6\x89\xa7\xe6\xb3\x95\xe5\xb1\x80\xe4\xb8\x8b\xe6\xb4\xbe22","tsyy":"","zxjg":"","zxrid":null,"zxzt":2,"zxzts":""},{"cbfmc":"\xe5\xa4\x9a\xe5\xb8\x82\xe5\x9c\xba\xe5\xaf\xb9\xe5\xba\x94\xe4\xb8\x80\xe6\x89\xbf\xe5\x8c\x85\xe5\x95\x86","clrxm":"","createtime":"2018-06-07 11:35:17","fjtp":"","fjyj":"","id":934,"jssj":null,"kfxid":null,"pfry":"","pfryid":"","pfsj":null,"pftp":"","pfyj":"","pfzt":2,"qssj":null,"rwwcsj":null,"scbryid":"","scdlwz":"\xe5\x90\x89\xe6\x9e\x97\xe5\xb8\x82 \xe6\x98\x8c\xe9\x82\x91\xe5\x8c\xba","scdz":"\xe6\x9d\x8e\xe6\xb3\xbd\xe6\x9e\x97\xe6\xb5\x8b\xe8\xaf\x951","scjd":"126.6241176018957","scmc":"\xe6\xb5\x8b\xe8\xaf\x95\xe5\xb8\x82\xe5\x9c\xba1","scwd":"43.85082597791774","sjfssj":"2018-06-07 00:00:00","status":1,"tsbh":"201805020638","tsfjtp":"/image/20180517/72f7c964fa304002993761fae2601187.jpg","tsly":1,"tsrdh":"13021979652","tsrid":"c65ef0509d3c4f22814db04b49333eb7","tsrxb":"1","tsrxm":"\xe6\x9d\x8e\xe6\xb3\xbd\xe6\x9e\x97","tsscid":23,"tssj":"2018-06-07 11:35:17","tstwbh":"1234","tstwdz":"\xe6\x9d\x8e\xe6\xb3\xbd\xe6\x9e\x97\xe6\xb5\x8b\xe8\xaf\x951","tswgbh":"","tsxxms":"\xe6\xb5\x8b\xe8\xaf\x95","tsyy":"","zxjg":"","zxrid":null,"zxzt":2,"zxzts":""},{"cbfmc":"\xe5\xa4\x9a\xe5\xb8\x82\xe5\x9c\xba\xe5\xaf\xb9\xe5\xba\x94\xe4\xb8\x80\xe6\x89\xbf\xe5\x8c\x85\xe5\x95\x86","clrxm":"","createtime":"2018-06-07 10:15:14","fjtp":"","fjyj":"","id":918,"jssj":null,"kfxid":null,"pfry":"","pfryid":"","pfsj":null,"pftp":"","pfyj":"","pfzt":2,"qssj":null,"rwwcsj":null,"scbryid":"","scdlwz":"\xe5\x90\x89\xe6\x9e\x97\xe5\xb8\x82 \xe6\x98\x8c\xe9\x82\x91\xe5\x8c\xba","scdz":"\xe6\x9d\x8e\xe6\xb3\xbd\xe6\x9e\x97\xe6\xb5\x8b\xe8\xaf\x951","scjd":"126.6241176018957","scmc":"\xe6\xb5\x8b\xe8\xaf\x95\xe5\xb8\x82\xe5\x9c\xba1","scwd":"43.85082597791774","sjfssj":"2018-06-07 00:00:00","status":1,"tsbh":"201805020622","tsfjtp":"/image/20180517/72f7c964fa304002993761fae2601187.jpg","tsly":1,"tsrdh":"13021979652","tsrid":"c65ef0509d3c4f22814db04b49333eb7","tsrxb":"1","tsrxm":"\xe6\x9d\x8e\xe6\xb3\xbd\xe6\x9e\x97","tsscid":23,"tssj":"2018-06-07 10:15:14","tstwbh":"1234","tstwdz":"\xe6\x9d\x8e\xe6\xb3\xbd\xe6\x9e\x97\xe6\xb5\x8b\xe8\xaf\x951","tswgbh":"","tsxxms":"\xe6\xb5\x8b\xe8\xaf\x95","tsyy":"","zxjg":"","zxrid":null,"zxzt":2,"zxzts":""},{"cbfmc":"\xe5\xa4\x9a\xe5\xb8\x82\xe5\x9c\xba\xe5\xaf\xb9\xe5\xba\x94\xe4\xb8\x80\xe6\x89\xbf\xe5\x8c\x85\xe5\x95\x86","clrxm":"","createtime":"2018-06-06 18:14:03","fjtp":"","fjyj":"","id":908,"jssj":null,"kfxid":null,"pfry":"","pfryid":"","pfsj":null,"pftp":"","pfyj":"","pfzt":2,"qssj":null,"rwwcsj":null,"scbryid":"","scdlwz":"\xe5\x90\x89\xe6\x9e\x97\xe5\xb8\x82 \xe6\x98\x8c\xe9\x82\x91\xe5\x8c\xba","scdz":"\xe6\x9d\x8e\xe6\xb3\xbd\xe6\x9e\x97\xe6\xb5\x8b\xe8\xaf\x951","scjd":"126.6241176018957","scmc":"\xe6\xb5\x8b\xe8\xaf\x95\xe5\xb8\x82\xe5\x9c\xba1","scwd":"43.85082597791774","sjfssj":"2018-06-06 00:00:00","status":1,"tsbh":"201805020613","tsfjtp":"/image/20180510/8ce9561d52e44adebbbefd761708c328.jpeg","tsly":2,"tsrdh":"13021979651","tsrid":"4028838462ae48f70162b28604ee014a","tsrxb":"","tsrxm":"\xe6\x9d\x8e\xe6\xb3\xbd\xe6\x9e\x97\xe5\xb8\x82\xe5\x9c\xba\xe9\xa2\x86\xe5\xaf\xbc","tsscid":23,"tssj":"2018-06-06 18:14:03","tstwbh":"\xe6\xb5\x8b\xe8\xaf\x95\xe7\xbc\x96\xe5\x8f\xb7","tstwdz":"\xe6\x9d\x8e\xe6\xb3\xbd\xe6\x9e\x97\xe6\xb5\x8b\xe8\xaf\x951","tswgbh":"","tsxxms":"\xe6\x89\xa7\xe6\xb3\x95\xe5\xb1\x80\xe4\xb8\x8b\xe6\xb4\xbe22","tsyy":"","zxjg":"","zxrid":null,"zxzt":2,"zxzts":""},{"cbfmc":"\xe5\xa4\x9a\xe5\xb8\x82\xe5\x9c\xba\xe5\xaf\xb9\xe5\xba\x94\xe4\xb8\x80\xe6\x89\xbf\xe5\x8c\x85\xe5\x95\x86","clrxm":"","createtime":"2018-06-06 16:35:29","fjtp":"","fjyj":"","id":866,"jssj":null,"kfxid":null,"pfry":"","pfryid":"","pfsj":null,"pftp":"","pfyj":"","pfzt":2,"qssj":null,"rwwcsj":null,"scbryid":"","scdlwz":"\xe5\x90\x89\xe6\x9e\x97\xe5\xb8\x82 \xe6\x98\x8c\xe9\x82\x91\xe5\x8c\xba","scdz":"\xe6\x9d\x8e\xe6\xb3\xbd\xe6\x9e\x97\xe6\xb5\x8b\xe8\xaf\x951","scjd":"126.6241176018957","scmc":"\xe6\xb5\x8b\xe8\xaf\x95\xe5\xb8\x82\xe5\x9c\xba1","scwd":"43.85082597791774","sjfssj":"2018-06-06 00:00:00","status":1,"tsbh":"201805020571","tsfjtp":"/image/20180510/8ce9561d52e44adebbbefd761708c328.jpeg","tsly":4,"tsrdh":"13021979651","tsrid":"4028838462ae48f70162ae9426b8003d","tsrxb":"","tsrxm":"\xe6\x9d\x8e\xe6\xb3\xbd\xe6\x9e\x971","tsscid":23,"tssj":"2018-06-06 16:35:29","tstwbh":"12","tstwdz":"\xe6\x9d\x8e\xe6\xb3\xbd\xe6\x9e\x97\xe6\xb5\x8b\xe8\xaf\x951","tswgbh":"","tsxxms":"\xe6\x89\xa7\xe6\xb3\x95\xe5\xb1\x80\xe4\xb8\x8a\xe6\x8a\xa5","tsyy":"","zxjg":"","zxrid":null,"zxzt":2,"zxzts":""},{"cbfmc":"\xe5\xa4\x9a\xe5\xb8\x82\xe5\x9c\xba\xe5\xaf\xb9\xe5\xba\x94\xe4\xb8\x80\xe6\x89\xbf\xe5\x8c\x85\xe5\x95\x86","clrxm":"","createtime":"2018-06-06 16:34:33","fjtp":"","fjyj":"","id":865,"jssj":null,"kfxid":null,"pfry":"","pfryid":"","pfsj":null,"pftp":"","pfyj":"","pfzt":2,"qssj":null,"rwwcsj":null,"scbryid":"","scdlwz":"\xe5\x90\x89\xe6\x9e\x97\xe5\xb8\x82 \xe6\x98\x8c\xe9\x82\x91\xe5\x8c\xba","scdz":"\xe6\x9d\x8e\xe6\xb3\xbd\xe6\x9e\x97\xe6\xb5\x8b\xe8\xaf\x951","scjd":"126.6241176018957","scmc":"\xe6\xb5\x8b\xe8\xaf\x95\xe5\xb8\x82\xe5\x9c\xba1","scwd":"43.85082597791774","sjfssj":"2018-06-06 00:00:00","status":1,"tsbh":"201805020570","tsfjtp":"/image/20180510/8ce9561d52e44adebbbefd761708c328.jpeg","tsly":4,"tsrdh":"13021979651","tsrid":"4028838462ae48f70162ae9426b8003d","tsrxb":"","tsrxm":"\xe6\x9d\x8e\xe6\xb3\xbd\xe6\x9e\x971","tsscid":23,"tssj":"2018-06-06 16:34:33","tstwbh":"12","tstwdz":"\xe6\x9d\x8e\xe6\xb3\xbd\xe6\x9e\x97\xe6\xb5\x8b\xe8\xaf\x951","tswgbh":"","tsxxms":"\xe6\x89\xa7\xe6\xb3\x95\xe5\xb1\x80\xe4\xb8\x8a\xe6\x8a\xa5","tsyy":"","zxjg":"","zxrid":null,"zxzt":2,"zxzts":""},{"cbfmc":"\xe5\xa4\x9a\xe5\xb8\x82\xe5\x9c\xba\xe5\xaf\xb9\xe5\xba\x94\xe4\xb8\x80\xe6\x89\xbf\xe5\x8c\x85\xe5\x95\x86","clrxm":"","createtime":"2018-06-06 16:34:13","fjtp":"","fjyj":"","id":864,"jssj":null,"kfxid":null,"pfry":"","pfryid":"","pfsj":null,"pftp":"","pfyj":"","pfzt":2,"qssj":null,"rwwcsj":null,"scbryid":"","scdlwz":"\xe5\x90\x89\xe6\x9e\x97\xe5\xb8\x82 \xe6\x98\x8c\xe9\x82\x91\xe5\x8c\xba","scdz":"\xe6\x9d\x8e\xe6\xb3\xbd\xe6\x9e\x97\xe6\xb5\x8b\xe8\xaf\x951","scjd":"126.6241176018957","scmc":"\xe6\xb5\x8b\xe8\xaf\x95\xe5\xb8\x82\xe5\x9c\xba1","scwd":"43.85082597791774","sjfssj":"2018-06-06 00:00:00","status":1,"tsbh":"201805020569","tsfjtp":"/image/20180510/8ce9561d52e44adebbbefd761708c328.jpeg","tsly":4,"tsrdh":"13021979651","tsrid":"4028838462ae48f70162ae9426b8003d","tsrxb":"","tsrxm":"\xe6\x9d\x8e\xe6\xb3\xbd\xe6\x9e\x971","tsscid":23,"tssj":"2018-06-06 16:34:13","tstwbh":"12","tstwdz":"\xe6\x9d\x8e\xe6\xb3\xbd\xe6\x9e\x97\xe6\xb5\x8b\xe8\xaf\x951","tswgbh":"","tsxxms":"\xe6\x89\xa7\xe6\xb3\x95\xe5\xb1\x80\xe4\xb8\x8a\xe6\x8a\xa5","tsyy":"","zxjg":"","zxrid":null,"zxzt":2,"zxzts":""},{"cbfmc":"\xe5\xa4\x9a\xe5\xb8\x82\xe5\x9c\xba\xe5\xaf\xb9\xe5\xba\x94\xe4\xb8\x80\xe6\x89\xbf\xe5\x8c\x85\xe5\x95\x86","clrxm":"","createtime":"2018-06-06 16:32:39","fjtp":"","fjyj":"","id":863,"jssj":null,"kfxid":null,"pfry":"","pfryid":"","pfsj":null,"pftp":"","pfyj":"","pfzt":2,"qssj":null,"rwwcsj":null,"scbryid":"","scdlwz":"\xe5\x90\x89\xe6\x9e\x97\xe5\xb8\x82 \xe6\x98\x8c\xe9\x82\x91\xe5\x8c\xba","scdz":"\xe6\x9d\x8e\xe6\xb3\xbd\xe6\x9e\x97\xe6\xb5\x8b\xe8\xaf\x951","scjd":"126.6241176018957","scmc":"\xe6\xb5\x8b\xe8\xaf\x95\xe5\xb8\x82\xe5\x9c\xba1","scwd":"43.85082597791774","sjfssj":"2018-06-06 00:00:00","status":1,"tsbh":"201805020568","tsfjtp":"/image/20180510/8ce9561d52e44adebbbefd761708c328.jpeg","tsly":4,"tsrdh":"13021979651","tsrid":"4028838462ae48f70162ae9426b8003d","tsrxb":"","tsrxm":"\xe6\x9d\x8e\xe6\xb3\xbd\xe6\x9e\x971","tsscid":23,"tssj":"2018-06-06 16:32:39","tstwbh":"12","tstwdz":"\xe6\x9d\x8e\xe6\xb3\xbd\xe6\x9e\x97\xe6\xb5\x8b\xe8\xaf\x951","tswgbh":"","tsxxms":"\xe6\x89\xa7\xe6\xb3\x95\xe5\xb1\x80\xe4\xb8\x8a\xe6\x8a\xa5","tsyy":"","zxjg":"","zxrid":null,"zxzt":2,"zxzts":""},{"cbfmc":"\xe5\xa4\x9a\xe5\xb8\x82\xe5\x9c\xba\xe5\xaf\xb9\xe5\xba\x94\xe4\xb8\x80\xe6\x89\xbf\xe5\x8c\x85\xe5\x95\x86","clrxm":"","createtime":"2018-06-06 16:31:27","fjtp":"","fjyj":"","id":862,"jssj":null,"kfxid":null,"pfry":"","pfryid":"","pfsj":null,"pftp":"","pfyj":"","pfzt":2,"qssj":null,"rwwcsj":null,"scbryid":"","scdlwz":"\xe5\x90\x89\xe6\x9e\x97\xe5\xb8\x82 \xe6\x98\x8c\xe9\x82\x91\xe5\x8c\xba","scdz":"\xe6\x9d\x8e\xe6\xb3\xbd\xe6\x9e\x97\xe6\xb5\x8b\xe8\xaf\x951","scjd":"126.6241176018957","scmc":"\xe6\xb5\x8b\xe8\xaf\x95\xe5\xb8\x82\xe5\x9c\xba1","scwd":"43.85082597791774","sjfssj":"2018-06-06 00:00:00","status":1,"tsbh":"201805020567","tsfjtp":"/image/20180510/8ce9561d52e44adebbbefd761708c328.jpeg","tsly":4,"tsrdh":"13021979651","tsrid":"4028838462ae48f70162ae9426b8003d","tsrxb":"","tsrxm":"\xe6\x9d\x8e\xe6\xb3\xbd\xe6\x9e\x971","tsscid":23,"tssj":"2018-06-06 16:31:27","tstwbh":"12","tstwdz":"\xe6\x9d\x8e\xe6\xb3\xbd\xe6\x9e\x97\xe6\xb5\x8b\xe8\xaf\x951","tswgbh":"","tsxxms":"\xe6\x89\xa7\xe6\xb3\x95\xe5\xb1\x80\xe4\xb8\x8a\xe6\x8a\xa5","tsyy":"","zxjg":"","zxrid":null,"zxzt":2,"zxzts":""},{"cbfmc":"\xe5\xa4\x9a\xe5\xb8\x82\xe5\x9c\xba\xe5\xaf\xb9\xe5\xba\x94\xe4\xb8\x80\xe6\x89\xbf\xe5\x8c\x85\xe5\x95\x86","clrxm":"","createtime":"2018-06-06 16:30:10","fjtp":"","fjyj":"","id":861,"jssj":null,"kfxid":null,"pfry":"","pfryid":"","pfsj":null,"pftp":"","pfyj":"","pfzt":2,"qssj":null,"rwwcsj":null,"scbryid":"","scdlwz":"\xe5\x90\x89\xe6\x9e\x97\xe5\xb8\x82 \xe6\x98\x8c\xe9\x82\x91\xe5\x8c\xba","scdz":"\xe6\x9d\x8e\xe6\xb3\xbd\xe6\x9e\x97\xe6\xb5\x8b\xe8\xaf\x951","scjd":"126.6241176018957","scmc":"\xe6\xb5\x8b\xe8\xaf\x95\xe5\xb8\x82\xe5\x9c\xba1","scwd":"43.85082597791774","sjfssj":"2018-06-06 00:00:00","status":1,"tsbh":"201805020566","tsfjtp":"/image/20180510/8ce9561d52e44adebbbefd761708c328.jpeg","tsly":4,"tsrdh":"13021979651","tsrid":"4028838462ae48f70162ae9426b8003d","tsrxb":"","tsrxm":"\xe6\x9d\x8e\xe6\xb3\xbd\xe6\x9e\x971","tsscid":23,"tssj":"2018-06-06 16:30:10","tstwbh":"12","tstwdz":"\xe6\x9d\x8e\xe6\xb3\xbd\xe6\x9e\x97\xe6\xb5\x8b\xe8\xaf\x951","tswgbh":"","tsxxms":"\xe6\x89\xa7\xe6\xb3\x95\xe5\xb1\x80\xe4\xb8\x8a\xe6\x8a\xa5","tsyy":"","zxjg":"","zxrid":null,"zxzt":2,"zxzts":""}],"map":null,"pageSize":15,"totalItem":263,"totalPage":18},"status":"1"}'
+执法局处理成功{"message":"保存成功","result":{},"status":"1"}
+end test
+
+
+        </pre>
+    </div>
+    <!--css div popup end-->
+
+    </td>
+</tr>
+
+<tr class='passClass'>
+    <td>test_3app_ajl_sbcl.test_zfj_post: ''接口名称：app_爱吉林_江城集市</td>
+    <td>1</td>
+    <td>1</td>
+    <td>0</td>
+    <td>0</td>
+    <td><a href="javascript:showClassDetail('c3',1)">Detail</a></td>
+</tr>
+
+<tr id='pt3.1' class='hiddenRow'>
+    <td class='none'><div class='testcase'>test_jcjs_down: ''测试用例3：市场投诉_执法派发_江城集市处理</div></td>
+    <td colspan='5' align='center'>
+
+    <!--css div popup start-->
+    <a class="popup_link" onfocus='this.blur();' href="javascript:showTestDetail('div_pt3.1')" >
+        pass</a>
+
+    <div id='div_pt3.1' class="popup_window">
+        <div style='text-align: right; color:red;cursor:pointer'>
+        <a onfocus='this.blur();' onclick="document.getElementById('div_pt3.1').style.display = 'none' " >
+           [x]</a>
+        </div>
+        <pre>
+        
+pt3.1: start test
+爱吉林上报成功{"message":"保存成功","result":{},"status":"1"}
+执法局派发成功{"message":"保存成功","result":{},"status":"1"}
+江城集市处理成功{"message":"修改成功","result":{},"status":"1"}
+end test
+
+
+        </pre>
+    </div>
+    <!--css div popup end-->
+
+    </td>
+</tr>
+
+<tr class='passClass'>
+    <td>test_4app_zfj_clz.test_zfj_post: ''接口名称：app_执法局_江城集市</td>
+    <td>1</td>
+    <td>1</td>
+    <td>0</td>
+    <td>0</td>
+    <td><a href="javascript:showClassDetail('c4',1)">Detail</a></td>
+</tr>
+
+<tr id='pt4.1' class='hiddenRow'>
+    <td class='none'><div class='testcase'>test_jcjs_down: ''测试用例4：非市场办执法局上报_执法局市场办派发_江城集市处理</div></td>
+    <td colspan='5' align='center'>
+
+    <!--css div popup start-->
+    <a class="popup_link" onfocus='this.blur();' href="javascript:showTestDetail('div_pt4.1')" >
+        pass</a>
+
+    <div id='div_pt4.1' class="popup_window">
+        <div style='text-align: right; color:red;cursor:pointer'>
+        <a onfocus='this.blur();' onclick="document.getElementById('div_pt4.1').style.display = 'none' " >
+           [x]</a>
+        </div>
+        <pre>
+        
+pt4.1: start test
+非市场办执法局上报成功{"message":"保存成功","result":{},"status":"1"}
+执法局派发成功{"message":"保存成功","result":{},"status":"1"}
+江城集市处理成功{"message":"修改成功","result":{},"status":"1"}
+end test
+
+
+        </pre>
+    </div>
+    <!--css div popup end-->
+
+    </td>
+</tr>
+
+<tr class='passClass'>
+    <td>test_5app_gl_cl.test_zfj_post: ''接口名称：吉林公路管理系统</td>
+    <td>1</td>
+    <td>1</td>
+    <td>0</td>
+    <td>0</td>
+    <td><a href="javascript:showClassDetail('c5',1)">Detail</a></td>
+</tr>
+
+<tr id='pt5.1' class='hiddenRow'>
+    <td class='none'><div class='testcase'>test_jcjs_down: ''测试用例5：pc立案_app核实</div></td>
+    <td colspan='5' align='center'>
+
+    <!--css div popup start-->
+    <a class="popup_link" onfocus='this.blur();' href="javascript:showTestDetail('div_pt5.1')" >
+        pass</a>
+
+    <div id='div_pt5.1' class="popup_window">
+        <div style='text-align: right; color:red;cursor:pointer'>
+        <a onfocus='this.blur();' onclick="document.getElementById('div_pt5.1').style.display = 'none' " >
+           [x]</a>
+        </div>
+        <pre>
+        
+pt5.1: start test
+web录入案卷成功{"msg":"保存成功","result":null,"code":"1"}
+app复核成功{"msg":"保存成功","result":null,"code":"1"}
+end test
+
+
+        </pre>
+    </div>
+    <!--css div popup end-->
+
+    </td>
+</tr>
+
+<tr class='errorClass'>
+    <td>test_6app_aiji_get.test_zfj_post: ''接口名称：app_爱吉林_江城集市_获取城市动态</td>
+    <td>1</td>
+    <td>0</td>
+    <td>0</td>
+    <td>1</td>
+    <td><a href="javascript:showClassDetail('c6',1)">Detail</a></td>
+</tr>
+
+<tr id='ft6.1' class='none'>
+    <td class='errorCase'><div class='testcase'>test_jcjs_down: ''测试用例6：app_爱吉林_江城集市_获取城市动态</div></td>
+    <td colspan='5' align='center'>
+
+    <!--css div popup start-->
+    <a class="popup_link" onfocus='this.blur();' href="javascript:showTestDetail('div_ft6.1')" >
+        error</a>
+
+    <div id='div_ft6.1' class="popup_window">
+        <div style='text-align: right; color:red;cursor:pointer'>
+        <a onfocus='this.blur();' onclick="document.getElementById('div_ft6.1').style.display = 'none' " >
+           [x]</a>
+        </div>
+        <pre>
+        
+ft6.1: start test
+end test
+Traceback (most recent call last):
+  File "D:\python\lib\site-packages\urllib3\connection.py", line 141, in _new_conn
+    (self.host, self.port), self.timeout, **extra_kw)
+  File "D:\python\lib\site-packages\urllib3\util\connection.py", line 83, in create_connection
+    raise err
+  File "D:\python\lib\site-packages\urllib3\util\connection.py", line 73, in create_connection
+    sock.connect(sa)
+ConnectionRefusedError: [WinError 10061] 由于目标计算机积极拒绝，无法连接。
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\python\lib\site-packages\urllib3\connectionpool.py", line 601, in urlopen
+    chunked=chunked)
+  File "D:\python\lib\site-packages\urllib3\connectionpool.py", line 357, in _make_request
+    conn.request(method, url, **httplib_request_kw)
+  File "D:\python\lib\http\client.py", line 1239, in request
+    self._send_request(method, url, body, headers, encode_chunked)
+  File "D:\python\lib\http\client.py", line 1285, in _send_request
+    self.endheaders(body, encode_chunked=encode_chunked)
+  File "D:\python\lib\http\client.py", line 1234, in endheaders
+    self._send_output(message_body, encode_chunked=encode_chunked)
+  File "D:\python\lib\http\client.py", line 1026, in _send_output
+    self.send(msg)
+  File "D:\python\lib\http\client.py", line 964, in send
+    self.connect()
+  File "D:\python\lib\site-packages\urllib3\connection.py", line 166, in connect
+    conn = self._new_conn()
+  File "D:\python\lib\site-packages\urllib3\connection.py", line 150, in _new_conn
+    self, "Failed to establish a new connection: %s" % e)
+urllib3.exceptions.NewConnectionError: &lt;urllib3.connection.HTTPConnection object at 0x0443D7F0&gt;: Failed to establish a new connection: [WinError 10061] 由于目标计算机积极拒绝，无法连接。
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\python\lib\site-packages\requests\adapters.py", line 440, in send
+    timeout=timeout
+  File "D:\python\lib\site-packages\urllib3\connectionpool.py", line 639, in urlopen
+    _stacktrace=sys.exc_info()[2])
+  File "D:\python\lib\site-packages\urllib3\util\retry.py", line 388, in increment
+    raise MaxRetryError(_pool, url, error or ResponseError(cause))
+urllib3.exceptions.MaxRetryError: HTTPConnectionPool(host='219.149.226.180', port=7880): Max retries exceeded with url: /publicworkstation/jeecms/getNewsList.action?subId=59 (Caused by NewConnectionError('&lt;urllib3.connection.HTTPConnection object at 0x0443D7F0&gt;: Failed to establish a new connection: [WinError 10061] 由于目标计算机积极拒绝，无法连接。',))
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "E:\test\dcms_test_script\JiangChengJiShi\test_case\test_6app_aiji_get.py", line 24, in test_jcjs_down
+    r = requests.get(url =url1 ,data = data1,headers = headers1,timeout=60)
+  File "D:\python\lib\site-packages\requests\api.py", line 72, in get
+    return request('get', url, params=params, **kwargs)
+  File "D:\python\lib\site-packages\requests\api.py", line 58, in request
+    return session.request(method=method, url=url, **kwargs)
+  File "D:\python\lib\site-packages\requests\sessions.py", line 508, in request
+    resp = self.send(prep, **send_kwargs)
+  File "D:\python\lib\site-packages\requests\sessions.py", line 618, in send
+    r = adapter.send(request, **kwargs)
+  File "D:\python\lib\site-packages\requests\adapters.py", line 508, in send
+    raise ConnectionError(e, request=request)
+requests.exceptions.ConnectionError: HTTPConnectionPool(host='219.149.226.180', port=7880): Max retries exceeded with url: /publicworkstation/jeecms/getNewsList.action?subId=59 (Caused by NewConnectionError('&lt;urllib3.connection.HTTPConnection object at 0x0443D7F0&gt;: Failed to establish a new connection: [WinError 10061] 由于目标计算机积极拒绝，无法连接。',))
+
+
+        </pre>
+    </div>
+    <!--css div popup end-->
+
+    </td>
+</tr>
+
+<tr id='total_row'>
+    <td>Total</td>
+    <td>6</td>
+    <td>5</td>
+    <td>0</td>
+    <td>1</td>
+    <td>&nbsp;</td>
+</tr>
+</table>
+
+<div id='ending'>&nbsp;</div>
+
+</body>
+</html>
