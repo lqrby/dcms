@@ -4,7 +4,8 @@ import requests
 import json  
 import unittest
 import urllib, sys
-
+import config
+from config.Log import logging
 class MyTest(unittest.TestCase):     #封装测试环境的初始化和还原的类  
     def setUp(self):                 #放对数据可操作的代码，如对mysql、momgodb的初始化等,这里不对数据库进行操作！  
             print("start test")  
@@ -35,9 +36,9 @@ class test_zfj_post(MyTest):         #把这个接口封装一个类，下面的
         c=str(b['status'])
         if c=="1":
             print("非市场办执法局上报成功"+r.text)
-            #logging.info("非市场办执法局上报成功"+r.text)
+            logging.info("非市场办执法局上报成功"+r.text)
         else: 
-            #logging.info("非市场办执法局上报失败"+r.text)
+            logging.info("非市场办执法局上报失败"+r.text)
             print("非市场办执法局上报失败"+r.text)
             raise Exception(r.text)
         url="http://219.149.226.180:7880/jcjs/cp_io/getscbrycpiolist.action?rwssjssj=&curPage=1&scbryid=4028838462ae48f70162b28604ee014a&zxzts=1&rwsskssj=&pageSize=15"
@@ -67,9 +68,9 @@ class test_zfj_post(MyTest):         #把这个接口封装一个类，下面的
         c1=str(b1['status'])
         if c1=="1":
             print("执法局派发成功"+r1.text)
-            #logging.info("执法局派发成功"+r1.text)
+            logging.info("执法局派发成功"+r1.text)
         else: 
-            #logging.info("执法局派发成功"+r1.text)
+            logging.info("执法局派发成功"+r1.text)
             print("执法局派发成功"+r1.text)
             raise Exception(r1.text) 
         #获取江城集市所有未处理数据
@@ -78,7 +79,7 @@ class test_zfj_post(MyTest):         #把这个接口封装一个类，下面的
         self3 = data4.read()
         #转换成字典
         self2=json.loads(self3)
-#         logging.info(self2)
+        logging.info(self2)
         #取首行案卷id和tsid
         a=self2['result']['list'][0]['id']
         b=str(a)
@@ -101,9 +102,9 @@ class test_zfj_post(MyTest):         #把这个接口封装一个类，下面的
         c2=str(b2['status'])
         if c2=="1":
             print("江城集市处理成功"+r2.text)
-            #logging.info("江城集市处理成功"+r2.text)
+            logging.info("江城集市处理成功"+r2.text)
         else: 
-            #logging.info("江城集市处理失败"+r2.text)
+            logging.info("江城集市处理失败"+r2.text)
             print("江城集市处理失败"+r1.text) 
             raise Exception(r1.text)
 if __name__=="__main__":  

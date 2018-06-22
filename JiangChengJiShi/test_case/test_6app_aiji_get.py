@@ -4,7 +4,8 @@ import requests
 import json  
 import unittest
 import urllib,sys
-
+import config
+from config.Log import logging
 class MyTest(unittest.TestCase):     #封装测试环境的初始化和还原的类  
     def setUp(self):                 #放对数据可操作的代码，如对mysql、momgodb的初始化等,这里不对数据库进行操作！  
             print("start test")  
@@ -27,9 +28,9 @@ class test_zfj_post(MyTest):         #把这个接口封装一个类，下面的
         c1=str(b1['status'])
         if c1=="1":
                 print("爱吉林城市动态获取成功"+r.text)
-                #logging.info("爱吉林城市动态获取成功"+r.text)
+                logging.info("爱吉林城市动态获取成功"+r.text)
         else:
-                #logging.info("爱吉林城市动态获取失败"+r.text)
+                logging.info("爱吉林城市动态获取失败"+r.text)
                 print("爱吉林城市动态获取失败"+r.text)  
                 raise Exception(r.text)
 if __name__=="__main__":  

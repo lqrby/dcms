@@ -3,7 +3,7 @@ import logging
 import logging.config
 
 # 读取日志配置文件
-logging.config.fileConfig("E:/test/dcms_test_script/JiangChengJiShi/config/Logger.conf")
+logging.config.fileConfig("E:/test/dcms/JiangChengJiShi/config/Logger.conf")
 # 选择一个日志格式
 logger = logging.getLogger("example02")#或者example01
 

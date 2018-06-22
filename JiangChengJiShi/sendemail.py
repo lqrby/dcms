@@ -39,7 +39,7 @@ class Mailer(object):
 #     msg.attach(jpgpart)
  
 #      首先是xlsx类型的附件
-    xlsxpart = MIMEApplication(open('E:/test/dcms_test_script/JiangChengJiShi/test_report/TestRunner.html', 'rb').read())
+    xlsxpart = MIMEApplication(open('E:/test/dcms/JiangChengJiShi/test_report/TestRunner.html', 'rb').read())
     xlsxpart.add_header('Content-Disposition', 'attachment', filename='TestRunner.html')
     msg.attach(xlsxpart)
  

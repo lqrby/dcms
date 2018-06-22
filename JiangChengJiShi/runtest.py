@@ -5,7 +5,7 @@ import requests
 from HTMLTestRunner import HTMLTestRunner
 import time,sys,os
 from imp import reload
-# from config.Log import *
+from config.Log import logging
 default_encoding ='utf-8'
 
 if sys.getdefaultencoding() != default_encoding:
@@ -22,7 +22,7 @@ if __name__=="__main__":
 #     now = time.strftime("%Y-%m-%d %H-%M-%S")  
 #     print now
     #定义报告存放路径  
-        filename ='E:/test/dcms_test_script/JiangChengJiShi/test_report/TestRunner.html'  
+        filename ='E:/test/dcms/JiangChengJiShi/test_report/TestRunner.html'  
         fp = open(filename,"wb")  
         #定义测试报告  
         runner = HTMLTestRunner(stream = fp,  
@@ -32,5 +32,5 @@ if __name__=="__main__":
         runner.run(discover) 
         print("结束")    
         fp.close() #关闭报告文件
-        os.system("E:/test/dcms_test_script/JiangChengJiShi/sendemail.py")
-        # logging.info(u"测试结束")
+        os.system("E:/test/dcms/JiangChengJiShi/sendemail.py")
+        logging.info("测试结束")

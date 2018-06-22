@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
-#from config.Log import *
 import requests
 import json  
 import unittest
 import urllib,sys
- 
+import config
+from config.Log import logging 
 class MyTest(unittest.TestCase):     #封装测试环境的初始化和还原的类  
     def setUp(self):                 #放对数据可操作的代码，如对mysql、momgodb的初始化等,这里不对数据库进行操作！  
             print("start test")  
@@ -40,11 +40,10 @@ class test_zfj_post(MyTest):         #把这个接口封装一个类，下面的
         c=str(b['code'])
         if c=="1":
             print("web录入案卷成功"+r.text)
-            #logging.info("web录入案卷成功"+r.text)
+            logging.info("web录入案卷成功"+r.text)
         else: 
-            #logging.info("web录入案卷失败比"+r.text)
+            logging.info("web录入案卷失败比"+r.text)
             print("web录入案卷失败"+r.text)
-            #print(self.status_code) 
             raise Exception(r.text)
     #                         i=i+1        
         url="http://219.149.226.180:7880/roadproject/roadsevent/list?curPage=1&eventtypeid=&status=&roadsectionid=&eventlevelid=&pageSize=20"
@@ -76,14 +75,12 @@ class test_zfj_post(MyTest):         #把这个接口封装一个类，下面的
         c1=str(b1['code'])
         if c1=="1":
             print("app复核成功"+r.text)
-            #logging.info("app复核成功"+r.text)
+            logging.info("app复核成功"+r.text)
         else: 
-            #logging.info("app复核失败"+r.text)
+            logging.info("app复核失败"+r.text)
             print("app复核失败"+r.text)
             #print(self.status_code)  
-            raise Exception(r.text)   
-         
-                       
+            raise Exception(r.text)               
                           
 if __name__=="__main__":  
         unittest.main()
