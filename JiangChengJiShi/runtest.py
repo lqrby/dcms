@@ -21,7 +21,8 @@ if __name__=="__main__":
 #     #按照一定的格式获取当前的时间  
 #     now = time.strftime("%Y-%m-%d %H-%M-%S")  
 #     print now
-    #定义报告存放路径  
+    #定义报告存放路径
+        logging.info("测试新版") 
         filename ='E:/test/dcms/JiangChengJiShi/test_report/TestRunner.html'  
         fp = open(filename,"wb")  
         #定义测试报告  
