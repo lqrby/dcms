@@ -22,7 +22,7 @@ if __name__=="__main__":
 #     now = time.strftime("%Y-%m-%d %H-%M-%S")  
 #     print now
     #定义报告存放路径
-        logging.info("测试新版") 
+        logging.info("测试新版1") 
         filename ='E:/test/dcms/JiangChengJiShi/test_report/TestRunner.html'  
         fp = open(filename,"wb")  
         #定义测试报告  
