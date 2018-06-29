@@ -3,7 +3,7 @@ import requests
 import json  
 import unittest
 import urllib, sys, io
-#sys.path.append(r"E:/test/dcms_test_script/JiangChengJiShi")
+#sys.path.append(r"D:/jmeter/jenkins/workspace/jiangcheng_test_script/JiangChengJiShi")
 import config
 from config.Log import logging
 sys.stdout = io.TextIOWrapper(sys.stdout.buffer,encoding='utf-8')

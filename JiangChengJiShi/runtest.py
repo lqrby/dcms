@@ -33,5 +33,5 @@ if __name__=="__main__":
         runner.run(discover) 
         print("结束")    
         fp.close() #关闭报告文件
-        os.system("E:/test/dcms/JiangChengJiShi/sendemail.py")
+        # os.system("D:/jmeter/jenkins/workspace/jiangcheng_test_script/JiangChengJiShi/sendemail.py")
         logging.info("测试结束")
