@@ -23,7 +23,7 @@ if __name__=="__main__":
 #     print now
     #定义报告存放路径
         logging.info("测试新版1") 
-        filename ='E:/test/dcms/JiangChengJiShi/test_report/TestRunner.html'  
+        filename ='D:/jmeter/jenkins/workspace/jiangcheng_test_script/JiangChengJiShi/test_report/TestRunner.html'  
         fp = open(filename,"wb")  
         #定义测试报告  
         runner = HTMLTestRunner(stream = fp,  
