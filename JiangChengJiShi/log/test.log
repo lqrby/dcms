@@ -214,3 +214,7 @@
 2018-06-29 18:06:32 runtest.py[line:25] INFO 测试新版1
 2018-06-29 18:06:32 test.py[line:41] INFO {"message":"保存成功","result":{},"status":"1"}
 2018-06-29 18:06:53 runtest.py[line:37] INFO 测试结束
+2018-06-29 18:08:06 runtest.py[line:25] INFO 测试新版1
+2018-06-29 18:08:06 test.py[line:41] INFO {"message":"保存成功","result":{},"status":"1"}
+2018-06-29 18:08:07 test_1app_jcjs_cl.py[line:41] INFO 执法局下派成功{"message":"保存成功","result":{},"status":"1"}
+2018-06-29 18:08:07 test_1app_jcjs_cl.py[line:75] INFO 江城集市处理成功{"message":"修改成功","result":{},"status":"1"}
