@@ -1,0 +1,25 @@
+2018/06/19 16:43:32 Log.py[line:6] DEBUG this is debug message1111111111111111111
+2018/06/19 16:43:32 Log.py[line:7] INFO this is info message222222222222222
+2018/06/19 16:43:32 Log.py[line:8] WARNING this is warning message33333333333333333
+2018/06/19 16:43:32 connectionpool.py[line:208] DEBUG Starting new HTTP connection (1): 219.149.226.180
+2018/06/19 16:43:52 connectionpool.py[line:396] DEBUG http://219.149.226.180:7880 "POST /jcjs/cp_io/saveorupdate.action HTTP/1.1" 200 None
+2018/06/19 16:43:57 connectionpool.py[line:208] DEBUG Starting new HTTP connection (1): 219.149.226.180
+2018/06/19 16:43:57 connectionpool.py[line:396] DEBUG http://219.149.226.180:7880 "POST /jcjs/elpy_tk/saveorupdate.action HTTP/1.1" 200 None
+2018/06/19 16:43:57 connectionpool.py[line:208] DEBUG Starting new HTTP connection (1): 219.149.226.180
+2018/06/19 16:44:02 connectionpool.py[line:396] DEBUG http://219.149.226.180:7880 "POST /publicworkstation/mktcp_io/saveComplaint.action HTTP/1.1" 200 None
+2018/06/19 16:44:07 connectionpool.py[line:208] DEBUG Starting new HTTP connection (1): 219.149.226.180
+2018/06/19 16:44:53 connectionpool.py[line:396] DEBUG http://219.149.226.180:7880 "POST /jcjs/elpy_tk/saveorupdate.action HTTP/1.1" 200 None
+2018/06/19 16:44:53 connectionpool.py[line:208] DEBUG Starting new HTTP connection (1): 219.149.226.180
+2018/06/19 16:45:02 connectionpool.py[line:396] DEBUG http://219.149.226.180:7880 "POST /jcjs/elpy_tk/saveorupdate.action HTTP/1.1" 200 None
+2018/06/19 16:45:03 connectionpool.py[line:208] DEBUG Starting new HTTP connection (1): 219.149.226.180
+2018/06/19 16:45:39 connectionpool.py[line:396] DEBUG http://219.149.226.180:7880 "POST /jcjs/cp_io/saveorupdate.action HTTP/1.1" 200 None
+2018/06/19 16:45:48 connectionpool.py[line:208] DEBUG Starting new HTTP connection (1): 219.149.226.180
+2018/06/19 16:46:28 connectionpool.py[line:396] DEBUG http://219.149.226.180:7880 "POST /jcjs/elpy_tk/saveorupdate.action HTTP/1.1" 200 None
+2018/06/19 16:46:30 connectionpool.py[line:208] DEBUG Starting new HTTP connection (1): 219.149.226.180
+2018/06/19 16:46:33 connectionpool.py[line:396] DEBUG http://219.149.226.180:7880 "POST /jcjs/elpy_tk/saveorupdate.action HTTP/1.1" 200 None
+2018/06/19 16:46:33 connectionpool.py[line:208] DEBUG Starting new HTTP connection (1): 219.149.226.180
+2018/06/19 16:46:43 connectionpool.py[line:396] DEBUG http://219.149.226.180:7880 "POST /roadproject/roadsevent/add?status=1 HTTP/1.1" 200 None
+2018/06/19 16:46:48 connectionpool.py[line:208] DEBUG Starting new HTTP connection (1): 219.149.226.180
+2018/06/19 16:46:51 connectionpool.py[line:396] DEBUG http://219.149.226.180:7880 "POST /roadproject/roadsevent/update HTTP/1.1" 200 None
+2018/06/19 16:46:52 connectionpool.py[line:208] DEBUG Starting new HTTP connection (1): 219.149.226.180
+2018/06/19 16:47:49 connectionpool.py[line:396] DEBUG http://219.149.226.180:7880 "GET /publicworkstation/jeecms/getNewsList.action?subId=59 HTTP/1.1" 200 None
