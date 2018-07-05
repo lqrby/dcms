@@ -1,11 +1,14 @@
 # -*- coding: utf-8 -*-
 import requests
+#from selenium import webdriver
 import json  
 import unittest
 import urllib, sys, io
+import time
 import config
 from config.Log import logging
 sys.stdout = io.TextIOWrapper(sys.stdout.buffer,encoding='utf-8')
+#driver = webdriver.Chrome("D:/python/chromeDriverSever/chromedriver.exe")
 class MyTest(unittest.TestCase):    #封装测试环境的初始化和还原的类  
     def setUp(self):     #放对数据可操作的代码，如对mysql、momgodb的初始化等,这里不对数据库进行操作！  
             print("start test")
@@ -13,29 +16,23 @@ class MyTest(unittest.TestCase):    #封装测试环境的初始化和还原的�
     def tearDown(self):     #与setUp()相对  
             print("end test")  
             pass 
-'''''接口名称：web_城管系统_登录事件'''             
-class test_web_chengguan_login(MyTest):   #把这个接口封装一个类，下面的方法是具体的测试用例  
-    '''''测试用例1：城管登陆'''
-    def test_chenggaun_login(self):  #def test_jcjs_cl_post(self): 城管登录事件
+'''''接口名称：web_城管系统_工单录入事件'''             
+class test_web_hjxt_entry(MyTest):   #把这个接口封装一个类，下面的方法是具体的测试用例  
+    '''''测试用例1：工单录入'''
+    def test_web_hjxt_entry(self):  #def test_jcjs_cl_post(self): 工单录入的方法
+        time.sleep(2)
+        #elem=driver.find_element_by_xpath('/html/body/div[1]/div[2]/div/div[1]/div[2]/a[7]/div[1]/img').click()
            #这个描述接口用例名称 
-        self.url = 'http://219.149.226.180:7897/dcms/bms/login.jsp'  #请求url  
+        self.url = 'http://219.149.226.180:7897/dcms/bmsAdmin/Admin-subsystem.action'
         self.headers = {"Content-Type":"application/x-www-form-urlencoded "}  
-        self.data = {                                   #请求参数  
-           'tstwbh' :   '测试编号',
-           'tsxxms'  :  '执法局下派22',
-            'tsly'   : 2,
-            'tsrid'   : '4028838462ae48f70162b28604ee014a',
-             'tsscid'  :  '23',
-             'tsrdh'   : 13021979651,
-             'tstwdz'   : '李泽林测试1',
-             'tsfjtp'    :'/image/20180510/8ce9561d52e44adebbbefd761708c328.jpeg',
-             'tsrxm'    :'李泽林市场领导'
+        self.data = { #请求参数  
+            'systemId' : '402880ea2f6bd924012f6c521e8c0034', #这是pc端登录人员的id
         }   #self.用在方法属性中，表示是该方法的属性，不会影响其他方法的属性。
                                           
-        self.r = requests.post(url = self.url,data = self.data,headers = self.headers,timeout=60)         
+        self.r = requests.post(url = self.url,data = self.data,headers = self.headers,timeout=30)         
         a=self.r.text 
         b =json.loads(a)
-        c=str(b['status'])
+        c=str(b['sysId'])
         if c=="1":
             print("执法局下派成功"+self.r.text)
             logging.info("执法局下派成功"+self.r.text)

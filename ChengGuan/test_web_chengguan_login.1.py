@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 from PIL import Image
+import unittest
 from selenium import webdriver
 from selenium.webdriver.support.ui import Select
 from selenium.webdriver.support.wait import WebDriverWait
@@ -11,6 +12,7 @@ from selenium.webdriver.common.by import By
 # from com.aliyun.api.gateway.sdk.common import constant
 import base64
 import json
+import requests
 import os.path
 import urllib
 import time
@@ -66,33 +68,73 @@ r = response.read()
 data = json.loads(r)
 print(data)
 result=data.get("result")
-print(result)
-time.sleep(1)
-elem = driver.find_element_by_name("logonname").click()
-elem = driver.find_element_by_name("logonname").send_keys("all")
-time.sleep(1)
-elem = driver.find_element_by_name("logonpassword").click()
-elem = driver.find_element_by_name("logonpassword").send_keys("all")
-time.sleep(1)
-elem = driver.find_element_by_name("logonpassword").click()
-time.sleep(1)
-elem = driver.find_element_by_name("code").click()
-elem = driver.find_element_by_name("code").send_keys(result)
-time.sleep(1)
-elem = driver.find_element_by_xpath('//*[@id="logonForm"]/p/input').click()
-time.sleep(1)
-# # alert = driver.switch_to_alert()
-# # alert.accept() 点击js弹窗
-print("登录成功") 
-time.sleep(10)
-elem=driver.find_element_by_xpath('/html/body/div[1]/div[2]/div/div[1]/div[2]/a[7]/div[1]/img').click()
-print("点击成功") 
-all_handles = driver.window_handles           # 获取当前窗口句柄集合（列表类型）
-driver.switch_to.window(all_handles[-1])   # 跳转到第num个窗口,0开头
-time.sleep(10)
-wait = WebDriverWait(driver, 30, 0.2)
+if result != "":
+    
+#json_result = json.dumps(result)
+    print(result)
+    time.sleep(1)
+    class MyTest(unittest.TestCase):    #封装测试环境的初始化和还原的类  
+        def setUp(self):     #放对数据可操作的代码，如对mysql、momgodb的初始化等,这里不对数据库进行操作！  
+                print("start test")
+                pass  
+        def tearDown(self):     #与setUp()相对  
+                print("end test")  
+                pass 
+    '''''接口名称：web_城管系统_工单录入事件'''             
+    class test_web_chengguan_login(MyTest):   #把这个接口封装一个类，下面的方法是具体的测试用例  
+        '''''测试用例1：工单录入'''
+        def chengguan_login(self):  #def test_jcjs_cl_post(self): 工单录入的方法
+            time.sleep(2)
+            self.url = 'http://219.149.226.180:7897/dcms/bmsAdmin/Admin-logon.action'
+            #self.headers = {"Content-Type":"application/x-www-form-urlencoded "} 
+            self.headers = {'Content-type': 'application/json'} 
+            self.data = { #请求参数  
+            'logonname':	'6763dcacda39d904e1f75a21d65efcd7',
+            'ogonpassword':	'325afd63d2d64072b90d7a114db59008',
+            'code': result
+                
+            }   #self.用在方法属性中，表示是该方法的属性，不会影响其他方法的属性。
+            requests.post(url = self.url,data = self.data,headers = self.headers,timeout=30)                                     
+        print("第一个执行完了")
+        def chengguan_success(self):
+            self.url = "http://219.149.226.180:7897/dcms/bmsAdmin/Admin-redirectLogonPage.action"
+            self.headers = {'Content-type': 'application/json'}
+            self.data = {}
+            self.r = requests.post(url = self.url,data = self.data,headers = self.headers,timeout=30)         
+        
+            a=self.r.text 
+            b =json.loads(a)
+            c=str(b['sysId'])
+            print(c)
+        print("第二个执行完了")   
+    # elem = driver.find_element_by_name("logonname").click()
+    # elem = driver.find_element_by_name("logonname").send_keys("all")
+    # time.sleep(1)
+    # elem = driver.find_element_by_name("logonpassword").click()
+    # elem = driver.find_element_by_name("logonpassword").send_keys("all")
+    # time.sleep(1)
+    # elem = driver.find_element_by_name("logonpassword").click()
+    # time.sleep(1)
+    # elem = driver.find_element_by_name("code").click()
+    # elem = driver.find_element_by_name("code").send_keys(result)
+    # time.sleep(1)
+    # elem = driver.find_element_by_xpath('//*[@id="logonForm"]/p/input').click()
+    # time.sleep(1)
+    # # alert = driver.switch_to_alert()
+    # # alert.accept() 点击js弹窗
+        print("登录成功") 
+else:
+    print("很遗憾，验证码识别失败")
+    
+# time.sleep(10)
+# elem=driver.find_element_by_xpath('/html/body/div[1]/div[2]/div/div[1]/div[2]/a[7]/div[1]/img').click()
+# print("点击成功") 
+# all_handles = driver.window_handles           # 获取当前窗口句柄集合（列表类型）
+# driver.switch_to.window(all_handles[-1])   # 跳转到第num个窗口,0开头
+# time.sleep(10)
+# wait = WebDriverWait(driver, 30, 0.2)
 # # wait.until(EC.frame_to_be_available_and_switch_to_it((By.ID, "middlePage-id")))
-wait.until(EC.frame_to_be_available_and_switch_to_it(driver.find_element_by_id("middlePage-id")))
+# wait.until(EC.frame_to_be_available_and_switch_to_it(driver.find_element_by_id("middlePage-id")))
 # #-------------------------------------进入呼叫系统管理模块
 # # locator = (By.name, 'p_name')
 # # try:
