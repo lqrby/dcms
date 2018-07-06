@@ -22,9 +22,9 @@ from selenium import webdriver
 import time
 from PIL import ImageGrab
 #     '''''接口名称：web_城管系统_获取验证码'''             
-def login_authCode():  #def test_jcjs_cl_post(self): 工单录入的方法
+def test_login_authCode(driver):  #def test_jcjs_cl_post(self): 工单录入的方法
         url='http://219.149.226.180:7897/dcms/bms/login.jsp'
-        driver = webdriver.Chrome("D:/python/chromeDriverSever/chromedriver.exe")
+        #driver = webdriver.Chrome("D:/python/chromeDriverSever/chromedriver.exe")
         driver.maximize_window()  #将浏览器最大化
         driver.get(url)
         driver.save_screenshot('./result/yzm.png')  #截取当前网页，该网页有我们需要的验证码
@@ -36,16 +36,10 @@ def login_authCode():  #def test_jcjs_cl_post(self): 工单录入的方法
         #rangle=(int(location['x']),int(location['y']),int(location['x']+size['width']),int(location['y']+size['height']))
         rangle = (1200,495,1280,525)
         #rangle = (800,325,882,405)
-        #print("box的类型是：",type(box))
-        print("元组是不是图片坐标",rangle)
-
         #写成我们需要截取的位置坐标
         i=Image.open("./result/yzm.png") #打开截图
-        #i.show()
         frame4=i.crop(rangle)  #使用Image的crop函数，从截图中再次截取我们需要的区域
         frame4.save("./result/yzm2.png")
-        #frame4.show()
-        print('ok=============================================')
         host = 'http://vercode.market.alicloudapi.com'
         path = '/vercode/info'
         method = 'POST'
@@ -67,12 +61,12 @@ def login_authCode():  #def test_jcjs_cl_post(self): 工单录入的方法
         response = urllib.request.urlopen(req)
         r = response.read()
         data = json.loads(r)
-        print(data)
+        #print(data)
         result=data.get("result")
-        print(result)
+        print("@@@验证码是：@@@",result)
         return result
 
-if __name__=='__main__':
-    login_authCode()
+# if __name__=='__main__':
+#     test_login_authCode(driver)
 
 

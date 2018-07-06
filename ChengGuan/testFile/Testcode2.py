@@ -4,7 +4,7 @@ import requests
 import sys
 import json
 import traceback
-from test_web_chengguan_authCode import login_authCode
+from test_web_chengguan_authCode import test_login_authCode
 # -*- coding: utf-8 -*-
 from PIL import Image
 from selenium import webdriver
@@ -96,6 +96,6 @@ try:
         url = "http://219.149.226.180:7897/dcms/bmsAdmin/Admin-redirectLogonPage.action"
         wbdata = requests.get(url,headers=header).text
         soup = BeautifulSoup(wbdata,'html.parser')
-        print (soup)
+        print ("返回结果：",soup)
 except:
     traceback.print_exc()    

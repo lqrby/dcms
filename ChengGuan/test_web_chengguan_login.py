@@ -22,7 +22,10 @@ from PIL import Image
 from selenium import webdriver
 import time
 from PIL import ImageGrab
-from test_web_chengguan_authCode import login_authCode
+import traceback
+from bs4 import BeautifulSoup
+from test_web_chengguan_authCode import test_login_authCode
+from common.test_getCookie import test_getCookie
 
 class MyTest(unittest.TestCase):     #封装测试环境的初始化和还原的类  
     def setUp(self):                 #放对数据可操作的代码，如对mysql、momgodb的初始化等,这里不对数据库进行操作！  
@@ -33,57 +36,50 @@ class MyTest(unittest.TestCase):     #封装测试环境的初始化和还原的
             pass  
 '''''接口名称：web_城管系统_登录'''             
 class test_web_chengguan_login(MyTest):   #把这个接口封装一个类，下面的方法是具体的测试用例  
-    global cookie
-    def test_chengguan_login(self):  #登录的方法
-        self.url = 'http://219.149.226.180:7897/dcms/bmsAdmin/Admin-logon.action'
-        self.headers = {"Content-Type":"application/x-www-form-urlencoded"} 
-        self.data = { #请求参数  
-        'logonname':	'wangnannan',
-        'ogonpassword':	'123',
-        'code': authCode          
-        }   #self.用在方法属性中，表示是该方法的属性，不会影响其他方法的属性。
-        #requests.post(url = self.url,data = self.data,headers = self.headers,timeout=60)
-        # request = requests.get(url = self.url,data = self.data,headers = self.headers, timeout=60)
-        global cookie
-        session = requests.session()
-        session.post(url = self.url,data = self.data,headers = self.headers,timeout=60) 
-        cookie = requests.utils.dict_from_cookiejar(session.cookies)
-        print(cookie['JSESSIONID'])
-        #这是第二个登录请求
-    def test_chengguan_success(self):
-        global cookie
-        print("===========",str(cookie),"=========")
-        print("===========",repr(cookie),"=========")
-        
-        self.url1 = "http://219.149.226.180:7897/dcms/bmsAdmin/Admin-redirectLogonPage.action"
-        self.headers1 = {
-            'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8',
-            'Accept-Encoding': 'gzip, deflate',
-            'Accept-Language': 'zh-CN,zh;q=0.9,en;q=0.8',
-            'Cache-Control': 'no-cache',
-            'Connection': 'keep-alive',
-            'Cookie':'JSESSIONID:'+ cookie['JSESSIONID'],
-            'Host': '219.149.226.180:7897',
-            'Pragma': 'no-cache',
-            'Referer': 'http://219.149.226.180:7897/dcms/bms/login.jsp',
-            # 'Upgrade-Insecure-Requests': 1,
-            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/66.0.3359.117 Safari/537.36'
-
-            }
-        self.data1 = {}
-        self.r = requests.post(url = self.url1,data = self.data1,headers = self.headers1,timeout=30)     
-        #session=requests.session()
-        #具体要接口登录后才可以获得cookies
-
-        print("第二个接口登录返回值：",self.r.text) 
-    #     # cookie = requests.utils.dict_from_cookiejar(session.cookies)
-       # print(cookie)
-        
     
-if __name__=="__main__":  
-    authCode = login_authCode()
+    def test_chengguan_login(self):  #登录的方法
+        #driver = webdriver.Chrome("D:/python/chromeDriverSever/chromedriver.exe")
+
+        driver.find_element_by_name('logonname').click()
+        driver.find_element_by_name('logonname').send_keys(u"all")
+        driver.find_element_by_name('logonpassword').click()
+        driver.find_element_by_name('logonpassword').send_keys(u"all")
+        driver.find_element_by_name('code').click()
+        driver.find_element_by_name('code').send_keys(authCode)
+        driver.find_element_by_xpath('//*[@id="logonForm"]/p/input').click()
+        print("登录成功")
+        # cookiestr = test_getCookie()
+        # print ("这是从方法中调用的cookie：",cookiestr)  
+
+    def test_chengguan_success(self):
+        # #cookie = [item["name"] + "=" + item["value"] for item in driver.get_cookies()]  
+        # session = requests.session()
+        # #session.post(url = self.url,data = self.data,headers = self.headers,timeout=60) 
+        # cookie = requests.utils.dict_from_cookiejar(session.cookies)
+        # print("先获取cookie：@",cookiestr)
+        # self.url1 = "http://219.149.226.180:7897/dcms/bmsAdmin/Admin-redirectLogonPage.action"
+        # self.headers1 = {
+        #     'Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8',
+        #     'Authorization', 'APPCODE ' + appcode
+
+        #     }
+        # self.data1 = {}
+        # self.r = requests.post(url = self.url1, data = self.data1, headers = self.headers1, cookies = cookiestr, timeout=30)     
+        # print("第二个接口登录返回值：",self.r.text) 
+        try:
+            header = {'cookie':cookiestr} 
+            url = "http://219.149.226.180:7897/dcms/bmsAdmin/Admin-redirectLogonPage.action"
+            wbdata = requests.get(url,headers=header).text
+            soup = BeautifulSoup(wbdata,'html.parser')
+            print ("返回结果：",soup)
+        except:
+            traceback.print_exc() 
+if __name__=="__main__":
+    driver = webdriver.Chrome("D:/python/chromeDriverSever/chromedriver.exe")  
+    authCode = test_login_authCode(driver)
+    cookiestr = test_getCookie(driver)
     while authCode == "" :
-        authCode = login_authCode() 
+        authCode = test_login_authCode(driver) 
     else:
         unittest.main()
    
