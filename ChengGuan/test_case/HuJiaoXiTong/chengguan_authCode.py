@@ -17,34 +17,42 @@ import os.path
 import urllib
 import time
 import urllib, sys
+
 from PIL import Image
 from selenium import webdriver
 import time
 from PIL import ImageGrab
-#     '''''接口名称：web_城管系统_获取验证码'''             
+sys.path.append("E:/test/dcms/ChengGuan")
+from common.constant_all import IP
+
+# path1=os.path.abspath('.')   # 表示当前所处的文件夹的绝对路径
+# print(path1)
+
+# print("地址是：" )
+#     '''''接口名称：web_城管系统_获取验证码'''
+# driver = webdriver.Chrome("D:/python/chromeDriverSever/chromedriver.exe")             
 def test_login_authCode(driver):  #def test_jcjs_cl_post(self): 工单录入的方法
-        url='http://219.149.226.180:7897/dcms/bms/login.jsp'
-        #driver = webdriver.Chrome("D:/python/chromeDriverSever/chromedriver.exe")
+        url=IP+'/dcms/bms/login.jsp'
+        
         driver.maximize_window()  #将浏览器最大化
         driver.get(url)
         driver.save_screenshot('./result/yzm.png')  #截取当前网页，该网页有我们需要的验证码
-        imgelement = driver.find_element_by_id('codeimg')  #定位验证码
-        location = imgelement.location  #获取验证码x,y轴坐标
-        size=imgelement.size  #获取验证码的长宽
-        print("验证码图片坐标是:",location)
-        print("验证码的长宽:",size)
+        # imgelement = driver.find_element_by_id('codeimg')  #定位验证码
+        # location = imgelement.location  #获取验证码x,y轴坐标
+        # size=imgelement.size  #获取验证码的长宽
+        # print("验证码图片坐标是:",location)
+        # print("验证码的长宽:",size)
         #rangle=(int(location['x']),int(location['y']),int(location['x']+size['width']),int(location['y']+size['height']))
         rangle = (1200,495,1280,525)
         #rangle = (800,325,882,405)
-        #写成我们需要截取的位置坐标
         i=Image.open("./result/yzm.png") #打开截图
         frame4=i.crop(rangle)  #使用Image的crop函数，从截图中再次截取我们需要的区域
         frame4.save("./result/yzm2.png")
         host = 'http://vercode.market.alicloudapi.com'
         path = '/vercode/info'
-        method = 'POST'
+        # method = 'POST'
         appcode = 'a887277961434056917f2e5190c55792'
-        querys = ''
+        # querys = ''
         bodys = {}
         url = host + path
         uploadfilepath = "./result/yzm2.png"
@@ -61,9 +69,8 @@ def test_login_authCode(driver):  #def test_jcjs_cl_post(self): 工单录入的�
         response = urllib.request.urlopen(req)
         r = response.read()
         data = json.loads(r)
-        #print(data)
         result=data.get("result")
-        print("@@@验证码是：@@@",result)
+        print("@@@验证码是：",result)
         return result
 
 # if __name__=='__main__':
