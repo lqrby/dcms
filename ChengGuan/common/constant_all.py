@@ -8,5 +8,31 @@
 #uat服务ip地址
 #IP = 'http://122.137.242.91'
 #180服务ip地址
+from PIL import Image
+import unittest
+from selenium import webdriver
+from selenium.webdriver.support.ui import Select
+from selenium.webdriver.support.wait import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.common.action_chains import ActionChains
+from selenium.webdriver.common.by import By
+# from com.aliyun.api.gateway.sdk import client
+# from com.aliyun.api.gateway.sdk.http import request
+# from com.aliyun.api.gateway.sdk.common import constant
+import base64
+import json
+import requests
+import os.path
+import urllib
+import time
+import urllib, sys
 
-IP = 'http://219.149.226.180:7897'
+from PIL import Image
+from selenium import webdriver
+import time
+from PIL import ImageGrab
+class getConstant():
+    IP = "http://219.149.226.180:7897"
+    PROJECT_PATH = "E:/test/dcms/ChengGuan"
+    
+    

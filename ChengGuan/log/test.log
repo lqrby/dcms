@@ -41,3 +41,412 @@
 2018-07-12 17:39:11 remote_connection.py[line:480] DEBUG GET http://127.0.0.1:57274/session/7c067b73ed0539c87f4e0c40638ece08/source {"sessionId": "7c067b73ed0539c87f4e0c40638ece08"}
 2018-07-12 17:39:11 remote_connection.py[line:567] DEBUG Finished Request
 2018-07-12 17:39:11 runtest.py[line:40] INFO 测试结束
+2018-07-13 09:22:01 remote_connection.py[line:480] DEBUG POST http://127.0.0.1:8062/session {"capabilities": {"firstMatch": [{}], "alwaysMatch": {"browserName": "chrome", "platformName": "any", "goog:chromeOptions": {"extensions": [], "args": []}}}, "desiredCapabilities": {"browserName": "chrome", "version": "", "platform": "ANY", "goog:chromeOptions": {"extensions": [], "args": []}}}
+2018-07-13 09:22:03 remote_connection.py[line:567] DEBUG Finished Request
+2018-07-13 09:22:06 remote_connection.py[line:480] DEBUG POST http://127.0.0.1:8113/session {"capabilities": {"firstMatch": [{}], "alwaysMatch": {"browserName": "chrome", "platformName": "any", "goog:chromeOptions": {"extensions": [], "args": []}}}, "desiredCapabilities": {"browserName": "chrome", "version": "", "platform": "ANY", "goog:chromeOptions": {"extensions": [], "args": []}}}
+2018-07-13 09:22:08 remote_connection.py[line:567] DEBUG Finished Request
+2018-07-13 09:22:08 remote_connection.py[line:480] DEBUG POST http://127.0.0.1:8113/session/111740599dd06555cb307336fa185703/window/current/maximize {"windowHandle": "current", "sessionId": "111740599dd06555cb307336fa185703"}
+2018-07-13 09:22:09 remote_connection.py[line:567] DEBUG Finished Request
+2018-07-13 09:22:09 remote_connection.py[line:480] DEBUG POST http://127.0.0.1:8113/session/111740599dd06555cb307336fa185703/url {"url": "http://219.149.226.180:7897/dcms/bms/login.jsp", "sessionId": "111740599dd06555cb307336fa185703"}
+2018-07-13 09:22:54 remote_connection.py[line:567] DEBUG Finished Request
+2018-07-13 09:22:54 remote_connection.py[line:480] DEBUG GET http://127.0.0.1:8113/session/111740599dd06555cb307336fa185703/screenshot {"sessionId": "111740599dd06555cb307336fa185703"}
+2018-07-13 09:22:55 remote_connection.py[line:567] DEBUG Finished Request
+2018-07-13 09:22:55 PngImagePlugin.py[line:138] DEBUG STREAM b'IHDR' 16 13
+2018-07-13 09:22:55 PngImagePlugin.py[line:138] DEBUG STREAM b'IDAT' 41 8192
+2018-07-13 09:23:11 remote_connection.py[line:480] DEBUG POST http://127.0.0.1:8113/session/111740599dd06555cb307336fa185703/element {"using": "name", "value": "logonname", "sessionId": "111740599dd06555cb307336fa185703"}
+2018-07-13 09:23:12 remote_connection.py[line:567] DEBUG Finished Request
+2018-07-13 09:23:12 remote_connection.py[line:480] DEBUG POST http://127.0.0.1:8113/session/111740599dd06555cb307336fa185703/element/0.8601100005540347-1/click {"id": "0.8601100005540347-1", "sessionId": "111740599dd06555cb307336fa185703"}
+2018-07-13 09:23:12 remote_connection.py[line:567] DEBUG Finished Request
+2018-07-13 09:23:12 remote_connection.py[line:480] DEBUG POST http://127.0.0.1:8113/session/111740599dd06555cb307336fa185703/element {"using": "name", "value": "logonname", "sessionId": "111740599dd06555cb307336fa185703"}
+2018-07-13 09:23:12 remote_connection.py[line:567] DEBUG Finished Request
+2018-07-13 09:23:12 remote_connection.py[line:480] DEBUG POST http://127.0.0.1:8113/session/111740599dd06555cb307336fa185703/element/0.8601100005540347-1/value {"text": "wangnannan", "value": ["w", "a", "n", "g", "n", "a", "n", "n", "a", "n"], "id": "0.8601100005540347-1", "sessionId": "111740599dd06555cb307336fa185703"}
+2018-07-13 09:23:12 remote_connection.py[line:567] DEBUG Finished Request
+2018-07-13 09:23:13 remote_connection.py[line:480] DEBUG POST http://127.0.0.1:8113/session/111740599dd06555cb307336fa185703/element {"using": "name", "value": "logonpassword", "sessionId": "111740599dd06555cb307336fa185703"}
+2018-07-13 09:23:13 remote_connection.py[line:567] DEBUG Finished Request
+2018-07-13 09:23:13 remote_connection.py[line:480] DEBUG POST http://127.0.0.1:8113/session/111740599dd06555cb307336fa185703/element/0.8601100005540347-2/click {"id": "0.8601100005540347-2", "sessionId": "111740599dd06555cb307336fa185703"}
+2018-07-13 09:23:13 remote_connection.py[line:567] DEBUG Finished Request
+2018-07-13 09:23:13 remote_connection.py[line:480] DEBUG POST http://127.0.0.1:8113/session/111740599dd06555cb307336fa185703/element {"using": "name", "value": "logonpassword", "sessionId": "111740599dd06555cb307336fa185703"}
+2018-07-13 09:23:13 remote_connection.py[line:567] DEBUG Finished Request
+2018-07-13 09:23:13 remote_connection.py[line:480] DEBUG POST http://127.0.0.1:8113/session/111740599dd06555cb307336fa185703/element/0.8601100005540347-2/value {"text": "123", "value": ["1", "2", "3"], "id": "0.8601100005540347-2", "sessionId": "111740599dd06555cb307336fa185703"}
+2018-07-13 09:23:13 remote_connection.py[line:567] DEBUG Finished Request
+2018-07-13 09:23:14 remote_connection.py[line:480] DEBUG POST http://127.0.0.1:8113/session/111740599dd06555cb307336fa185703/element {"using": "name", "value": "code", "sessionId": "111740599dd06555cb307336fa185703"}
+2018-07-13 09:23:14 remote_connection.py[line:567] DEBUG Finished Request
+2018-07-13 09:23:14 remote_connection.py[line:480] DEBUG POST http://127.0.0.1:8113/session/111740599dd06555cb307336fa185703/element/0.8601100005540347-3/click {"id": "0.8601100005540347-3", "sessionId": "111740599dd06555cb307336fa185703"}
+2018-07-13 09:23:14 remote_connection.py[line:567] DEBUG Finished Request
+2018-07-13 09:23:14 remote_connection.py[line:480] DEBUG POST http://127.0.0.1:8113/session/111740599dd06555cb307336fa185703/element {"using": "name", "value": "code", "sessionId": "111740599dd06555cb307336fa185703"}
+2018-07-13 09:23:14 remote_connection.py[line:567] DEBUG Finished Request
+2018-07-13 09:23:14 remote_connection.py[line:480] DEBUG POST http://127.0.0.1:8113/session/111740599dd06555cb307336fa185703/element/0.8601100005540347-3/value {"text": "5cuq", "value": ["5", "c", "u", "q"], "id": "0.8601100005540347-3", "sessionId": "111740599dd06555cb307336fa185703"}
+2018-07-13 09:23:14 remote_connection.py[line:567] DEBUG Finished Request
+2018-07-13 09:23:15 remote_connection.py[line:480] DEBUG POST http://127.0.0.1:8113/session/111740599dd06555cb307336fa185703/element {"using": "xpath", "value": "//*[@id=\"logonForm\"]/p/input", "sessionId": "111740599dd06555cb307336fa185703"}
+2018-07-13 09:23:15 remote_connection.py[line:567] DEBUG Finished Request
+2018-07-13 09:23:15 remote_connection.py[line:480] DEBUG POST http://127.0.0.1:8113/session/111740599dd06555cb307336fa185703/element/0.8601100005540347-4/click {"id": "0.8601100005540347-4", "sessionId": "111740599dd06555cb307336fa185703"}
+2018-07-13 09:23:44 remote_connection.py[line:480] DEBUG POST http://127.0.0.1:8741/session {"capabilities": {"firstMatch": [{}], "alwaysMatch": {"browserName": "chrome", "platformName": "any", "goog:chromeOptions": {"extensions": [], "args": []}}}, "desiredCapabilities": {"browserName": "chrome", "version": "", "platform": "ANY", "goog:chromeOptions": {"extensions": [], "args": []}}}
+2018-07-13 09:23:45 remote_connection.py[line:567] DEBUG Finished Request
+2018-07-13 09:23:45 remote_connection.py[line:480] DEBUG POST http://127.0.0.1:8741/session/8d26563a64ce3e2c94d47daf53e6f731/window/current/maximize {"windowHandle": "current", "sessionId": "8d26563a64ce3e2c94d47daf53e6f731"}
+2018-07-13 09:23:46 remote_connection.py[line:567] DEBUG Finished Request
+2018-07-13 09:23:46 remote_connection.py[line:480] DEBUG POST http://127.0.0.1:8741/session/8d26563a64ce3e2c94d47daf53e6f731/url {"url": "http://219.149.226.180:7897/dcms/bms/login.jsp", "sessionId": "8d26563a64ce3e2c94d47daf53e6f731"}
+2018-07-13 09:24:26 remote_connection.py[line:567] DEBUG Finished Request
+2018-07-13 09:24:26 remote_connection.py[line:480] DEBUG GET http://127.0.0.1:8741/session/8d26563a64ce3e2c94d47daf53e6f731/screenshot {"sessionId": "8d26563a64ce3e2c94d47daf53e6f731"}
+2018-07-13 09:24:27 remote_connection.py[line:567] DEBUG Finished Request
+2018-07-13 09:24:27 PngImagePlugin.py[line:138] DEBUG STREAM b'IHDR' 16 13
+2018-07-13 09:24:27 PngImagePlugin.py[line:138] DEBUG STREAM b'IDAT' 41 8192
+2018-07-13 09:24:35 remote_connection.py[line:480] DEBUG POST http://127.0.0.1:8741/session/8d26563a64ce3e2c94d47daf53e6f731/element {"using": "name", "value": "logonname", "sessionId": "8d26563a64ce3e2c94d47daf53e6f731"}
+2018-07-13 09:24:35 remote_connection.py[line:567] DEBUG Finished Request
+2018-07-13 09:24:35 remote_connection.py[line:480] DEBUG POST http://127.0.0.1:8741/session/8d26563a64ce3e2c94d47daf53e6f731/element/0.9774079520643726-1/click {"id": "0.9774079520643726-1", "sessionId": "8d26563a64ce3e2c94d47daf53e6f731"}
+2018-07-13 09:24:40 remote_connection.py[line:567] DEBUG Finished Request
+2018-07-13 09:24:40 remote_connection.py[line:480] DEBUG POST http://127.0.0.1:8741/session/8d26563a64ce3e2c94d47daf53e6f731/element {"using": "name", "value": "logonname", "sessionId": "8d26563a64ce3e2c94d47daf53e6f731"}
+2018-07-13 09:24:40 remote_connection.py[line:567] DEBUG Finished Request
+2018-07-13 09:24:40 remote_connection.py[line:480] DEBUG POST http://127.0.0.1:8741/session/8d26563a64ce3e2c94d47daf53e6f731/element/0.9774079520643726-1/value {"text": "wangnannan", "value": ["w", "a", "n", "g", "n", "a", "n", "n", "a", "n"], "id": "0.9774079520643726-1", "sessionId": "8d26563a64ce3e2c94d47daf53e6f731"}
+2018-07-13 09:24:40 remote_connection.py[line:567] DEBUG Finished Request
+2018-07-13 09:24:41 remote_connection.py[line:480] DEBUG POST http://127.0.0.1:8741/session/8d26563a64ce3e2c94d47daf53e6f731/element {"using": "name", "value": "logonpassword", "sessionId": "8d26563a64ce3e2c94d47daf53e6f731"}
+2018-07-13 09:24:41 remote_connection.py[line:567] DEBUG Finished Request
+2018-07-13 09:24:41 remote_connection.py[line:480] DEBUG POST http://127.0.0.1:8741/session/8d26563a64ce3e2c94d47daf53e6f731/element/0.9774079520643726-2/click {"id": "0.9774079520643726-2", "sessionId": "8d26563a64ce3e2c94d47daf53e6f731"}
+2018-07-13 09:24:46 remote_connection.py[line:567] DEBUG Finished Request
+2018-07-13 09:24:46 remote_connection.py[line:480] DEBUG POST http://127.0.0.1:8741/session/8d26563a64ce3e2c94d47daf53e6f731/element {"using": "name", "value": "logonpassword", "sessionId": "8d26563a64ce3e2c94d47daf53e6f731"}
+2018-07-13 09:24:46 remote_connection.py[line:567] DEBUG Finished Request
+2018-07-13 09:24:46 remote_connection.py[line:480] DEBUG POST http://127.0.0.1:8741/session/8d26563a64ce3e2c94d47daf53e6f731/element/0.9774079520643726-2/value {"text": "123", "value": ["1", "2", "3"], "id": "0.9774079520643726-2", "sessionId": "8d26563a64ce3e2c94d47daf53e6f731"}
+2018-07-13 09:24:46 remote_connection.py[line:567] DEBUG Finished Request
+2018-07-13 09:24:47 remote_connection.py[line:480] DEBUG POST http://127.0.0.1:8741/session/8d26563a64ce3e2c94d47daf53e6f731/element {"using": "name", "value": "code", "sessionId": "8d26563a64ce3e2c94d47daf53e6f731"}
+2018-07-13 09:24:48 remote_connection.py[line:567] DEBUG Finished Request
+2018-07-13 09:24:48 remote_connection.py[line:480] DEBUG POST http://127.0.0.1:8741/session/8d26563a64ce3e2c94d47daf53e6f731/element/0.9774079520643726-3/click {"id": "0.9774079520643726-3", "sessionId": "8d26563a64ce3e2c94d47daf53e6f731"}
+2018-07-13 09:24:53 remote_connection.py[line:567] DEBUG Finished Request
+2018-07-13 09:24:53 remote_connection.py[line:480] DEBUG POST http://127.0.0.1:8741/session/8d26563a64ce3e2c94d47daf53e6f731/element {"using": "name", "value": "code", "sessionId": "8d26563a64ce3e2c94d47daf53e6f731"}
+2018-07-13 09:24:53 remote_connection.py[line:567] DEBUG Finished Request
+2018-07-13 09:24:53 remote_connection.py[line:480] DEBUG POST http://127.0.0.1:8741/session/8d26563a64ce3e2c94d47daf53e6f731/element/0.9774079520643726-3/value {"text": "DQE2", "value": ["D", "Q", "E", "2"], "id": "0.9774079520643726-3", "sessionId": "8d26563a64ce3e2c94d47daf53e6f731"}
+2018-07-13 09:24:53 remote_connection.py[line:567] DEBUG Finished Request
+2018-07-13 09:24:54 remote_connection.py[line:480] DEBUG POST http://127.0.0.1:8741/session/8d26563a64ce3e2c94d47daf53e6f731/element {"using": "xpath", "value": "//*[@id=\"logonForm\"]/p/input", "sessionId": "8d26563a64ce3e2c94d47daf53e6f731"}
+2018-07-13 09:24:54 remote_connection.py[line:567] DEBUG Finished Request
+2018-07-13 09:24:54 remote_connection.py[line:480] DEBUG POST http://127.0.0.1:8741/session/8d26563a64ce3e2c94d47daf53e6f731/element/0.9774079520643726-4/click {"id": "0.9774079520643726-4", "sessionId": "8d26563a64ce3e2c94d47daf53e6f731"}
+2018-07-13 09:26:20 remote_connection.py[line:567] DEBUG Finished Request
+2018-07-13 09:26:20 remote_connection.py[line:480] DEBUG GET http://127.0.0.1:8741/session/8d26563a64ce3e2c94d47daf53e6f731/source {"sessionId": "8d26563a64ce3e2c94d47daf53e6f731"}
+2018-07-13 09:26:20 remote_connection.py[line:567] DEBUG Finished Request
+2018-07-13 09:26:20 remote_connection.py[line:480] DEBUG GET http://127.0.0.1:8741/session/8d26563a64ce3e2c94d47daf53e6f731/source {"sessionId": "8d26563a64ce3e2c94d47daf53e6f731"}
+2018-07-13 09:26:20 remote_connection.py[line:567] DEBUG Finished Request
+2018-07-13 09:26:20 runtest.py[line:40] INFO 测试结束
+2018-07-13 09:56:26 PngImagePlugin.py[line:138] DEBUG STREAM b'IHDR' 16 13
+2018-07-13 09:56:26 PngImagePlugin.py[line:138] DEBUG STREAM b'IDAT' 41 8192
+2018-07-13 09:56:58 PngImagePlugin.py[line:138] DEBUG STREAM b'IHDR' 16 13
+2018-07-13 09:56:58 PngImagePlugin.py[line:138] DEBUG STREAM b'IDAT' 41 8192
+2018-07-13 09:57:30 PngImagePlugin.py[line:138] DEBUG STREAM b'IHDR' 16 13
+2018-07-13 09:57:30 PngImagePlugin.py[line:138] DEBUG STREAM b'IDAT' 41 8192
+2018-07-13 10:05:23 PngImagePlugin.py[line:138] DEBUG STREAM b'IHDR' 16 13
+2018-07-13 10:05:23 PngImagePlugin.py[line:138] DEBUG STREAM b'IDAT' 41 8192
+2018-07-13 10:22:12 PngImagePlugin.py[line:138] DEBUG STREAM b'IHDR' 16 13
+2018-07-13 10:22:12 PngImagePlugin.py[line:138] DEBUG STREAM b'IDAT' 41 8192
+2018-07-13 10:24:25 PngImagePlugin.py[line:138] DEBUG STREAM b'IHDR' 16 13
+2018-07-13 10:24:25 PngImagePlugin.py[line:138] DEBUG STREAM b'IDAT' 41 8192
+2018-07-13 10:25:35 PngImagePlugin.py[line:138] DEBUG STREAM b'IHDR' 16 13
+2018-07-13 10:25:35 PngImagePlugin.py[line:138] DEBUG STREAM b'IDAT' 41 8192
+2018-07-13 10:26:18 PngImagePlugin.py[line:138] DEBUG STREAM b'IHDR' 16 13
+2018-07-13 10:26:18 PngImagePlugin.py[line:138] DEBUG STREAM b'IDAT' 41 8192
+2018-07-13 10:26:50 PngImagePlugin.py[line:138] DEBUG STREAM b'IHDR' 16 13
+2018-07-13 10:26:50 PngImagePlugin.py[line:138] DEBUG STREAM b'IDAT' 41 8192
+2018-07-13 10:31:31 PngImagePlugin.py[line:138] DEBUG STREAM b'IHDR' 16 13
+2018-07-13 10:31:31 PngImagePlugin.py[line:138] DEBUG STREAM b'IDAT' 41 8192
+2018-07-13 10:39:10 PngImagePlugin.py[line:138] DEBUG STREAM b'IHDR' 16 13
+2018-07-13 10:39:10 PngImagePlugin.py[line:138] DEBUG STREAM b'IDAT' 41 8192
+2018-07-13 11:06:16 PngImagePlugin.py[line:138] DEBUG STREAM b'IHDR' 16 13
+2018-07-13 11:06:16 PngImagePlugin.py[line:138] DEBUG STREAM b'IDAT' 41 8192
+2018-07-13 11:09:07 PngImagePlugin.py[line:138] DEBUG STREAM b'IHDR' 16 13
+2018-07-13 11:09:07 PngImagePlugin.py[line:138] DEBUG STREAM b'IDAT' 41 8192
+2018-07-13 11:13:15 PngImagePlugin.py[line:138] DEBUG STREAM b'IHDR' 16 13
+2018-07-13 11:13:15 PngImagePlugin.py[line:138] DEBUG STREAM b'IDAT' 41 8192
+2018-07-13 11:13:54 PngImagePlugin.py[line:138] DEBUG STREAM b'IHDR' 16 13
+2018-07-13 11:13:54 PngImagePlugin.py[line:138] DEBUG STREAM b'IDAT' 41 8192
+2018-07-13 11:30:42 PngImagePlugin.py[line:138] DEBUG STREAM b'IHDR' 16 13
+2018-07-13 11:30:42 PngImagePlugin.py[line:138] DEBUG STREAM b'IDAT' 41 8192
+2018-07-13 11:34:45 PngImagePlugin.py[line:138] DEBUG STREAM b'IHDR' 16 13
+2018-07-13 11:34:45 PngImagePlugin.py[line:138] DEBUG STREAM b'IDAT' 41 8192
+2018-07-13 11:40:40 PngImagePlugin.py[line:138] DEBUG STREAM b'IHDR' 16 13
+2018-07-13 11:40:40 PngImagePlugin.py[line:138] DEBUG STREAM b'IDAT' 41 8192
+2018-07-13 11:42:57 PngImagePlugin.py[line:138] DEBUG STREAM b'IHDR' 16 13
+2018-07-13 11:42:57 PngImagePlugin.py[line:138] DEBUG STREAM b'IDAT' 41 8192
+2018-07-13 11:43:36 PngImagePlugin.py[line:138] DEBUG STREAM b'IHDR' 16 13
+2018-07-13 11:43:36 PngImagePlugin.py[line:138] DEBUG STREAM b'IDAT' 41 8192
+2018-07-13 13:07:02 PngImagePlugin.py[line:138] DEBUG STREAM b'IHDR' 16 13
+2018-07-13 13:07:02 PngImagePlugin.py[line:138] DEBUG STREAM b'IDAT' 41 8192
+2018-07-13 13:07:04 PngImagePlugin.py[line:138] DEBUG STREAM b'IHDR' 16 13
+2018-07-13 13:07:04 PngImagePlugin.py[line:138] DEBUG STREAM b'IDAT' 41 8192
+2018-07-13 13:07:06 PngImagePlugin.py[line:138] DEBUG STREAM b'IHDR' 16 13
+2018-07-13 13:07:06 PngImagePlugin.py[line:138] DEBUG STREAM b'IDAT' 41 8192
+2018-07-13 13:07:07 PngImagePlugin.py[line:138] DEBUG STREAM b'IHDR' 16 13
+2018-07-13 13:07:07 PngImagePlugin.py[line:138] DEBUG STREAM b'IDAT' 41 8192
+2018-07-13 13:07:08 PngImagePlugin.py[line:138] DEBUG STREAM b'IHDR' 16 13
+2018-07-13 13:07:08 PngImagePlugin.py[line:138] DEBUG STREAM b'IDAT' 41 8192
+2018-07-13 13:07:40 PngImagePlugin.py[line:138] DEBUG STREAM b'IHDR' 16 13
+2018-07-13 13:07:40 PngImagePlugin.py[line:138] DEBUG STREAM b'IDAT' 41 8192
+2018-07-13 13:10:16 PngImagePlugin.py[line:138] DEBUG STREAM b'IHDR' 16 13
+2018-07-13 13:10:16 PngImagePlugin.py[line:138] DEBUG STREAM b'IDAT' 41 8192
+2018-07-13 13:10:42 PngImagePlugin.py[line:138] DEBUG STREAM b'IHDR' 16 13
+2018-07-13 13:10:42 PngImagePlugin.py[line:138] DEBUG STREAM b'IDAT' 41 8192
+2018-07-13 13:15:19 PngImagePlugin.py[line:138] DEBUG STREAM b'IHDR' 16 13
+2018-07-13 13:15:19 PngImagePlugin.py[line:138] DEBUG STREAM b'IDAT' 41 8192
+2018-07-13 13:15:50 PngImagePlugin.py[line:138] DEBUG STREAM b'IHDR' 16 13
+2018-07-13 13:15:50 PngImagePlugin.py[line:138] DEBUG STREAM b'IDAT' 41 8192
+2018-07-13 15:00:22 PngImagePlugin.py[line:138] DEBUG STREAM b'IHDR' 16 13
+2018-07-13 15:00:22 PngImagePlugin.py[line:138] DEBUG STREAM b'IDAT' 41 8192
+2018-07-13 15:03:26 PngImagePlugin.py[line:138] DEBUG STREAM b'IHDR' 16 13
+2018-07-13 15:03:26 PngImagePlugin.py[line:138] DEBUG STREAM b'IDAT' 41 8192
+2018-07-13 15:03:57 PngImagePlugin.py[line:138] DEBUG STREAM b'IHDR' 16 13
+2018-07-13 15:03:57 PngImagePlugin.py[line:138] DEBUG STREAM b'IDAT' 41 8192
+2018-07-13 15:13:27 PngImagePlugin.py[line:138] DEBUG STREAM b'IHDR' 16 13
+2018-07-13 15:13:27 PngImagePlugin.py[line:138] DEBUG STREAM b'IDAT' 41 8192
+2018-07-13 15:18:22 PngImagePlugin.py[line:138] DEBUG STREAM b'IHDR' 16 13
+2018-07-13 15:18:22 PngImagePlugin.py[line:138] DEBUG STREAM b'IDAT' 41 8192
+2018-07-13 15:27:36 PngImagePlugin.py[line:138] DEBUG STREAM b'IHDR' 16 13
+2018-07-13 15:27:36 PngImagePlugin.py[line:138] DEBUG STREAM b'IDAT' 41 8192
+2018-07-13 15:33:31 PngImagePlugin.py[line:138] DEBUG STREAM b'IHDR' 16 13
+2018-07-13 15:33:31 PngImagePlugin.py[line:138] DEBUG STREAM b'IDAT' 41 8192
+2018-07-13 15:43:12 PngImagePlugin.py[line:138] DEBUG STREAM b'IHDR' 16 13
+2018-07-13 15:43:12 PngImagePlugin.py[line:138] DEBUG STREAM b'IDAT' 41 8192
+2018-07-13 15:44:18 PngImagePlugin.py[line:138] DEBUG STREAM b'IHDR' 16 13
+2018-07-13 15:44:18 PngImagePlugin.py[line:138] DEBUG STREAM b'IDAT' 41 8192
+2018-07-13 15:46:50 PngImagePlugin.py[line:138] DEBUG STREAM b'IHDR' 16 13
+2018-07-13 15:46:50 PngImagePlugin.py[line:138] DEBUG STREAM b'IDAT' 41 8192
+2018-07-13 15:55:46 PngImagePlugin.py[line:138] DEBUG STREAM b'IHDR' 16 13
+2018-07-13 15:55:46 PngImagePlugin.py[line:138] DEBUG STREAM b'IDAT' 41 8192
+2018-07-13 15:59:58 PngImagePlugin.py[line:138] DEBUG STREAM b'IHDR' 16 13
+2018-07-13 15:59:58 PngImagePlugin.py[line:138] DEBUG STREAM b'IDAT' 41 8192
+2018-07-13 16:26:46 PngImagePlugin.py[line:138] DEBUG STREAM b'IHDR' 16 13
+2018-07-13 16:26:46 PngImagePlugin.py[line:138] DEBUG STREAM b'IDAT' 41 8192
+2018-07-13 16:27:00 PngImagePlugin.py[line:138] DEBUG STREAM b'IHDR' 16 13
+2018-07-13 16:27:00 PngImagePlugin.py[line:138] DEBUG STREAM b'IDAT' 41 8192
+2018-07-13 16:27:31 PngImagePlugin.py[line:138] DEBUG STREAM b'IHDR' 16 13
+2018-07-13 16:27:31 PngImagePlugin.py[line:138] DEBUG STREAM b'IDAT' 41 8192
+2018-07-13 16:27:46 PngImagePlugin.py[line:138] DEBUG STREAM b'IHDR' 16 13
+2018-07-13 16:27:46 PngImagePlugin.py[line:138] DEBUG STREAM b'IDAT' 41 8192
+2018-07-13 16:28:00 PngImagePlugin.py[line:138] DEBUG STREAM b'IHDR' 16 13
+2018-07-13 16:28:00 PngImagePlugin.py[line:138] DEBUG STREAM b'IDAT' 41 8192
+2018-07-13 16:28:10 PngImagePlugin.py[line:138] DEBUG STREAM b'IHDR' 16 13
+2018-07-13 16:28:10 PngImagePlugin.py[line:138] DEBUG STREAM b'IDAT' 41 8192
+2018-07-13 16:28:42 PngImagePlugin.py[line:138] DEBUG STREAM b'IHDR' 16 13
+2018-07-13 16:28:42 PngImagePlugin.py[line:138] DEBUG STREAM b'IDAT' 41 8192
+2018-07-13 16:28:58 PngImagePlugin.py[line:138] DEBUG STREAM b'IHDR' 16 13
+2018-07-13 16:28:58 PngImagePlugin.py[line:138] DEBUG STREAM b'IDAT' 41 8192
+2018-07-13 16:29:34 PngImagePlugin.py[line:138] DEBUG STREAM b'IHDR' 16 13
+2018-07-13 16:29:34 PngImagePlugin.py[line:138] DEBUG STREAM b'IDAT' 41 8192
+2018-07-13 16:31:37 PngImagePlugin.py[line:138] DEBUG STREAM b'IHDR' 16 13
+2018-07-13 16:31:37 PngImagePlugin.py[line:138] DEBUG STREAM b'IDAT' 41 8192
+2018-07-16 09:10:10 PngImagePlugin.py[line:138] DEBUG STREAM b'IHDR' 16 13
+2018-07-16 09:10:10 PngImagePlugin.py[line:138] DEBUG STREAM b'IDAT' 41 8192
+2018-07-16 09:10:42 PngImagePlugin.py[line:138] DEBUG STREAM b'IHDR' 16 13
+2018-07-16 09:10:42 PngImagePlugin.py[line:138] DEBUG STREAM b'IDAT' 41 8192
+2018-07-16 09:17:24 PngImagePlugin.py[line:138] DEBUG STREAM b'IHDR' 16 13
+2018-07-16 09:17:24 PngImagePlugin.py[line:138] DEBUG STREAM b'IDAT' 41 8192
+2018-07-16 10:00:08 PngImagePlugin.py[line:138] DEBUG STREAM b'IHDR' 16 13
+2018-07-16 10:00:08 PngImagePlugin.py[line:138] DEBUG STREAM b'IDAT' 41 8192
+2018-07-16 10:00:29 PngImagePlugin.py[line:138] DEBUG STREAM b'IHDR' 16 13
+2018-07-16 10:00:29 PngImagePlugin.py[line:138] DEBUG STREAM b'IDAT' 41 8192
+2018-07-16 10:02:10 PngImagePlugin.py[line:138] DEBUG STREAM b'IHDR' 16 13
+2018-07-16 10:02:10 PngImagePlugin.py[line:138] DEBUG STREAM b'IDAT' 41 8192
+2018-07-16 10:02:32 PngImagePlugin.py[line:138] DEBUG STREAM b'IHDR' 16 13
+2018-07-16 10:02:32 PngImagePlugin.py[line:138] DEBUG STREAM b'IDAT' 41 8192
+2018-07-16 10:05:15 PngImagePlugin.py[line:138] DEBUG STREAM b'IHDR' 16 13
+2018-07-16 10:05:15 PngImagePlugin.py[line:138] DEBUG STREAM b'IDAT' 41 8192
+2018-07-16 10:05:47 PngImagePlugin.py[line:138] DEBUG STREAM b'IHDR' 16 13
+2018-07-16 10:05:47 PngImagePlugin.py[line:138] DEBUG STREAM b'IDAT' 41 8192
+2018-07-16 10:06:10 PngImagePlugin.py[line:138] DEBUG STREAM b'IHDR' 16 13
+2018-07-16 10:06:10 PngImagePlugin.py[line:138] DEBUG STREAM b'IDAT' 41 8192
+2018-07-16 10:24:51 PngImagePlugin.py[line:138] DEBUG STREAM b'IHDR' 16 13
+2018-07-16 10:24:51 PngImagePlugin.py[line:138] DEBUG STREAM b'IDAT' 41 8192
+2018-07-16 10:25:27 PngImagePlugin.py[line:138] DEBUG STREAM b'IHDR' 16 13
+2018-07-16 10:25:27 PngImagePlugin.py[line:138] DEBUG STREAM b'IDAT' 41 8192
+2018-07-16 10:31:16 PngImagePlugin.py[line:138] DEBUG STREAM b'IHDR' 16 13
+2018-07-16 10:31:16 PngImagePlugin.py[line:138] DEBUG STREAM b'IDAT' 41 8192
+2018-07-16 10:31:38 PngImagePlugin.py[line:138] DEBUG STREAM b'IHDR' 16 13
+2018-07-16 10:31:38 PngImagePlugin.py[line:138] DEBUG STREAM b'IDAT' 41 8192
+2018-07-16 10:32:09 PngImagePlugin.py[line:138] DEBUG STREAM b'IHDR' 16 13
+2018-07-16 10:32:09 PngImagePlugin.py[line:138] DEBUG STREAM b'IDAT' 41 8192
+2018-07-16 10:32:41 PngImagePlugin.py[line:138] DEBUG STREAM b'IHDR' 16 13
+2018-07-16 10:32:41 PngImagePlugin.py[line:138] DEBUG STREAM b'IDAT' 41 8192
+2018-07-16 10:33:13 PngImagePlugin.py[line:138] DEBUG STREAM b'IHDR' 16 13
+2018-07-16 10:33:13 PngImagePlugin.py[line:138] DEBUG STREAM b'IDAT' 41 8192
+2018-07-16 10:47:09 PngImagePlugin.py[line:138] DEBUG STREAM b'IHDR' 16 13
+2018-07-16 10:47:09 PngImagePlugin.py[line:138] DEBUG STREAM b'IDAT' 41 8192
+2018-07-16 10:47:41 PngImagePlugin.py[line:138] DEBUG STREAM b'IHDR' 16 13
+2018-07-16 10:47:41 PngImagePlugin.py[line:138] DEBUG STREAM b'IDAT' 41 8192
+2018-07-16 10:48:13 PngImagePlugin.py[line:138] DEBUG STREAM b'IHDR' 16 13
+2018-07-16 10:48:13 PngImagePlugin.py[line:138] DEBUG STREAM b'IDAT' 41 8192
+2018-07-16 10:48:45 PngImagePlugin.py[line:138] DEBUG STREAM b'IHDR' 16 13
+2018-07-16 10:48:45 PngImagePlugin.py[line:138] DEBUG STREAM b'IDAT' 41 8192
+2018-07-16 10:51:08 PngImagePlugin.py[line:138] DEBUG STREAM b'IHDR' 16 13
+2018-07-16 10:51:08 PngImagePlugin.py[line:138] DEBUG STREAM b'IDAT' 41 8192
+2018-07-16 10:51:26 PngImagePlugin.py[line:138] DEBUG STREAM b'IHDR' 16 13
+2018-07-16 10:51:26 PngImagePlugin.py[line:138] DEBUG STREAM b'IDAT' 41 8192
+2018-07-16 11:00:58 PngImagePlugin.py[line:138] DEBUG STREAM b'IHDR' 16 13
+2018-07-16 11:00:58 PngImagePlugin.py[line:138] DEBUG STREAM b'IDAT' 41 8192
+2018-07-16 11:01:18 PngImagePlugin.py[line:138] DEBUG STREAM b'IHDR' 16 13
+2018-07-16 11:01:18 PngImagePlugin.py[line:138] DEBUG STREAM b'IDAT' 41 8192
+2018-07-16 11:05:45 PngImagePlugin.py[line:138] DEBUG STREAM b'IHDR' 16 13
+2018-07-16 11:05:45 PngImagePlugin.py[line:138] DEBUG STREAM b'IDAT' 41 8192
+2018-07-16 11:06:10 PngImagePlugin.py[line:138] DEBUG STREAM b'IHDR' 16 13
+2018-07-16 11:06:10 PngImagePlugin.py[line:138] DEBUG STREAM b'IDAT' 41 8192
+2018-07-16 11:06:30 PngImagePlugin.py[line:138] DEBUG STREAM b'IHDR' 16 13
+2018-07-16 11:06:30 PngImagePlugin.py[line:138] DEBUG STREAM b'IDAT' 41 8192
+2018-07-16 11:08:33 PngImagePlugin.py[line:138] DEBUG STREAM b'IHDR' 16 13
+2018-07-16 11:08:33 PngImagePlugin.py[line:138] DEBUG STREAM b'IDAT' 41 8192
+2018-07-16 11:08:49 PngImagePlugin.py[line:138] DEBUG STREAM b'IHDR' 16 13
+2018-07-16 11:08:49 PngImagePlugin.py[line:138] DEBUG STREAM b'IDAT' 41 8192
+2018-07-16 11:10:29 PngImagePlugin.py[line:138] DEBUG STREAM b'IHDR' 16 13
+2018-07-16 11:10:29 PngImagePlugin.py[line:138] DEBUG STREAM b'IDAT' 41 8192
+2018-07-16 11:10:48 PngImagePlugin.py[line:138] DEBUG STREAM b'IHDR' 16 13
+2018-07-16 11:10:48 PngImagePlugin.py[line:138] DEBUG STREAM b'IDAT' 41 8192
+2018-07-16 11:14:35 PngImagePlugin.py[line:138] DEBUG STREAM b'IHDR' 16 13
+2018-07-16 11:14:35 PngImagePlugin.py[line:138] DEBUG STREAM b'IDAT' 41 8192
+2018-07-16 11:15:02 PngImagePlugin.py[line:138] DEBUG STREAM b'IHDR' 16 13
+2018-07-16 11:15:02 PngImagePlugin.py[line:138] DEBUG STREAM b'IDAT' 41 8192
+2018-07-16 11:18:08 PngImagePlugin.py[line:138] DEBUG STREAM b'IHDR' 16 13
+2018-07-16 11:18:08 PngImagePlugin.py[line:138] DEBUG STREAM b'IDAT' 41 8192
+2018-07-16 11:18:40 PngImagePlugin.py[line:138] DEBUG STREAM b'IHDR' 16 13
+2018-07-16 11:18:40 PngImagePlugin.py[line:138] DEBUG STREAM b'IDAT' 41 8192
+2018-07-16 11:20:27 PngImagePlugin.py[line:138] DEBUG STREAM b'IHDR' 16 13
+2018-07-16 11:20:27 PngImagePlugin.py[line:138] DEBUG STREAM b'IDAT' 41 8192
+2018-07-16 11:37:21 PngImagePlugin.py[line:138] DEBUG STREAM b'IHDR' 16 13
+2018-07-16 11:37:21 PngImagePlugin.py[line:138] DEBUG STREAM b'IDAT' 41 8192
+2018-07-16 11:38:40 PngImagePlugin.py[line:138] DEBUG STREAM b'IHDR' 16 13
+2018-07-16 11:38:40 PngImagePlugin.py[line:138] DEBUG STREAM b'IDAT' 41 8192
+2018-07-16 11:43:06 PngImagePlugin.py[line:138] DEBUG STREAM b'IHDR' 16 13
+2018-07-16 11:43:06 PngImagePlugin.py[line:138] DEBUG STREAM b'IDAT' 41 8192
+2018-07-16 11:43:37 PngImagePlugin.py[line:138] DEBUG STREAM b'IHDR' 16 13
+2018-07-16 11:43:37 PngImagePlugin.py[line:138] DEBUG STREAM b'IDAT' 41 8192
+2018-07-16 11:48:12 PngImagePlugin.py[line:138] DEBUG STREAM b'IHDR' 16 13
+2018-07-16 11:48:12 PngImagePlugin.py[line:138] DEBUG STREAM b'IDAT' 41 8192
+2018-07-16 11:51:19 PngImagePlugin.py[line:138] DEBUG STREAM b'IHDR' 16 13
+2018-07-16 11:51:19 PngImagePlugin.py[line:138] DEBUG STREAM b'IDAT' 41 8192
+2018-07-16 11:51:51 PngImagePlugin.py[line:138] DEBUG STREAM b'IHDR' 16 13
+2018-07-16 11:51:51 PngImagePlugin.py[line:138] DEBUG STREAM b'IDAT' 41 8192
+2018-07-16 11:52:07 PngImagePlugin.py[line:138] DEBUG STREAM b'IHDR' 16 13
+2018-07-16 11:52:07 PngImagePlugin.py[line:138] DEBUG STREAM b'IDAT' 41 8192
+2018-07-16 11:56:57 PngImagePlugin.py[line:138] DEBUG STREAM b'IHDR' 16 13
+2018-07-16 11:56:57 PngImagePlugin.py[line:138] DEBUG STREAM b'IDAT' 41 8192
+2018-07-16 12:00:18 PngImagePlugin.py[line:138] DEBUG STREAM b'IHDR' 16 13
+2018-07-16 12:00:18 PngImagePlugin.py[line:138] DEBUG STREAM b'IDAT' 41 8192
+2018-07-16 12:51:41 PngImagePlugin.py[line:138] DEBUG STREAM b'IHDR' 16 13
+2018-07-16 12:51:41 PngImagePlugin.py[line:138] DEBUG STREAM b'IDAT' 41 8192
+2018-07-16 12:54:51 PngImagePlugin.py[line:138] DEBUG STREAM b'IHDR' 16 13
+2018-07-16 12:54:51 PngImagePlugin.py[line:138] DEBUG STREAM b'IDAT' 41 8192
+2018-07-16 13:06:26 PngImagePlugin.py[line:138] DEBUG STREAM b'IHDR' 16 13
+2018-07-16 13:06:26 PngImagePlugin.py[line:138] DEBUG STREAM b'IDAT' 41 8192
+2018-07-16 14:02:33 PngImagePlugin.py[line:138] DEBUG STREAM b'IHDR' 16 13
+2018-07-16 14:02:33 PngImagePlugin.py[line:138] DEBUG STREAM b'IDAT' 41 8192
+2018-07-16 14:04:36 PngImagePlugin.py[line:138] DEBUG STREAM b'IHDR' 16 13
+2018-07-16 14:04:36 PngImagePlugin.py[line:138] DEBUG STREAM b'IDAT' 41 8192
+2018-07-16 14:05:08 PngImagePlugin.py[line:138] DEBUG STREAM b'IHDR' 16 13
+2018-07-16 14:05:08 PngImagePlugin.py[line:138] DEBUG STREAM b'IDAT' 41 8192
+2018-07-16 14:06:50 PngImagePlugin.py[line:138] DEBUG STREAM b'IHDR' 16 13
+2018-07-16 14:06:50 PngImagePlugin.py[line:138] DEBUG STREAM b'IDAT' 41 8192
+2018-07-16 14:17:03 PngImagePlugin.py[line:138] DEBUG STREAM b'IHDR' 16 13
+2018-07-16 14:17:03 PngImagePlugin.py[line:138] DEBUG STREAM b'IDAT' 41 8192
+2018-07-16 14:19:16 PngImagePlugin.py[line:138] DEBUG STREAM b'IHDR' 16 13
+2018-07-16 14:19:16 PngImagePlugin.py[line:138] DEBUG STREAM b'IDAT' 41 8192
+2018-07-16 14:22:36 PngImagePlugin.py[line:138] DEBUG STREAM b'IHDR' 16 13
+2018-07-16 14:22:36 PngImagePlugin.py[line:138] DEBUG STREAM b'IDAT' 41 8192
+2018-07-16 14:38:49 PngImagePlugin.py[line:138] DEBUG STREAM b'IHDR' 16 13
+2018-07-16 14:38:49 PngImagePlugin.py[line:138] DEBUG STREAM b'IDAT' 41 8192
+2018-07-16 14:39:21 PngImagePlugin.py[line:138] DEBUG STREAM b'IHDR' 16 13
+2018-07-16 14:39:21 PngImagePlugin.py[line:138] DEBUG STREAM b'IDAT' 41 8192
+2018-07-16 14:52:06 PngImagePlugin.py[line:138] DEBUG STREAM b'IHDR' 16 13
+2018-07-16 14:52:06 PngImagePlugin.py[line:138] DEBUG STREAM b'IDAT' 41 8192
+2018-07-16 14:54:53 PngImagePlugin.py[line:138] DEBUG STREAM b'IHDR' 16 13
+2018-07-16 14:54:53 PngImagePlugin.py[line:138] DEBUG STREAM b'IDAT' 41 8192
+2018-07-16 15:16:54 PngImagePlugin.py[line:138] DEBUG STREAM b'IHDR' 16 13
+2018-07-16 15:16:54 PngImagePlugin.py[line:138] DEBUG STREAM b'IDAT' 41 8192
+2018-07-16 15:19:13 PngImagePlugin.py[line:138] DEBUG STREAM b'IHDR' 16 13
+2018-07-16 15:19:13 PngImagePlugin.py[line:138] DEBUG STREAM b'IDAT' 41 8192
+2018-07-16 15:49:20 PngImagePlugin.py[line:138] DEBUG STREAM b'IHDR' 16 13
+2018-07-16 15:49:20 PngImagePlugin.py[line:138] DEBUG STREAM b'IDAT' 41 8192
+2018-07-16 16:03:00 PngImagePlugin.py[line:138] DEBUG STREAM b'IHDR' 16 13
+2018-07-16 16:03:00 PngImagePlugin.py[line:138] DEBUG STREAM b'IDAT' 41 8192
+2018-07-16 16:05:56 PngImagePlugin.py[line:138] DEBUG STREAM b'IHDR' 16 13
+2018-07-16 16:05:56 PngImagePlugin.py[line:138] DEBUG STREAM b'IDAT' 41 8192
+2018-07-16 16:06:58 PngImagePlugin.py[line:138] DEBUG STREAM b'IHDR' 16 13
+2018-07-16 16:06:58 PngImagePlugin.py[line:138] DEBUG STREAM b'IDAT' 41 8192
+2018-07-16 16:08:26 PngImagePlugin.py[line:138] DEBUG STREAM b'IHDR' 16 13
+2018-07-16 16:08:26 PngImagePlugin.py[line:138] DEBUG STREAM b'IDAT' 41 8192
+2018-07-16 16:09:22 PngImagePlugin.py[line:138] DEBUG STREAM b'IHDR' 16 13
+2018-07-16 16:09:22 PngImagePlugin.py[line:138] DEBUG STREAM b'IDAT' 41 8192
+2018-07-16 16:12:49 PngImagePlugin.py[line:138] DEBUG STREAM b'IHDR' 16 13
+2018-07-16 16:12:49 PngImagePlugin.py[line:138] DEBUG STREAM b'IDAT' 41 8192
+2018-07-16 16:34:04 PngImagePlugin.py[line:138] DEBUG STREAM b'IHDR' 16 13
+2018-07-16 16:34:04 PngImagePlugin.py[line:138] DEBUG STREAM b'IDAT' 41 8192
+2018-07-16 16:34:36 PngImagePlugin.py[line:138] DEBUG STREAM b'IHDR' 16 13
+2018-07-16 16:34:36 PngImagePlugin.py[line:138] DEBUG STREAM b'IDAT' 41 8192
+2018-07-16 16:46:09 PngImagePlugin.py[line:138] DEBUG STREAM b'IHDR' 16 13
+2018-07-16 16:46:09 PngImagePlugin.py[line:138] DEBUG STREAM b'IDAT' 41 8192
+2018-07-16 16:46:40 PngImagePlugin.py[line:138] DEBUG STREAM b'IHDR' 16 13
+2018-07-16 16:46:40 PngImagePlugin.py[line:138] DEBUG STREAM b'IDAT' 41 8192
+2018-07-16 16:49:25 PngImagePlugin.py[line:138] DEBUG STREAM b'IHDR' 16 13
+2018-07-16 16:49:25 PngImagePlugin.py[line:138] DEBUG STREAM b'IDAT' 41 8192
+2018-07-16 16:55:52 PngImagePlugin.py[line:138] DEBUG STREAM b'IHDR' 16 13
+2018-07-16 16:55:52 PngImagePlugin.py[line:138] DEBUG STREAM b'IDAT' 41 8192
+2018-07-16 16:56:24 PngImagePlugin.py[line:138] DEBUG STREAM b'IHDR' 16 13
+2018-07-16 16:56:24 PngImagePlugin.py[line:138] DEBUG STREAM b'IDAT' 41 8192
+2018-07-16 16:56:55 PngImagePlugin.py[line:138] DEBUG STREAM b'IHDR' 16 13
+2018-07-16 16:56:55 PngImagePlugin.py[line:138] DEBUG STREAM b'IDAT' 41 8192
+2018-07-16 16:57:27 PngImagePlugin.py[line:138] DEBUG STREAM b'IHDR' 16 13
+2018-07-16 16:57:27 PngImagePlugin.py[line:138] DEBUG STREAM b'IDAT' 41 8192
+2018-07-16 17:10:43 runtest.py[line:40] INFO 测试结束
+2018-07-16 17:11:55 PngImagePlugin.py[line:138] DEBUG STREAM b'IHDR' 16 13
+2018-07-16 17:11:55 PngImagePlugin.py[line:138] DEBUG STREAM b'IDAT' 41 8192
+2018-07-16 17:12:27 PngImagePlugin.py[line:138] DEBUG STREAM b'IHDR' 16 13
+2018-07-16 17:12:27 PngImagePlugin.py[line:138] DEBUG STREAM b'IDAT' 41 8192
+2018-07-16 17:15:20 PngImagePlugin.py[line:138] DEBUG STREAM b'IHDR' 16 13
+2018-07-16 17:15:20 PngImagePlugin.py[line:138] DEBUG STREAM b'IDAT' 41 8192
+2018-07-16 17:15:34 PngImagePlugin.py[line:138] DEBUG STREAM b'IHDR' 16 13
+2018-07-16 17:15:34 PngImagePlugin.py[line:138] DEBUG STREAM b'IDAT' 41 8192
+2018-07-16 17:18:04 PngImagePlugin.py[line:138] DEBUG STREAM b'IHDR' 16 13
+2018-07-16 17:18:04 PngImagePlugin.py[line:138] DEBUG STREAM b'IDAT' 41 8192
+2018-07-16 17:20:41 PngImagePlugin.py[line:138] DEBUG STREAM b'IHDR' 16 13
+2018-07-16 17:20:41 PngImagePlugin.py[line:138] DEBUG STREAM b'IDAT' 41 8192
+2018-07-16 17:32:43 PngImagePlugin.py[line:138] DEBUG STREAM b'IHDR' 16 13
+2018-07-16 17:32:43 PngImagePlugin.py[line:138] DEBUG STREAM b'IDAT' 41 8192
+2018-07-16 17:35:18 PngImagePlugin.py[line:138] DEBUG STREAM b'IHDR' 16 13
+2018-07-16 17:35:18 PngImagePlugin.py[line:138] DEBUG STREAM b'IDAT' 41 8192
+2018-07-16 17:35:50 PngImagePlugin.py[line:138] DEBUG STREAM b'IHDR' 16 13
+2018-07-16 17:35:50 PngImagePlugin.py[line:138] DEBUG STREAM b'IDAT' 41 8192
+2018-07-16 17:36:21 PngImagePlugin.py[line:138] DEBUG STREAM b'IHDR' 16 13
+2018-07-16 17:36:21 PngImagePlugin.py[line:138] DEBUG STREAM b'IDAT' 41 8192
+2018-07-16 17:37:51 PngImagePlugin.py[line:138] DEBUG STREAM b'IHDR' 16 13
+2018-07-16 17:37:51 PngImagePlugin.py[line:138] DEBUG STREAM b'IDAT' 41 8192
+2018-07-16 17:50:11 PngImagePlugin.py[line:138] DEBUG STREAM b'IHDR' 16 13
+2018-07-16 17:50:11 PngImagePlugin.py[line:138] DEBUG STREAM b'IDAT' 41 8192
+2018-07-16 17:53:13 PngImagePlugin.py[line:138] DEBUG STREAM b'IHDR' 16 13
+2018-07-16 17:53:13 PngImagePlugin.py[line:138] DEBUG STREAM b'IDAT' 41 8192
+2018-07-16 17:58:27 PngImagePlugin.py[line:138] DEBUG STREAM b'IHDR' 16 13
+2018-07-16 17:58:27 PngImagePlugin.py[line:138] DEBUG STREAM b'IDAT' 41 8192
+2018-07-16 18:00:38 PngImagePlugin.py[line:138] DEBUG STREAM b'IHDR' 16 13
+2018-07-16 18:00:38 PngImagePlugin.py[line:138] DEBUG STREAM b'IDAT' 41 8192
+2018-07-16 18:06:57 PngImagePlugin.py[line:138] DEBUG STREAM b'IHDR' 16 13
+2018-07-16 18:06:57 PngImagePlugin.py[line:138] DEBUG STREAM b'IDAT' 41 8192
+2018-07-16 18:25:09 PngImagePlugin.py[line:138] DEBUG STREAM b'IHDR' 16 13
+2018-07-16 18:25:09 PngImagePlugin.py[line:138] DEBUG STREAM b'IDAT' 41 8192
+2018-07-16 18:29:28 PngImagePlugin.py[line:138] DEBUG STREAM b'IHDR' 16 13
+2018-07-16 18:29:28 PngImagePlugin.py[line:138] DEBUG STREAM b'IDAT' 41 8192
+2018-07-16 18:32:07 PngImagePlugin.py[line:138] DEBUG STREAM b'IHDR' 16 13
+2018-07-16 18:32:07 PngImagePlugin.py[line:138] DEBUG STREAM b'IDAT' 41 8192
+2018-07-17 09:26:15 PngImagePlugin.py[line:138] DEBUG STREAM b'IHDR' 16 13
+2018-07-17 09:26:15 PngImagePlugin.py[line:138] DEBUG STREAM b'IDAT' 41 8192
+2018-07-17 09:37:11 PngImagePlugin.py[line:138] DEBUG STREAM b'IHDR' 16 13
+2018-07-17 09:37:11 PngImagePlugin.py[line:138] DEBUG STREAM b'IDAT' 41 8192
+2018-07-17 09:37:43 PngImagePlugin.py[line:138] DEBUG STREAM b'IHDR' 16 13
+2018-07-17 09:37:43 PngImagePlugin.py[line:138] DEBUG STREAM b'IDAT' 41 8192
+2018-07-17 10:17:41 PngImagePlugin.py[line:138] DEBUG STREAM b'IHDR' 16 13
+2018-07-17 10:17:41 PngImagePlugin.py[line:138] DEBUG STREAM b'IDAT' 41 8192
+2018-07-17 10:27:26 PngImagePlugin.py[line:138] DEBUG STREAM b'IHDR' 16 13
+2018-07-17 10:27:26 PngImagePlugin.py[line:138] DEBUG STREAM b'IDAT' 41 8192
+2018-07-17 10:46:08 PngImagePlugin.py[line:138] DEBUG STREAM b'IHDR' 16 13
+2018-07-17 10:46:08 PngImagePlugin.py[line:138] DEBUG STREAM b'IDAT' 41 8192
+2018-07-17 11:15:55 PngImagePlugin.py[line:138] DEBUG STREAM b'IHDR' 16 13
+2018-07-17 11:15:55 PngImagePlugin.py[line:138] DEBUG STREAM b'IDAT' 41 8192
+2018-07-17 11:16:36 PngImagePlugin.py[line:138] DEBUG STREAM b'IHDR' 16 13
+2018-07-17 11:16:36 PngImagePlugin.py[line:138] DEBUG STREAM b'IDAT' 41 8192
+2018-07-17 11:19:55 PngImagePlugin.py[line:138] DEBUG STREAM b'IHDR' 16 13
+2018-07-17 11:19:55 PngImagePlugin.py[line:138] DEBUG STREAM b'IDAT' 41 8192
+2018-07-17 11:23:29 PngImagePlugin.py[line:138] DEBUG STREAM b'IHDR' 16 13
+2018-07-17 11:23:29 PngImagePlugin.py[line:138] DEBUG STREAM b'IDAT' 41 8192
+2018-07-17 11:26:25 PngImagePlugin.py[line:138] DEBUG STREAM b'IHDR' 16 13
+2018-07-17 11:26:25 PngImagePlugin.py[line:138] DEBUG STREAM b'IDAT' 41 8192
+2018-07-17 11:34:30 PngImagePlugin.py[line:138] DEBUG STREAM b'IHDR' 16 13
+2018-07-17 11:34:30 PngImagePlugin.py[line:138] DEBUG STREAM b'IDAT' 41 8192
+2018-07-17 11:39:44 PngImagePlugin.py[line:138] DEBUG STREAM b'IHDR' 16 13
+2018-07-17 11:39:44 PngImagePlugin.py[line:138] DEBUG STREAM b'IDAT' 41 8192

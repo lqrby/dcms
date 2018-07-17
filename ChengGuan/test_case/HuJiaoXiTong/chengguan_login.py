@@ -16,21 +16,19 @@ import requests
 import urllib.request
 import os.path
 import urllib
-import time
 import sys,http
 from PIL import Image
-from selenium import webdriver
 import time
 from PIL import ImageGrab
 import traceback
 from bs4 import BeautifulSoup
 sys.path.append("E:/test/dcms/ChengGuan")
-from common.test_getCookie import test_getCookie
+from common.getCookie import test_getCookie
 from chengguan_authCode import test_login_authCode
 
 
 def test_cg_login(driver):  #登录的方法
-    loginResult = ""
+    loginResult = False
     authCode = test_login_authCode(driver) #获取验证码
     while authCode == "" :
         authCode = test_login_authCode(driver) 
@@ -46,16 +44,17 @@ def test_cg_login(driver):  #登录的方法
         driver.find_element_by_name('code').send_keys(authCode)
         time.sleep(1)
         driver.find_element_by_xpath('//*[@id="logonForm"]/p/input').click()
-        loginResult = BeautifulSoup(driver.page_source,'html.parser')
+        
         try:
             assert u"智慧化城市管理云平台" in driver.page_source, u"页面源码中不存在该关键字！"
         except AssertionError:
             print("断言验证错误")
-            # return loginResult
             loginResult = test_cg_login(driver)
         else:
             print("登录后断言匹配正确")
-            # test_cg_login(driver)
+            loginResult = BeautifulSoup(driver.page_source,'html.parser')
+            cookiestr = test_getCookie(driver)
+            print("登录后的cookie是",cookiestr)
         # finally:
         #     print("断言验证错误，我依然被执行。")
         

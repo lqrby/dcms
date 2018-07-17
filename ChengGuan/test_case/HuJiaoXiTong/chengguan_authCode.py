@@ -23,7 +23,7 @@ from selenium import webdriver
 import time
 from PIL import ImageGrab
 sys.path.append("E:/test/dcms/ChengGuan")
-from common.constant_all import IP
+from common.constant_all import getConstant
 
 # path1=os.path.abspath('.')   # 表示当前所处的文件夹的绝对路径
 # print(path1)
@@ -32,7 +32,9 @@ from common.constant_all import IP
 #     '''''接口名称：web_城管系统_获取验证码'''
 # driver = webdriver.Chrome("D:/python/chromeDriverSever/chromedriver.exe")             
 def test_login_authCode(driver):  #def test_jcjs_cl_post(self): 工单录入的方法
-        url=IP+'/dcms/bms/login.jsp'
+        # items = getConstant() 
+        
+        url=getConstant.IP+'/dcms/bms/login.jsp'
         
         driver.maximize_window()  #将浏览器最大化
         driver.get(url)
