@@ -24,6 +24,7 @@ import traceback
 from bs4 import BeautifulSoup
 sys.path.append("E:/test/dcms/ChengGuan")
 from common.getCookie import test_getCookie
+from common.getCookie import test_write_txt
 from chengguan_authCode import test_login_authCode
 
 
@@ -33,7 +34,7 @@ def test_cg_login(driver):  #登录的方法
     while authCode == "" :
         authCode = test_login_authCode(driver) 
     else:
-        time.sleep(1)
+        # time.sleep(1)
         driver.find_element_by_name('logonname').click()
         driver.find_element_by_name('logonname').send_keys(u"wangnannan")
         time.sleep(1)
@@ -54,21 +55,19 @@ def test_cg_login(driver):  #登录的方法
             print("登录后断言匹配正确")
             loginResult = BeautifulSoup(driver.page_source,'html.parser')
             cookiestr = test_getCookie(driver)
-            print("登录后的cookie是",cookiestr)
+            # print("cookiestr的类型是：",type(cookiestr))
+            # 把cookie写入txt文件
+            path = "E:/test/dcms/ChengGuan/common/cookie.txt"
+            # print("cookiestr的类型是：：",type(cookiestr))
+            test_write_txt(path,cookiestr)
+            # print("登录后的cookie是",cookiestr)
         # finally:
         #     print("断言验证错误，我依然被执行。")
-        
        
     return loginResult
-        
-       
-
-   
-
-            
-# if __name__=="__main__":
-#     driver = webdriver.Chrome("D:/python/chromeDriverSever/chromedriver.exe")  
-#     test_chengguan_login(driver)
+if __name__=="__main__":
+     driver = webdriver.Chrome("D:/python/chromeDriverSever/chromedriver.exe")  
+     test_cg_login(driver)
 #     driver = webdriver.Chrome("D:/python/chromeDriverSever/chromedriver.exe")  
 #     authCode = test_login_authCode(driver)
 #     cookiestr = test_getCookie(driver)
