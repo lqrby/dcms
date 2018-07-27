@@ -50,9 +50,7 @@ def test_detailsAndFiling():
         cookie = test_readCookies()
         header = { "Cookie" : cookie }
         res = requests.get(url=detail_url,headers=header).text
-        print("详情结果是：",res)
-        str_data = test_read_txt("E:/test/dcms/ChengGuan/testFile/lian.txt")
-        li_list = str_data.split(',')
+        # print("详情结果是：",res)
         lian_menuid = re.compile('<input type="hidden" name="menuId" id="menuId" value="(.*?)"/>').search(res).group(1)
         lian_eorcdictname = re.compile('<input type="hidden" name="eorc.dictname" id="eorcdictname" value="(.*?)"/>').search(res).group(1)
         lian_taskcasestateid = re.compile('<input type="hidden" id="taskcasestateid" name="taskcasestateid" value="(.*?)"/>').search(res).group(1)
@@ -62,13 +60,17 @@ def test_detailsAndFiling():
         lian_bgcodeid = re.compile('<input type="hidden" id="bgcodeid" name="bgcode.id" value="(.*?)">').search(res).group(1)
         lian_casesource = re.compile('<input type="hidden" id="casesource" name="casesource" value="(.*?)">').search(res).group(1)
         lian_eorc_id = re.compile('<input type="hidden" id="eorc.id" name="eorc.id" value="(.*?)"/>').search(res).group(1)
-        lian_eventtypeoneId = re.compile('<input type="hidden" id="eorc.id" name="eorc.id" value="(.*?)"/>').search(res).group(1)
-        lian_eventtypetwoId = re.compile('<input type="hidden" id="eorc.id" name="eorc.id" value="(.*?)"/>').search(res).group(1)	
+        
+        # eventtypeoneId = r'<select name="eventtypeone.id" id="eventtypeone.id" onChange="(.*?)">[\s\S]*<option value="(.*?)" selected="selected">(.*?)</option>'
+        # lian_eventtypeoneId = re.compile(eventtypeoneId).search(res).group(-1)
+        # print("*********************",lian_eventtypeoneId)
+        
+        # lian_eventtypetwoId = re.compile('<input type="hidden" id="eorc.id" name="eorc.id" value="(.*?)"/>').search(res).group(1)	
         
         lian_fieldintro = re.compile('<textarea id="fieldintro" rows="2" name="fieldintro">(.*?)</textarea>').search(res).group(1)
         lian_description = re.compile('<textarea id="description" rows="2" name="description" class="(.*?)">(.*?)</textarea>').search(res).group(2)
         lian_url = getConstant.IP+"/dcms/cwsCase/Case-startupdate.action"
-        str_data = test_read_txt("E:/test/dcms/ChengGuan/testFile/lian.txt")
+        str_data = test_read_txt("E:/test/dcms/ChengGuan/testFile/liAn/lian.txt")
         li_list = str_data.split(',')
         lian_data = {
             "menuId": lian_menuid,

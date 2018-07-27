@@ -32,7 +32,7 @@
     "bgadminid2":"管理员",
     "gridid":"220204004004",
     "needconfirm":"0",
-    "description":"不需要核实，不需要复核",
+    "description":"7.25不需要核实，不需要复核",
     "dealWay":"on",
     "fieldintro":"吉林市 船营区 青岛街道 和龙社区", 
     "upload":""	
