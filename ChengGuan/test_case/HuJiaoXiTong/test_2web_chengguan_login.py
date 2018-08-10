@@ -23,10 +23,9 @@ from PIL import ImageGrab
 import traceback
 from bs4 import BeautifulSoup
 sys.path.append("E:/test/dcms/ChengGuan")
-from common.getCookie import test_getCookie
-from common.getCookie import test_write_txt
+from common.writeAndReadText import writeAndReadTextFile
 from chengguan_authCode import test_login_authCode
-
+from common.constant_all import getConstant
 
 def test_cg_login(driver):  #登录的方法
     loginResult = False
@@ -34,12 +33,11 @@ def test_cg_login(driver):  #登录的方法
     while authCode == "" :
         authCode = test_login_authCode(driver) 
     else:
-        # time.sleep(1)
         driver.find_element_by_name('logonname').click()
         driver.find_element_by_name('logonname').send_keys(u"wangnannan")
         time.sleep(1)
         driver.find_element_by_name('logonpassword').click()
-        driver.find_element_by_name('logonpassword').send_keys(u"123")
+        driver.find_element_by_name('logonpassword').send_keys(u"123456")
         time.sleep(1)
         driver.find_element_by_name('code').click()
         driver.find_element_by_name('code').send_keys(authCode)
@@ -54,30 +52,24 @@ def test_cg_login(driver):  #登录的方法
         else:
             print("登录后断言匹配正确")
             loginResult = BeautifulSoup(driver.page_source,'html.parser')
-            cookiestr = test_getCookie(driver)
-            # print("cookiestr的类型是：",type(cookiestr))
+            input = loginResult.find('input', attrs={'id': 'sysMenu'})
+            #获取了input中的value属性值
+            inputvalue = input['value']
+            lginpath = 'E:/test/dcms/ChengGuan/common/webLoginResult.txt'
+            writeAndReadTextFile().test_write_txt(lginpath,inputvalue)
+            # json_value = json.loads(inputvalue)
+            cookiestr = writeAndReadTextFile().test_getCookie(driver)
+            print("cookies:",cookiestr)
             # 把cookie写入txt文件
-            path = "E:/test/dcms/ChengGuan/common/cookie.txt"
-            # print("cookiestr的类型是：：",type(cookiestr))
-            test_write_txt(path,cookiestr)
-            # print("登录后的cookie是",cookiestr)
-        # finally:
-        #     print("断言验证错误，我依然被执行。")
-       
+            cook_path = "E:/test/dcms/ChengGuan/common/cookie.txt"
+            writeAndReadTextFile().test_write_txt(cook_path,cookiestr)
+
     return loginResult
+
+
 if __name__=="__main__":
      driver = webdriver.Chrome("D:/python/chromeDriverSever/chromedriver.exe")  
      test_cg_login(driver)
-#     driver = webdriver.Chrome("D:/python/chromeDriverSever/chromedriver.exe")  
-#     authCode = test_login_authCode(driver)
-#     cookiestr = test_getCookie(driver)
-#     while authCode == "" :
-#         authCode = test_login_authCode(driver) 
-#     else:
-#         unittest.main()
-#         t=test_web_chengguan_login(MyTest)
-#         t.test_chengguan_login()
-   
 
 
     

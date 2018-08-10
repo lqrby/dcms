@@ -33,6 +33,13 @@ import time
 from PIL import ImageGrab
 class getConstant():
     IP = "http://219.149.226.180:7897"
+    IP_WEB_180 = "http://219.149.226.180:7897"
+    IP_APP_180 = "http://219.149.226.180:7880"
+    # IP_WEB_91 = "http://122.137.242.91"
+    # IP_APP_91 = "http://122.137.242.91"
+    # IP_WEB_15 = "http://122.137.242.15"
+    # IP_APP_15 = "http://122.137.242.15"
+    
     PROJECT_PATH = "E:/test/dcms/ChengGuan"
     
     

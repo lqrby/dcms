@@ -35,10 +35,6 @@ def test_sendDetailsAndSendOut():
     divObj = result.find('div', attrs={'class':'mainContentTableContainer'})
     dcl_tr = divObj.findAll('table')[1].findAll('tr')[1]
     str_tr = str(dcl_tr)
-
-
-
-
     if int(number)>0:
         menuId = re.compile('<input type="hidden" id="menuId" name="menuId" value="(.*?)" />').search(res).group(1)
         case_state = re.compile('<input type="hidden" name="casestate" id="casestate" value="(.*?)"/>').search(res).group(1)
@@ -64,8 +60,14 @@ def test_sendDetailsAndSendOut():
         dispatchDeptid = re.compile('<input type="hidden"  readonly="" id="dispatchDeptid" name="dispatchDeptid"  value="(.*?)"  >').search(res).group(1)
         dispatchUserid = re.compile('<input type="hidden"  readonly="" id="dispatchUserid" name="dispatchUserid"  value="(.*?)"  >').search(res).group(1)
         deptname = re.compile('<input type="text" onclick="(.*?)" readonly="" id="deptname" name="(.*?)" value="(.*?)">').search(res).group(1)
+        if not deptname.strip() and not dispatchDeptid.strip():
+            deptname = '市环保局'
+            dispatchDeptid = '市环保局'
+            dispatchUserid = "402883845dc59a63015dc68f5b7b034c"
+            dispatchDeptid = "402881795947f3d80159481d06e50097"
         pfdata = writeAndReadTextFile().test_read_txt("E:/test/dcms/ChengGuan/testFile/paiFa/paifa.txt")
         pf_list = pfdata.split(',')
+        #派发
         pf_url = getConstant.IP_WEB_180+"/dcms/cwsCase/Case-dispatch.action"
         pf_data = {
             "taskcasestateid":taskcasestateid,

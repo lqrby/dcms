@@ -2,7 +2,7 @@
 
 import requests
 from selenium import webdriver
-import json  
+import json,ast 
 import unittest
 import urllib, sys, io
 sys.path.append("E:/test/dcms/ChengGuan")
@@ -11,65 +11,81 @@ import time
 from config.Log import logging
 sys.stdout = io.TextIOWrapper(sys.stdout.buffer,encoding='utf-8')
 from test_2web_chengguan_login import test_cg_login
-from common.getCookie import test_readCookies
+from common.writeAndReadText import writeAndReadTextFile
 from common.constant_all import getConstant
+from requests_toolbelt import MultipartEncoder
 
 
-# 进入工单录入页面
-# def test_goToWorkOrderEntry():
-#     # time.sleep(1)
-#     # loginReturn = test_cg_login(driver)
-#     # print("登录返回值是：",loginReturn)
-#     cookiestr = test_readCookies()
-#     print("多少：",cookiestr)
-#     # print("呼叫系统获取到的cookie是：", cookiestr)
-#     # imgObj = loginReturn.find('img', attrs={'id': 'hf'})
+class test_submitOrder():       
+#web提交工单录入表单gongdanluru_2.txt_无需核实需要复核   
+    def test_web_submitOrder(self):
+        cookies = writeAndReadTextFile().test_readCookies()
+        submiturl = getConstant.IP_WEB_180+"/dcms/ccsCase/Case-callToCaseStart.action"
+        webdata = writeAndReadTextFile().test_read_txt('E:/test/dcms/ChengGuan/testFile/shangBao/gongdanluru_web_4ny.txt')
+        picpath = "E:/test/dcms/ChengGuan/testFile/img/1.png"
+        img_value = ('1.png', open(picpath,'rb'),'multipart/form-data')
+        webdata_list = webdata.split(",")
+        m = MultipartEncoder(
+            fields = {
+                "mposl":webdata_list[0],
+                "mposb":webdata_list[1],
+                "menuId":webdata_list[2],
+                "removeFileId":"",	
+                "updateCaseGetUrl":"",	
+                "casecallId":"",	
+                "imageid":"",
+                "px":"",	
+                "py":"",	
+                "deptId":"",
+                "isFh":webdata_list[3],
+                "casesource":"",
+                "dispatchDeptname":"",
+                "street":webdata_list[4],
+                "p_name":webdata_list[5],
+                "p_sex":webdata_list[6],
+                "p_job":webdata_list[7],
+                "p_phone":webdata_list[8],
+                "other_phone":webdata_list[9],
+                "feedback":webdata_list[10],
+                "source.id":webdata_list[11],
+                "id":"",
+                "eorc.id":webdata_list[12],
+                "eventtypeone.id":webdata_list[13],
+                "eventtypetwo.id":webdata_list[14],
+                "startConditionId":webdata_list[15],
+                "regioncode.id":webdata_list[16],
+                "bgcode.id":webdata_list[17],
+                "objcode":"",
+                "bgadminid.id":webdata_list[18],
+                "bgadminid2":webdata_list[19],
+                "gridid":webdata_list[20],
+                "needconfirm":webdata_list[21],
+                "description":webdata_list[22],
+                "dealWay":webdata_list[23],
+                "fieldintro":webdata_list[24],
+                "upload":img_value
+            }
+        )
+        
+        header = {
+            "Content-Type":m.content_type,
+            "Cookie":cookies
+        }
+        #重定向没有返回值
+        webres = requests.post(url = submiturl, data=m, headers=header,allow_redirects=False)
+        web_res = webres.text
+        mystr = web_res.find("errorCode")
+        if mystr != -1:
+            print("XXXXXXXXXXweb工单提交失败XXXXXXXXXX")
+            return False
+        elif ('Set-Cookie' in webres.headers):
+            print("====================对不起您未登录，请登录后再上报工单=====================")
+            return False
+        else:
+            print("web工单提交成功")  
+            return True
 
-#     # while str(imgObj) == "":
-#     #     loginReturn = test_cg_login(driver)
-#     #     imgObj = loginReturn.find('img', attrs={'id': 'hf'})
-#     # else: 
-#     url = getConstant.IP+"/dcms//ccsCase/Case-callinput.action?menuId=402880822f9490ad012f949e55720083&keywords=402880ea2f6bd924012f6c521e8c0034"
-#     print("url:",url)
-#     header = {
-#         "User-Agent":"Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/66.0.3359.117 Safari/537.36",
-#         "Accept":"text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8",
-#         "Referer":"http://219.149.226.180:7897/dcms/bmsAdmin/Admin-redirectLogonPage.action",
-#         "Accept-Encoding":"gzip, deflate",
-#         "Accept-Language":"zh-CN,zh;q=0.9,en;q=0.8",
-#         "Cookie":cookiestr
-#         }
-#     r = requests.get(url,headers=header).text
-#     print("结果是：============",r,"类型是：*****************",type(r))
-#     # res = json.loads(r.text)
-    
-#     return r
-       
-#提交工单录入表单gongdanluru_2.txt_无需核实复核   
-def test_submitOrder():
-    # test_goToWorkOrderEntry() #进入工单录入页面的返回值
-    cookies = test_readCookies()
-    submiturl = getConstant.IP+"/dcms/ccsCase/Case-callToCaseStart.action"
-    file_handle = open('E:/test/dcms/ChengGuan/testFile/shangBao/gongdanluru_2.txt','r',encoding='utf8')
-    obj_data = file_handle.read()
-    objdata = eval(obj_data)
-    file_handle.close()
-    header = {
-        # "Content-Type":"multipart/form-data; boundary=----WebKitFormBoundaryBtxMo0J4B3oDgR89",
-        # "Content-Type":"application/x-www-form-urlencoded",  
-        # "User-Agent":"Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/66.0.3359.117 Safari/537.36",
-        # "Accept":"text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8",
-        # "Accept-Encoding":"gzip, deflate",
-        # "Accept-Language":"zh-CN,zh;q=0.9,en;q=0.8",
-        "Cookie":cookies
-    }
-    #重定向没有返回值
-    requests.post(url=submiturl,data=objdata,headers=header)
-    print("工单提交成功")
-    #重定向url
-    list_url = getConstant.IP+"/dcms/cwsCase/Case-startlist.action?menuId=4028338158a414bd0158a4848a7f000d&keywords=402880ea2f6bd924012f6c521e8c0034"
-    respons = requests.get(list_url,headers=header).text
-    return respons
+
+
 if __name__=="__main__": 
-        test_submitOrder()
-        # driver.close()
+    test_submitOrder().test_web_submitOrder()

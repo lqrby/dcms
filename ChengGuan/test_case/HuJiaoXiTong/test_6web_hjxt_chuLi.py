@@ -12,12 +12,9 @@ from bs4 import BeautifulSoup
 # import config
 from config.Log import logging
 sys.stdout = io.TextIOWrapper(sys.stdout.buffer,encoding='utf-8')
-from common.getCookie import test_readCookies
-from common.getCookie import test_read_txt
 from common.constant_all import getConstant
 from chengguan_authCode import test_login_authCode
-from common.getCookie import test_getCookie
-from common.getCookie import test_write_txt
+from common.writeAndReadText import writeAndReadTextFile
 # 权属单位登录--任晓华--renxiaohua:111111
 def test_cg_login(driver):  #登录的方法
     loginResult = False
@@ -45,12 +42,12 @@ def test_cg_login(driver):  #登录的方法
         else:
             print("登录后断言匹配正确")
             loginResult = BeautifulSoup(driver.page_source,'html.parser')
-            cookiestr = test_getCookie(driver)
+            cookiestr = writeAndReadTextFile().test_getCookie(driver)
             # print("cookiestr的类型是：",type(cookiestr))
             # 把cookie写入txt文件
             path = "E:/test/dcms/ChengGuan/common/cookie.txt"
             # print("cookiestr的类型是：：",type(cookiestr))
-            test_write_txt(path,cookiestr)
+            writeAndReadTextFile().test_write_txt(path,cookiestr)
             # print("登录后的cookie是",cookiestr)
         # finally:
         #     print("断言验证错误，我依然被执行。")
@@ -61,8 +58,8 @@ def test_cg_login(driver):  #登录的方法
 def test_PendingList():
     # driver = webdriver.Chrome("D:/python/chromeDriverSever/chromedriver.exe")
     # test_cg_login(driver)
-    cookies = test_readCookies()
-    dcl_url = getConstant.IP+"/dcms//cwsCase/Case-deallist.action?casestate=30&menuId=402880822f9490ad012f949be0e80053&keywords=402880eb2f90e905012f9138a5fb00a4"
+    cookies = writeAndReadTextFile().test_readCookies()
+    dcl_url = getConstant.IP_WEB_180+"/dcms//cwsCase/Case-deallist.action?casestate=30&menuId=402880822f9490ad012f949be0e80053&keywords=402880eb2f90e905012f9138a5fb00a4"
     header = {
         "Cookie":cookies
     }
@@ -78,16 +75,6 @@ def test_handlingDetailsAndHandling():
     divObj = result.find('div', attrs={'class':'mainContentTableContainer'})
     dcl_tr = divObj.findAll('table')[1].findAll('tr')[1]
     str_tr = str(dcl_tr)
-
-    # pattern = re.compile('<tr[\s\S]*id="(.*?)"[\s\S]*onclick="casedo[\(](.*?),(.*?),(.*?),(.*?),this[\)]">')  # 用于匹配至少一个数字
-    # m = pattern.search(str_tr).group(5).strip("'") # 查找头部，没有匹配
-    # print(m)
-    # str_tr = str(dcl_tr)
-    # print(str_tr)
-    # print("现在的类型是：",res.html())
-    # print(dcl_tr)
-
-    
     # print("res的类型是：",tables)
     number= re.compile('<span id="pagemsg" style="(.*?)"><label>总共(.*?)页,(.*?)条记录</label></span>').search(res).group(3)
     if int(number)>0:
@@ -95,33 +82,23 @@ def test_handlingDetailsAndHandling():
         dclid = pattern.search(str_tr).group(1)
         dcl_menuid = pattern.search(str_tr).group(2).strip("'")
         dcl_taskprocess = pattern.search(str_tr).group(5).strip("'")
-        # print(dclid)
-        # print(dcl_menuid)
-        # print(dcl_taskprocess)
         # 待处理详情url
-        dclxq_url = getConstant.IP+"/dcms/cwsCase/Case-dealview.action?id="+dclid+"&menuId="+dcl_menuid+"&taskprocess="+dcl_taskprocess
-        dclxq_cookies = test_readCookies()
+        dclxq_url = getConstant.IP_WEB_180+"/dcms/cwsCase/Case-dealview.action?id="+dclid+"&menuId="+dcl_menuid+"&taskprocess="+dcl_taskprocess
+        dclxq_cookies = writeAndReadTextFile().test_readCookies()
         header = {
            "Cookie":dclxq_cookies
         }
         dclxq_res = requests.get(url = dclxq_url,headers=header).text
         # print("待处理详情",dclxq_res)
         # -----------------------------------------------------------------
-        cllist = test_read_txt('E:/test/dcms/ChengGuan/testFile/chuLi/anjuanchuli.txt')
+        cllist = writeAndReadTextFile().test_read_txt('E:/test/dcms/ChengGuan/testFile/chuLi/anjuanchuli.txt')
         cl_list = cllist.split(',')
         cl_taskcasestateid = re.compile('<input type="hidden" id="taskcasestateid" name="taskcasestateid" value="(.*?)"/>').search(dclxq_res).group(1)
         cl_casestate = re.compile('<input type="hidden" id="casestate" name="casestate" value="(.*?)" />').search(dclxq_res).group(1)
         cl_taskDeptID = re.compile('<input type="hidden" id="taskDeptID" name="taskDeptID" value="(.*?)" />').search(dclxq_res).group(1)
         cl_applyreturnlist = re.compile('<input type="hidden" id="applyreturnlist" name="applyreturnlist" value="(.*?)" />').search(dclxq_res).group(1)
-        taskprocess = re.compile('<input type="hidden" id="taskprocess" name="taskprocess" value="(.*?)" />').search(dclxq_res).group(1)
-        print("新的",taskprocess)
-        print("旧的",dcl_taskprocess)
-        # print(cl_taskDeptID)
-        # print(cl_applyreturnlist)
-        # print(cl_list[0])
-        # print(cl_list[1])
         # 处理案卷url
-        cl_url = getConstant.IP+"/dcms/cwsCase/Case-deal.action"
+        cl_url = getConstant.IP_WEB_180+"/dcms/cwsCase/Case-deal.action"
         cl_data = {
             "taskcasestateid":cl_taskcasestateid,
             "menuId":dcl_menuid,
