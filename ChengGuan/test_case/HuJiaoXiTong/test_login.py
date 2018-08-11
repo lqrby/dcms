@@ -28,7 +28,8 @@ from chengguan_authCode import test_login_authCode
 from common.constant_all import getConstant
 
 class allLogin():
-    
+    # def __init__(self,driver,):
+    #     pass
     def test_web_login(self,driver):  #登录的方法
         loginResult = False
         authCode = test_login_authCode(driver) #获取验证码
