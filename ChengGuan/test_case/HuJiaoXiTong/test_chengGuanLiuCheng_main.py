@@ -23,12 +23,8 @@ class MyTest(unittest.TestCase):     #封装测试环境的初始化和还原的
         print("start test")
         self.driver = webdriver.Chrome("D:/python/chromeDriverSever/chromedriver.exe")
         
-    def test_hujiaoMain(self):
-        #web端登录
+    def test_apkLogin(self):
         
-        webLogin = allLogin().test_web_login(self.driver)
-        while webLogin==False:
-            webLogin = allLogin().test_web_login(self.driver)
         # #移动端登录
         appLogin = allLogin().test_app_allLogin()
         while appLogin == False:
@@ -37,10 +33,16 @@ class MyTest(unittest.TestCase):     #封装测试环境的初始化和还原的
         # liuCheng().test_liucheng_1()
         #unittest.main()
 
+    def test_webLogin(self):
+        #web端登录
+        webLogin = allLogin().test_web_login(self.driver)
+        while webLogin==False:
+            webLogin = allLogin().test_web_login(self.driver)
+
     def tearDown(self): 
         # self.driver.quit()            #与setUp()相对y  
         print("end test")  
     
 
-# if __name__=="__main__":
-#     unittest.main()
+if __name__=="__main__":
+    unittest.main()

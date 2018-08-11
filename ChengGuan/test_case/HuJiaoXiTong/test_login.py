@@ -177,6 +177,6 @@ class allLogin():
 # if __name__=="__main__":
 #     driver = webdriver.Chrome("D:/python/chromeDriverSever/chromedriver.exe")  
 #     allLogin().test_web_login(driver)
-    # allLogin().test_app_allLogin()
+#     allLogin().test_app_allLogin()
 
     
