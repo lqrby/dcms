@@ -22,6 +22,8 @@ class MyTest(unittest.TestCase):     #封装测试环境的初始化和还原的
     def setUp(self): #放对数据可操作的代码，如对mysql、momgodb的初始化等,这里不对数据库进行操作！  
         print("start test")
         
+        
+    def test_hujiaoMain(self):
         #web端登录
         self.driver = webdriver.Chrome("D:/python/chromeDriverSever/chromedriver.exe")
         webLogin = allLogin().test_web_login(self.driver)
@@ -32,8 +34,7 @@ class MyTest(unittest.TestCase):     #封装测试环境的初始化和还原的
         while appLogin == False:
             appLogin = allLogin().test_app_allLogin()
         print("************************************")
-    def test_hujiaoMain(self):
-        liuCheng().test_liucheng_1()
+        # liuCheng().test_liucheng_1()
         #unittest.main()
 
     def tearDown(self): 
@@ -41,5 +42,5 @@ class MyTest(unittest.TestCase):     #封装测试环境的初始化和还原的
         print("end test")  
     
 
-if __name__=="__main__":
-    unittest.main()
+# if __name__=="__main__":
+#     unittest.main()
