@@ -25,7 +25,7 @@ class Mailer(object):
     currentTime = time.strftime("%Y-%m-%d %H:%M:%S", timeArray)
     me = self.mail_user + "<" + self.mail_user + "@" + self.mail_postfix + ">"
     msg = MIMEMultipart()
-    msg['Subject'] = currentTime+'质控城市(城管系统)接口测试'
+    msg['Subject'] = currentTime+'180城管系统接口测试'
     msg['From'] = me
     msg['To'] = ";".join(self.mail_list)
  
@@ -40,7 +40,7 @@ class Mailer(object):
  
 #      首先是xlsx类型的附件
     #xlsxpart = MIMEApplication(open('E:/test/dcms/JiangChengJiShi/test_report/TestRunner.html', 'rb').read())
-    xlsxpart = MIMEApplication(open('D:/jmeter/jenkins/workspace/jiangcheng_test_script/JiangChengJiShi/test_report/TestRunner.html', 'rb').read())
+    xlsxpart = MIMEApplication(open('E:/test/jenkins_dcms/ChengGuan/test_report/TestRunner.html', 'rb').read())
     xlsxpart.add_header('Content-Disposition', 'attachment', filename='TestRunner.html')
     msg.attach(xlsxpart)
  
@@ -69,7 +69,7 @@ class Mailer(object):
 if __name__ == '__main__':
   #send list
   mailto_list = ["1640464937@qq.com"]
-  mail_title = '质控城市（城管系统）测试反馈'
+  mail_title = '180城管系统测试反馈'
   mail_content = ''
   mm = Mailer(mailto_list,mail_title,mail_content)
   res = mm.sendMail()
