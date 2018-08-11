@@ -35,9 +35,8 @@ def test_login_authCode(driver):  #def test_jcjs_cl_post(self): 工单录入的�
         # items = getConstant() 
         
         url=getConstant.IP+'/dcms/bms/login.jsp'
-        
         driver.maximize_window()  #将浏览器最大化
-        driver.implicitly_wait(10)#隐式等待
+        driver.implicitly_wait(100)#隐式等待
         driver.get(url)
         driver.save_screenshot('./result/yzm.png')  #截取当前网页，该网页有我们需要的验证码
         # imgelement = driver.find_element_by_id('codeimg')  #定位验证码
