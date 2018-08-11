@@ -21,14 +21,14 @@ class MyTest(unittest.TestCase):     #封装测试环境的初始化和还原的
    
     def setUp(self): #放对数据可操作的代码，如对mysql、momgodb的初始化等,这里不对数据库进行操作！  
         print("start test")
-        
+        self.driver = webdriver.Chrome("D:/python/chromeDriverSever/chromedriver.exe")
         
     def test_hujiaoMain(self):
         #web端登录
-        # self.driver = webdriver.Chrome("D:/python/chromeDriverSever/chromedriver.exe")
-        # webLogin = allLogin().test_web_login(self.driver)
-        # while webLogin==False:
-        #     webLogin = allLogin().test_web_login(self.driver)
+        
+        webLogin = allLogin().test_web_login(self.driver)
+        while webLogin==False:
+            webLogin = allLogin().test_web_login(self.driver)
         # #移动端登录
         appLogin = allLogin().test_app_allLogin()
         while appLogin == False:
