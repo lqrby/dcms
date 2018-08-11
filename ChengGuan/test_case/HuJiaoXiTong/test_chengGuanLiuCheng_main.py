@@ -25,11 +25,11 @@ class MyTest(unittest.TestCase):     #封装测试环境的初始化和还原的
         
     def test_hujiaoMain(self):
         #web端登录
-        self.driver = webdriver.Chrome("D:/python/chromeDriverSever/chromedriver.exe")
-        webLogin = allLogin().test_web_login(self.driver)
-        while webLogin==False:
-            webLogin = allLogin().test_web_login(self.driver)
-        #移动端登录
+        # self.driver = webdriver.Chrome("D:/python/chromeDriverSever/chromedriver.exe")
+        # webLogin = allLogin().test_web_login(self.driver)
+        # while webLogin==False:
+        #     webLogin = allLogin().test_web_login(self.driver)
+        # #移动端登录
         appLogin = allLogin().test_app_allLogin()
         while appLogin == False:
             appLogin = allLogin().test_app_allLogin()
@@ -38,7 +38,7 @@ class MyTest(unittest.TestCase):     #封装测试环境的初始化和还原的
         #unittest.main()
 
     def tearDown(self): 
-        self.driver.quit()            #与setUp()相对y  
+        # self.driver.quit()            #与setUp()相对y  
         print("end test")  
     
 
