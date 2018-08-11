@@ -25,13 +25,13 @@ if __name__=="__main__":
 #     now = time.strftime("%Y-%m-%d %H-%M-%S")  
 #     print now
     #定义报告存放路径
-        filename ='E:/test/dcms/ChengGuan/test_report/TestRunner.html'  
+        filename ='E:/test/jenkins_dcms/ChengGuan/test_report/TestRunner.html'  
         #filename ='D:/jmeter/jenkins/workspace/jiangcheng_test_script/JiangChengJiShi/test_report/TestRunner.html'  
         fp = open(filename,"wb")  
         #定义测试报告  
         runner = HTMLTestRunner(stream = fp,  
-                                title='城管接口测试报告',
-                                description='城管测试用例执行情况:')  
+                                title='180城管接口测试报告',
+                                description='180城管测试用例执行情况:')  
         #运行测试  
         runner.run(discover) 
         print("结束")    

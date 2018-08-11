@@ -1,6 +1,6 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+
+<!DOCTYPE HTML>
+<html>
 <head>
     <title>城管接口测试报告</title>
     <meta name="generator" content="HTMLTestRunner 0.8.2"/>
@@ -33,6 +33,7 @@ h1 {
 
 /* -- css div popup ------------------------------------------------------------------------ */
 a.popup_link {
+
 }
 
 a.popup_link:hover {
@@ -53,7 +54,6 @@ a.popup_link:hover {
     width: 500px;
 }
 
-}
 /* -- report ------------------------------------------------------------------------ */
 #show_detail_line {
     margin-top: 3ex;
@@ -92,7 +92,7 @@ a.popup_link:hover {
 
 </head>
 <body>
-<script language="javascript" type="text/javascript"><!--
+<script language="javascript" type="text/javascript">
 output_list = Array();
 
 /* level - 0:Summary; 1:Failed; 2:All */
@@ -101,20 +101,20 @@ function showCase(level) {
     for (var i = 0; i < trs.length; i++) {
         tr = trs[i];
         id = tr.id;
-        if (id.substr(0,2) == 'ft') {
+        if (id.substr(0,2) == "ft") {
             if (level < 1) {
-                tr.className = 'hiddenRow';
+                tr.className = "hiddenRow";
             }
             else {
-                tr.className = '';
+                tr.className = "";
             }
         }
-        if (id.substr(0,2) == 'pt') {
+        if (id.substr(0,2) == "pt") {
             if (level > 1) {
-                tr.className = '';
+                tr.className = "";
             }
             else {
-                tr.className = 'hiddenRow';
+                tr.className = "hiddenRow";
             }
         }
     }
@@ -125,11 +125,11 @@ function showClassDetail(cid, count) {
     var id_list = Array(count);
     var toHide = 1;
     for (var i = 0; i < count; i++) {
-        tid0 = 't' + cid.substr(1) + '.' + (i+1);
-        tid = 'f' + tid0;
+        tid0 = "t" + cid.substr(1) + "." + (i+1);
+        tid = "f" + tid0;
         tr = document.getElementById(tid);
         if (!tr) {
-            tid = 'p' + tid0;
+            tid = "p" + tid0;
             tr = document.getElementById(tid);
         }
         id_list[i] = tid;
@@ -140,11 +140,11 @@ function showClassDetail(cid, count) {
     for (var i = 0; i < count; i++) {
         tid = id_list[i];
         if (toHide) {
-            document.getElementById('div_'+tid).style.display = 'none'
-            document.getElementById(tid).className = 'hiddenRow';
+            document.getElementById("div_"+tid).style.display = "none"
+            document.getElementById(tid).className = "hiddenRow";
         }
         else {
-            document.getElementById(tid).className = '';
+            document.getElementById(tid).className = "";
         }
     }
 }
@@ -154,20 +154,20 @@ function showTestDetail(div_id){
     var details_div = document.getElementById(div_id)
     var displayState = details_div.style.display
     // alert(displayState)
-    if (displayState != 'block' ) {
-        displayState = 'block'
-        details_div.style.display = 'block'
+    if (displayState != "block" ) {
+        displayState = "block"
+        details_div.style.display = "block"
     }
     else {
-        details_div.style.display = 'none'
+        details_div.style.display = "none"
     }
 }
 
 
 function html_escape(s) {
-    s = s.replace(/&/g,'&amp;');
-    s = s.replace(/</g,'&lt;');
-    s = s.replace(/>/g,'&gt;');
+    s = s.replace(/&/g,"&amp;");
+    s = s.replace(/</g,"&lt;");
+    s = s.replace(/>/g,"&gt;");
     return s;
 }
 
@@ -185,34 +185,34 @@ function showOutput(id, name) {
     d.close();
 }
 */
---></script>
+</script>
 
-<div class='heading'>
+<div class="heading">
 <h1>城管接口测试报告</h1>
-<p class='attribute'><strong>Start Time:</strong> 2018-07-16 17:10:43</p>
-<p class='attribute'><strong>Duration:</strong> 0:00:00</p>
-<p class='attribute'><strong>Status:</strong> none</p>
+<p class="attribute"><strong>Start Time:</strong> 2018-08-11 11:49:32</p>
+<p class="attribute"><strong>Duration:</strong> 0:00:12.716602</p>
+<p class="attribute"><strong>Status:</strong> Error 1</p>
 
-<p class='description'>城管测试用例执行情况:</p>
+<p class="description">城管测试用例执行情况:</p>
 </div>
 
 
 
-<p id='show_detail_line'>Show
-<a href='javascript:showCase(0)'>Summary</a>
-<a href='javascript:showCase(1)'>Failed</a>
-<a href='javascript:showCase(2)'>All</a>
+<p id="show_detail_line">Show
+<a href="javascript:showCase(0)">Summary</a>
+<a href="javascript:showCase(1)">Failed</a>
+<a href="javascript:showCase(2)">All</a>
 </p>
-<table id='result_table'>
+<table id="result_table">
 <colgroup>
-<col align='left' />
-<col align='right' />
-<col align='right' />
-<col align='right' />
-<col align='right' />
-<col align='right' />
+<col align="left" />
+<col align="right" />
+<col align="right" />
+<col align="right" />
+<col align="right" />
+<col align="right" />
 </colgroup>
-<tr id='header_row'>
+<tr id="header_row">
     <td>Test Group/Test case</td>
     <td>Count</td>
     <td>Pass</td>
@@ -221,17 +221,63 @@ function showOutput(id, name) {
     <td>View</td>
 </tr>
 
-<tr id='total_row'>
+<tr class="errorClass">
+    <td>test_chengGuanLiuCheng_main.MyTest</td>
+    <td>1</td>
+    <td>0</td>
+    <td>0</td>
+    <td>1</td>
+    <td><a href="javascript:showClassDetail('c1',1)">Detail</a></td>
+</tr>
+
+<tr id="ft1.1" class="none">
+    <td class="errorCase"><div class="testcase">test_hujiaoMain</div></td>
+    <td colspan="5" align="center">
+
+    <!--css div popup start-->
+    <a class="popup_link" onfocus="this.blur();" href="javascript:showTestDetail('div_ft1.1')" >
+        error</a>
+
+    <div id="div_ft1.1" class="popup_window">
+        <div style="text-align: right; color:red;cursor:pointer">
+        <a onfocus="this.blur();" onclick="document.getElementById('div_ft1.1').style.display = 'none' " >
+           [x]</a>
+        </div>
+        <pre>
+        
+ft1.1: start test
+fdata: b'iVBORw0KGgoAAAANSUhEUgAAAFAAAAAeCAYAAAC7Q5mxAAAAIElEQVR4nO3BMQEAAADCoPVPbQlPoAAAAAAAAAAAAPgbJZ4AAUzV1ckAAAAASUVORK5CYII='
+@@@验证码是： None
+Traceback (most recent call last):
+  File "E:\test\jenkins_dcms\ChengGuan\test_case\HuJiaoXiTong\test_chengGuanLiuCheng_main.py", line 27, in setUp
+    webLogin = allLogin().test_web_login(self.driver)
+  File "E:\test\jenkins_dcms\ChengGuan\test_case\HuJiaoXiTong\test_login.py", line 45, in test_web_login
+    driver.find_element_by_name('code').send_keys(authCode)
+  File "D:\python\lib\site-packages\selenium\webdriver\remote\webelement.py", line 478, in send_keys
+    {'text': "".join(keys_to_typing(value)),
+  File "D:\python\lib\site-packages\selenium\webdriver\common\utils.py", line 150, in keys_to_typing
+    for i in range(len(val)):
+TypeError: object of type 'NoneType' has no len()
+
+
+        </pre>
+    </div>
+    <!--css div popup end-->
+
+    </td>
+</tr>
+
+<tr id="total_row">
     <td>Total</td>
+    <td>1</td>
     <td>0</td>
     <td>0</td>
-    <td>0</td>
-    <td>0</td>
+    <td>1</td>
     <td>&nbsp;</td>
 </tr>
 </table>
 
-<div id='ending'>&nbsp;</div>
+<div id="ending">&nbsp;</div>
 
 </body>
 </html>
