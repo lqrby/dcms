@@ -70,7 +70,7 @@ if __name__ == '__main__':
   #send list
   mailto_list = ["1640464937@qq.com"]
   mail_title = '180城管系统测试反馈'
-  mail_content = ''
+  mail_content = '<h1>城管测试报告</h1>'
   mm = Mailer(mailto_list,mail_title,mail_content)
   res = mm.sendMail()
   print("发送成功")
