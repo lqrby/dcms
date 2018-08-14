@@ -1,16 +1,10 @@
 # -*- coding: utf-8 -*-
-
 import requests
-from selenium import webdriver
-import json,ast
-import unittest
-import urllib, sys, io,re
+import json
+import sys,re
 sys.path.append("E:/test/dcms/ChengGuan")
 import time
-# import config
 from config.Log import logging
-sys.stdout = io.TextIOWrapper(sys.stdout.buffer,encoding='utf-8')
-from test_2web_chengguan_login import test_cg_login
 from common.writeAndReadText import writeAndReadTextFile
 from common.constant_all import getConstant
 from requests_toolbelt import MultipartEncoder

@@ -1,25 +1,15 @@
 # -*- coding: utf-8 -*-
 from PIL import Image
 import unittest
-from selenium import webdriver
-from selenium.webdriver.support.ui import Select
-from selenium.webdriver.support.wait import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
-from selenium.webdriver.common.action_chains import ActionChains
-from selenium.webdriver.common.by import By
-# from com.aliyun.api.gateway.sdk import client
-# from com.aliyun.api.gateway.sdk.http import request
-# from com.aliyun.api.gateway.sdk.common import constant
 import base64
 import json
 import requests
 import os.path
 import urllib
 import time
-import urllib, sys
+import sys
 from config.Log import logging
 from PIL import Image
-from selenium import webdriver
 import time
 from PIL import ImageGrab
 sys.path.append("E:/test/dcms/ChengGuan")

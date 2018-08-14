@@ -1,17 +1,12 @@
 # -*- coding: utf-8 -*-
 import requests
-from selenium import webdriver
-import json ,re  
-import unittest
-import urllib, sys, io
+import json,re  
+import sys
 sys.path.append("E:/test/dcms/ChengGuan")
 import time
 from bs4 import BeautifulSoup
-# import config
 from config.Log import logging
-# sys.stdout = io.TextIOWrapper(sys.stdout.buffer,encoding='utf-8')
 from common.constant_all import getConstant
-from chengguan_authCode import test_login_authCode
 from common.writeAndReadText import writeAndReadTextFile
 
 class test_reviewAndReturnVisit():
@@ -108,8 +103,8 @@ class test_reviewAndReturnVisit():
         # 获取列表
         zfjlist_res = self.test_app_zfj_returnVisitList()
         if zfjlist_res != None:
-            dcl_count = re.search('<caseCheckList count="(.*?)">',zfjlist_res).group(1)
             if 'count' in zfjlist_res:
+                dcl_count = re.compile('<caseCheckList count="(.*?)"').search(zfjlist_res).group(1)
                 # print("执法局：列表查询成功")
                 if int(dcl_count)>0:
                     login_items = writeAndReadTextFile().test_read_appLoginResult()
@@ -205,4 +200,4 @@ class test_reviewAndReturnVisit():
 
 
 # if __name__=="__main__": 
-#     test_reviewAndReturnVisit().test_app_wggly_returnDetailsAndVisit()
+#     test_reviewAndReturnVisit().test_app_zfj_returnDetailsAndVisit()

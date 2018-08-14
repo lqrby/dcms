@@ -1,20 +1,15 @@
 # -*- coding: utf-8 -*-
 
 import requests
-from selenium import webdriver
 import json
 import re
 import ast
-import unittest
-import urllib, sys, io
+import sys
 sys.path.append("E:/test/dcms/ChengGuan")
 import time
 from bs4 import BeautifulSoup
-# import config
 from config.Log import logging
-# sys.stdout = io.TextIOWrapper(sys.stdout.buffer,encoding='utf-8')
 from common.constant_all import getConstant
-from chengguan_authCode import test_login_authCode
 from common.writeAndReadText import writeAndReadTextFile
 
 class fileFandling():

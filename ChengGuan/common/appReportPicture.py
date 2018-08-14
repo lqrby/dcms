@@ -1,6 +1,6 @@
 import requests,re
 from common.constant_all import getConstant
-
+from config.Log import logging
 
 # 移动端案卷上报图片
 def test_app_ReportPicture(imgUrl,picturePath):

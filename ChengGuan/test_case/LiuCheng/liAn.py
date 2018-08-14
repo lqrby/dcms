@@ -1,16 +1,11 @@
 # -*- coding: utf-8 -*-
-
 import requests
-from selenium import webdriver
-import json ,re  
-import unittest
-import urllib, sys, io
+import json,re  
+import sys
 sys.path.append("E:/test/dcms/ChengGuan")
 import time
 from bs4 import BeautifulSoup
-# import config
 from config.Log import logging
-# sys.stdout = io.TextIOWrapper(sys.stdout.buffer,encoding='utf-8')
 from common.writeAndReadText import writeAndReadTextFile
 from common.constant_all import getConstant
 

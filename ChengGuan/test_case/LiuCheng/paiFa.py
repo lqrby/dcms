@@ -1,23 +1,16 @@
 # -*- coding: utf-8 -*-
-
 import requests
-from selenium import webdriver
 import json ,re  
-import unittest
-import urllib, sys, io
+import sys
 sys.path.append("E:/test/dcms/ChengGuan")
 import time
 from bs4 import BeautifulSoup
-# import config
 from config.Log import logging
-# sys.stdout = io.TextIOWrapper(sys.stdout.buffer,encoding='utf-8')
 from common.writeAndReadText import writeAndReadTextFile
 from common.constant_all import getConstant
- 
 
 #查询待派发案卷列表    
 def test_PendingDistributionList():
-   
     cookies = writeAndReadTextFile().test_readCookies()
     list_url = getConstant.IP_WEB_180+"/dcms/cwsCase/Case-dispatchlist.action?casestate=20&menuId=4028338158a414bd0158a484daae000e&keywords=402880ea2f6bd924012f6c521e8c0034"
     header = {

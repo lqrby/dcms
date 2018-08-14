@@ -26,7 +26,6 @@ import os.path
 import urllib
 import time
 import urllib, sys
-
 from PIL import Image
 from selenium import webdriver
 import time

@@ -13,7 +13,7 @@ class Mailer(object):
     self.mail_list = maillist
     self.mail_title = mailtitle
     self.mail_content = mailcontent
- 
+    ##### email服务器配置 #####
     self.mail_host = "smtp.qq.com"
     self.mail_user = "1640464937@qq.com"
     self.mail_pass = "plixxiabopvdfdcc"
@@ -70,7 +70,7 @@ if __name__ == '__main__':
   #send list
   mailto_list = ["1640464937@qq.com"]
   mail_title = '180城管系统测试反馈'
-  mail_content = '<h1>城管测试报告</h1>'
+  mail_content = '城管测试报告'
   mm = Mailer(mailto_list,mail_title,mail_content)
   res = mm.sendMail()
   print("发送成功")
