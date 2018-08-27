@@ -9,7 +9,7 @@ from config.Log import logging
 from common.constant_all import getConstant
 from common.writeAndReadText import writeAndReadTextFile
 
-class test_reviewAndReturnVisit():
+class reviewAndReturnVisit():
     # WEB端案卷回访
     #查询待回访案卷列表    
     def test_returnVisitList(self):
@@ -25,16 +25,15 @@ class test_reviewAndReturnVisit():
     def test_returnDetailsAndVisit(self):
         # 获取待回访列表
         res = self.test_returnVisitList()
-        result = BeautifulSoup(res,'html.parser')
-        divObj = result.find('div', attrs={'class':'mainContentTableContainer'})
-        dcl_tr = divObj.findAll('table')[1].findAll('tr')[1]
-        str_tr = str(dcl_tr)
         number= re.compile('<span id="pagemsg" style="(.*?)"><label>总共(.*?)页,(.*?)条记录</label></span>').search(res).group(3)
         if int(number)>0:
+            result = BeautifulSoup(res,'html.parser')
+            divObj = result.find('div', attrs={'class':'mainContentTableContainer'})
+            obj_tr = divObj.findAll('table')[1].findAll('tr')[1]
             dhfobj = re.compile(r'<tr[\s\S]*id="(.*?)"[\s\S]*onclick="casedo[\(](.*?),(.*?),(.*?),(.*?),this[\)]">')
-            dhfid = dhfobj.search(str_tr).group(1)
-            dhf_menuid = dhfobj.search(str_tr).group(2).strip("'")
-            dhf_taskprocess = dhfobj.search(str_tr).group(5).strip("'")
+            dhfid = dhfobj.search(str(obj_tr)).group(1)
+            dhf_menuid = dhfobj.search(str(obj_tr)).group(2).strip("'")
+            dhf_taskprocess = dhfobj.search(str(obj_tr)).group(5).strip("'")
             # 待回访详情url
             dclxq_url = getConstant.IP_WEB_180+"/dcms/cwsCase/Case-hf.action?id="+dhfid+"&menuId="+dhf_menuid+"&taskprocess="+dhf_taskprocess
             dclxq_cookies = writeAndReadTextFile().test_readCookies()
@@ -129,7 +128,7 @@ class test_reviewAndReturnVisit():
                         print("执法局apk：复核失败")
                         return False 
                 else:
-                    print("执法局:列表暂时为空")
+                    print("执法局:待复核列表暂时为空")
                     return False
             elif 'errorCode' in zfjlist_res and zfjlist_res['errorCode']=='2':
                 print("**********对不起请您先登录执法局apk**********")
@@ -200,4 +199,4 @@ class test_reviewAndReturnVisit():
 
 
 # if __name__=="__main__": 
-#     test_reviewAndReturnVisit().test_app_zfj_returnDetailsAndVisit()
+#     test_reviewAndReturnVisit().test_returnDetailsAndVisit()

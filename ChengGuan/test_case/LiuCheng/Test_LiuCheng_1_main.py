@@ -6,12 +6,14 @@ import time
 from config.Log import logging
 from selenium import webdriver
 from login import allLogin
-from jobEntry import test_submitOrder
-from liAn import test_detailsAndFiling
-from paiFa import test_sendDetailsAndSendOut
+from jobEntry import submitOrder
+from queRen import confirm
+from heShi import verify
+from liAn import setUpCase
+from paiFa import distribution
 from chuLi import fileFandling
-from fuHeAndHuiFang import test_reviewAndReturnVisit
-
+from fuHeAndHuiFang import reviewAndReturnVisit
+from common.writeAndReadText import writeAndReadTextFile
 
 class MyTest(unittest.TestCase):     #封装测试环境的初始化和还原的类  
     @classmethod
@@ -30,7 +32,7 @@ class MyTest(unittest.TestCase):     #封装测试环境的初始化和还原的
         webLogin = allLogin().test_web_login(self.driver)
         while webLogin==False:
             webLogin = allLogin().test_web_login(self.driver)
-        logging.info("*****1.web端登录运行完毕*****")
+        logging.info("*****1.web端登录完毕*****")
 
     time.sleep(2)
     def test_2apkLogin(self):
@@ -38,21 +40,21 @@ class MyTest(unittest.TestCase):     #封装测试环境的初始化和还原的
         appLogin = allLogin().test_app_allLogin()
         while appLogin == False:
             appLogin = allLogin().test_app_allLogin()
-        logging.info("*****2.移动端登录运行完毕*****")
+        logging.info("*****2.移动端登录完毕*****")
 
     
     #web端工单录入
     time.sleep(2)
     def test_3gongDan(self):
         
-        webgdlr_res = test_submitOrder().test_web_submitOrder()
+        webgdlr_res = submitOrder().test_web_submitOrder()
         if webgdlr_res:
             logging.info("*****3.web工单录入完毕*****")
 
     #web端立案
     time.sleep(2)   
     def test_4liAn(self):
-        lian_result = test_detailsAndFiling()
+        lian_result = setUpCase().test_detailsAndFiling()
         if lian_result:
             logging.info("*****4.web立案完毕*****")
 
@@ -60,7 +62,8 @@ class MyTest(unittest.TestCase):     #封装测试环境的初始化和还原的
     #web端派发
     time.sleep(2)   
     def test_5paiFa(self):
-        paifa_result = test_sendDetailsAndSendOut()
+        item = {}
+        paifa_result = distribution().test_sendDetailsAndSendOut(item)
         if paifa_result:
             logging.info("*****5.web派发完毕*****")
 
@@ -74,9 +77,9 @@ class MyTest(unittest.TestCase):     #封装测试环境的初始化和还原的
     # 复核 网格管理员apk复核 
     time.sleep(2)   
     def test_7fuHe(self):
-        wggly_result = test_reviewAndReturnVisit().test_app_wggly_returnDetailsAndVisit()
+        wggly_result = reviewAndReturnVisit().test_app_wggly_returnDetailsAndVisit()
         if wggly_result:
             logging.info("*****7.移动端网格管理员复核完毕*****")
 
-# if __name__=="__main__":
-#     unittest.main()
+if __name__=="__main__":
+    unittest.main()

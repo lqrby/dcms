@@ -1,5 +1,8 @@
 # -*- coding: utf-8 -*-
 from selenium import webdriver
+import sys
+sys.path.append("E:/test/dcms/ChengGuan")
+from common.constant_all import getConstant
 import ast
 class writeAndReadTextFile():
     # 获取cookie并保持
@@ -9,7 +12,7 @@ class writeAndReadTextFile():
         return cookiestr
     # 读取cookie
     def test_readCookies(self):
-        with open("E:/test/dcms/ChengGuan/common/cookie.txt", 'r', encoding='utf8') as f:
+        with open(getConstant.PROJECT_PATH+"/common/cookie.txt", 'r', encoding='utf8') as f:
             cookie_lines = f.readlines()
         return '\n'.join(cookie_lines)
     # 写入txt
@@ -25,17 +28,24 @@ class writeAndReadTextFile():
         return '\n'.join(lines)
     # 读取app登录返回值
     def test_read_appLoginResult(self):
-        result_path = "E:/test/dcms/ChengGuan/common/appLoginResult.txt"
+        result_path = getConstant.PROJECT_PATH+"/common/appLoginResult.txt"
         login_items = self.test_read_txt(result_path)
         loginitems = ast.literal_eval(login_items)
         return loginitems
 
     # 读取pc端登录返回值
     def test_read_systemId(self,systemName):
-        webresult_path = "E:/test/dcms/ChengGuan/common/webLoginResult.txt"
+        webresult_path = getConstant.PROJECT_PATH+"/common/webLoginResult.txt"
         weblogin_items = self.test_read_txt(webresult_path)
         webloginitems = ast.literal_eval(weblogin_items)
         for item in webloginitems:
             if item['sysName'] == systemName:
                 systemId = item['sysId']
         return systemId
+
+    #读取mark标记
+    def test_read_numberMark(self):
+        markpath = getConstant.PROJECT_PATH+"/common/numberMark.txt"
+        mark_items = self.test_read_txt(markpath)
+        mark = ast.literal_eval(mark_items)
+        return mark

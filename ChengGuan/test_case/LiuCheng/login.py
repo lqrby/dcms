@@ -3,7 +3,8 @@ import json
 import requests
 import sys
 import time
-from config.Log import logging
+# from config.Log import logging
+from selenium import webdriver
 from bs4 import BeautifulSoup
 sys.path.append("E:/test/dcms/ChengGuan")
 from common.writeAndReadText import writeAndReadTextFile
@@ -156,9 +157,9 @@ class allLogin():
             writeAndReadTextFile().test_write_txt(path,str(loginObj))
             
 
-# if __name__=="__main__":
-#     driver = webdriver.Chrome("D:/python/chromeDriverSever/chromedriver.exe")  
-#     allLogin().test_web_login(driver)
-#     allLogin().test_app_allLogin()
+if __name__=="__main__":
+    driver = webdriver.Chrome("D:/python/chromeDriverSever/chromedriver.exe")  
+    allLogin().test_web_login(driver)
+    # allLogin().test_app_allLogin()
 
     
