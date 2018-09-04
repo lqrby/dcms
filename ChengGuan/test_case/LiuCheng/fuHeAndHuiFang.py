@@ -163,24 +163,24 @@ class reviewAndReturnVisit():
             return False
 
     #网格管理员进入案卷详情并复核
-    def test_app_wggly_returnDetailsAndVisit(self):
+    def test_app_returnDetailsAndVisit(self,fh_item):
         # 获取列表
         wgglylist_res = self.test_app_wggly_returnVisitList()
         if wgglylist_res != False:
             dcl_count = re.search('<caseCheckList count="(.*?)">',wgglylist_res).group(1)
             if int(dcl_count)>0:
-                login_items = writeAndReadTextFile().test_read_appLoginResult()
-                wgglyItem = login_items['wggly']
-                if wgglyItem['message']== 'success':
-                    wgglyUser = wgglyItem['user']
-                    wggly_userId = wgglyUser['id']
+                # login_items = writeAndReadTextFile().test_read_appLoginResult()
+                # wgglyItem = login_items['wggly']
+                # if wgglyItem['message']== 'success':
+                #     wgglyUser = wgglyItem['user']
+                #     wggly_userId = wgglyUser['id']
                 wgglydclId = re.compile('<id>(.*?)</id>').search(wgglylist_res).group(1)
                 wggly_cl_url = getConstant.IP_WEB_180+"/dcms/pwasCase/Case-pdacheckCase.action"
                 wggly_cl_data = {
                     "id":wgglydclId,
                     "checkdesc":"经复核有效",
-                    "casestateid.id":"402880822f3eca29012f3ed146b30006",
-                    "checkid.id":wggly_userId,
+                    "casestateid.id":"402880822f3eca29012f3ed146b30006", #状态
+                    "checkid.id":fh_item['id'],
                     "taskprocess":""
                 }
                 wgglycl_res = requests.post(wggly_cl_url,wggly_cl_data).text

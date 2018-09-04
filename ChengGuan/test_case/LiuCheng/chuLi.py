@@ -112,7 +112,7 @@ class fileFandling():
     def test_app_handlingDetailsAndHandling(self,loginUser):
         # 获取待处理列表
         ajlb_Result = self.test_app_PendingList(loginUser)
-        print(ajlb_Result)
+        # print(ajlb_Result)
         if ajlb_Result != False:
             ajlbResult = json.loads(ajlb_Result)
             if 'message' in ajlbResult and ajlbResult['message']=='success':

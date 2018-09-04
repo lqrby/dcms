@@ -26,8 +26,8 @@ class distribution():
 
     #进入待派发案卷详情并派发
     def test_sendDetailsAndSendOut(self,item):
-        # 获取待派发列表
-        pf_res = self.test_PendingDistributionList()
+        
+        pf_res = self.test_PendingDistributionList() # 获取待派发列表
         if pf_res != False:
             result = BeautifulSoup(pf_res,'html.parser')
             number= re.compile('<span id="pagemsg" style="(.*?)"><label>总共(.*?)页,(.*?)条记录</label></span>').search(pf_res).group(3)
@@ -38,6 +38,7 @@ class distribution():
                 menuId = re.compile('<input type="hidden" id="menuId" name="menuId" value="(.*?)" />').search(pf_res).group(1)
                 case_state = re.compile('<input type="hidden" name="casestate" id="casestate" value="(.*?)"/>').search(pf_res).group(1)
                 Matching_result = re.compile(r'<tr[\s\S]*id="(.*?)"[\s\S]*onclick="casedo[\(](.*?),(.*?),(.*?),(.*?),this[\)]">').search(str_tr)
+                
                 dpf_id = Matching_result.group(1)
                 dpf_taskprocessId = Matching_result.group(5).strip("'")
                 # 进入待派发案卷详情
@@ -62,7 +63,7 @@ class distribution():
                     deptname = re.compile('<input type="text" onclick="(.*?)" readonly="" id="deptname" name="(.*?)" value="(.*?)">').search(paifa_res).group(1)
                 else:
                     deptname = item["deptname"]
-                    dispatchDeptname = item["deptname"]
+                    dispatchDeptname = item["dispatchDeptname"]
                     dispatchDeptid = item["deptid"]
                     dispatchUserid = item["id"]
                 if not deptname.strip() and not dispatchDeptid.strip():
@@ -107,6 +108,12 @@ class distribution():
 
 
 # if __name__=="__main__": 
-#     loginItems = writeAndReadTextFile().test_read_appLoginResult()
-#     zfjItem = loginItems['wggly']['user']
-#     distribution().test_sendDetailsAndSendOut(zfjItem)
+
+#     loginItemsUser = writeAndReadTextFile().test_read_appLoginResult()
+#     loginItem_qsdw = loginItemsUser['qsdw']['user']
+#     item = {}
+#     item['id'] = loginItem_qsdw['id']
+#     item["deptname"] = loginItem_qsdw['deptname']
+#     item["dispatchDeptname"] = loginItem_qsdw['deptname']
+#     item["deptid"] = loginItem_qsdw['deptid']
+#     distribution().test_sendDetailsAndSendOut(item)

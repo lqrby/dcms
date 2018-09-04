@@ -163,15 +163,15 @@ class submitOrder():
         # sb_data = writeAndReadTextFile().test_read_txt('E:/test/dcms/ChengGuan/testFile/shangBao/gongdanluru_app_zfj.txt')
         # objlist = sb_data.split(",")
         shangbao_data = {
-            "eorc.id":dataObject['eorcId'],#类型
+            "eorc.id":dataObject['eorcId'],#事部件类型 
             "fieldintro":dataObject['fieldintro'],
             "deptId":"",
             "mposl":dataObject['mposl'],
             "description":dataObject['description'],
             "objcode":"",
             "eventtypeone.id":dataObject['eventtypeoneId'], #大类  市容环境
-            "gridid":dataObject['gridid'],
-            "bgadminid.id":dataObject['loginUser']['id'], #上报人id
+            "gridid":dataObject['gridId'],
+            "bgadminid.id":dataObject['bgadminId'], #上报人id
             "eventtypetwo.id":dataObject['eventtypetwoId'], #小类   道路不洁
             "mposb":dataObject['mposb']
         }
