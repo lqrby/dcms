@@ -14,10 +14,13 @@ from common.writeAndReadText import writeAndReadTextFile
 
 class fileFandling():
 
+    def __init__(self,loginUser):
+        self.loginUser = loginUser
+
     #web查询待处理案卷列表    
     def test_web_PendingList(self):
         cookies = writeAndReadTextFile().test_readCookies()
-        dcl_url = getConstant.IP_WEB_180+"/dcms//cwsCase/Case-deallist.action?casestate=30&menuId=402880822f9490ad012f949be0e80053&keywords=402880eb2f90e905012f9138a5fb00a4"
+        dcl_url = getConstant.IP_WEB_91+"/dcms//cwsCase/Case-deallist.action?casestate=30&menuId=402880822f9490ad012f949be0e80053&keywords=402880eb2f90e905012f9138a5fb00a4"
         header = {
             "Cookie":cookies
         }
@@ -41,7 +44,7 @@ class fileFandling():
             dcl_menuid = pattern.search(str_tr).group(2).strip("'")
             dcl_taskprocess = pattern.search(str_tr).group(5).strip("'")
             # 待处理详情url
-            dclxq_url = getConstant.IP_WEB_180+"/dcms/cwsCase/Case-dealview.action?id="+dclid+"&menuId="+dcl_menuid+"&taskprocess="+dcl_taskprocess
+            dclxq_url = getConstant.IP_WEB_91+"/dcms/cwsCase/Case-dealview.action?id="+dclid+"&menuId="+dcl_menuid+"&taskprocess="+dcl_taskprocess
             dclxq_cookies = writeAndReadTextFile().test_readCookies()
             header = {
             "Cookie":dclxq_cookies
@@ -83,20 +86,18 @@ class fileFandling():
             print("待处理列表暂无数据！！！")
 
 
-
-
 #移动端案卷处理==================================================================================
 #查询app待处理案卷列表
-    def test_app_PendingList(self,loginUser):
-        app_dcl_url = getConstant.IP_WEB_180+"/dcms/PwasAdmin/MobileCase-deallist.action"
+    def test_app_PendingList(self):
+        app_dcl_url = getConstant.IP_WEB_91+"/dcms/PwasAdmin/MobileCase-deallist.action"
         app_dcl_data = {
             "casestate":"30",
             "description":"",
             "page.pageSize":"20",
-            "deptid":loginUser['deptid'],
+            "deptid":self.loginUser['deptid'],
             "startTime":"",
             "endTime":"",
-            "userid":loginUser['id'],
+            "userid":self.loginUser['id'],
             "page.pageNo":"1"
         }   
         respons = requests.post(app_dcl_url,app_dcl_data).text
@@ -109,9 +110,9 @@ class fileFandling():
 
 
     #进入待处理案卷详情并处理
-    def test_app_handlingDetailsAndHandling(self,loginUser):
+    def test_app_handlingDetailsAndHandling(self):
         # 获取待处理列表
-        ajlb_Result = self.test_app_PendingList(loginUser)
+        ajlb_Result = self.test_app_PendingList()
         # print(ajlb_Result)
         if ajlb_Result != False:
             ajlbResult = json.loads(ajlb_Result)
@@ -124,17 +125,17 @@ class fileFandling():
                     ajxq_dealDeptName = ajxqItem['dealDeptName']
                     ajxq_taskID = ajxqItem['taskID']
                     ajxq_stateId = ajxqItem['stateId']
-                    cl_url = getConstant.IP_WEB_180+"/dcms/PwasAdmin/MobileCase-deal.action"
+                    cl_url = getConstant.IP_WEB_91+"/dcms/PwasAdmin/MobileCase-deal.action"
                     cl_data = {
-                        "operatingComments":"处理完成",
-                        "username":loginUser['name'],
+                        "operatingComments":self.loginUser['operatingComments'],
+                        "username":self.loginUser['name'],
                         "stateId":ajxq_stateId,
                         "isFh":ajxq_isFh,                               
-                        "deptid":loginUser['deptid'],
+                        "deptid":self.loginUser['deptid'],
                         "deptname":ajxq_dealDeptName,
                         "caseid":ajxq_id,
                         "resultprocess":"案件回访",
-                        "userid":loginUser['id'],
+                        "userid":self.loginUser['id'],
                         "taskprocess":ajxq_taskID
                     }
                     cl_res = requests.post(cl_url,cl_data).text
@@ -146,83 +147,12 @@ class fileFandling():
                         print("XXXXXXXXXX处理：处理时出现错误XXXXXXXXXX")
                         return False
                     
-    # *********************************************************************************************************
-    # #执法局app查询待处理案卷列表(执法局待处理案卷)    
-    # def test_app_zfj_PendingList(self):
-    #     login_items = writeAndReadTextFile().test_read_appLoginResult()
-    #     zfjItem = login_items['zfj']
-    #     if zfjItem['message']== 'success':
-    #         zfjUser = zfjItem['user']
-    #         zfj_userId = zfjUser['id']
-    #         zfj_deptId = zfjUser['deptid']
-    #         appdcl_url = getConstant.IP_WEB_180+"/dcms/PwasAdmin/MobileCase-deallist.action"
-    #         appdcl_data = {
-    #             "casestate":"30",
-    #             "description":"",
-    #             "page.pageSize":"20",
-    #             "deptid":zfj_deptId,
-    #             "startTime":"",
-    #             "endTime":"",
-    #             "userid":zfj_userId,
-    #             "page.pageNo":"1"
-    #         }   
-    #         zfj_respons = requests.post(appdcl_url,appdcl_data).text
-    #         return zfj_respons
-    #     else:
-    #         print("请先登录移动端执法局apk")
-
-    # #执法局app进入待处理案卷详情并处理
-    # def test_app_zfj_handlingDetailsAndHandling(self):
-    #     # 获取待处理列表
-    #     zfj_res = self.test_app_zfj_PendingList()
-    #     if zfj_res != None:
-    #         zfj_list = json.loads(zfj_res)
-    #         if 'message' in zfj_list and zfj_list['message']=='success':
-    #             # print("待处理(执法局apk):案卷列表查询成功")
-    #             if zfj_list['count']>0:
-    #                 zfjItem = zfj_list['data'][0]
-    #                 zfj_id = zfjItem['id']
-    #                 zfj_isFh = zfjItem['isFh']
-    #                 zfj_dealDeptName = zfjItem['dealDeptName']
-    #                 zfj_taskID = zfjItem['taskID']
-    #                 zfj_stateId = zfjItem['stateId']
-    #                 loginItem = writeAndReadTextFile().test_read_appLoginResult()
-    #                 zfjItem = loginItem['zfj']
-    #                 if zfjItem['message']== 'success':
-    #                     zfjUser = zfjItem['user']
-    #                     zfj_userId = zfjUser['id']
-    #                     zfj_username = zfjUser['name']
-    #                     zfj_deptId = zfjUser['deptid']
-    #                 cl_url = getConstant.IP_WEB_180+"/dcms/PwasAdmin/MobileCase-deal.action"
-    #                 cl_data = {
-    #                     "operatingComments":"处理完成",
-    #                     "username":zfj_username,
-    #                     "stateId":zfj_stateId,
-    #                     "isFh":zfj_isFh,                               
-    #                     "deptid":zfj_deptId,
-    #                     "deptname":zfj_dealDeptName,
-    #                     "caseid":zfj_id,
-    #                     "resultprocess":"案件回访",
-    #                     "userid":zfj_userId,
-    #                     "taskprocess":zfj_taskID
-    #                 }
-    #                 zfjcl_res = requests.post(cl_url,cl_data).text
-    #                 zfjclres = json.loads(zfjcl_res)
-    #                 if 'message' in zfjclres and zfjclres['message'] == 'success':
-    #                     print("案卷处理(执法局apk)：处理成功")
-    #                     return True
-    #                 else:
-    #                     print("XXXXXXXXXX案卷处理(执法局apk)：处理案卷出现错误XXXXXXXXXX")
-    #                     return False
-
-
+   
 
 # if __name__=="__main__": 
 #     # 权属单位案卷处理
-#     print("222222222222222222222222222")
 #     loginitems = writeAndReadTextFile().test_read_appLoginResult()
 #     qsdwItem = loginitems['qsdw']
-#     if qsdwItem['message'] == 'success':
-#         loginUser = qsdwItem['user']
-#         print("我还会执行吗？？？？？？？？？？？？？？？？？？？？？？？")
-#         fileFandling().test_app_handlingDetailsAndHandling(loginUser)
+#     # if qsdwItem['message'] == 'success':
+#     loginUser = qsdwItem['user']
+#     fileFandling(loginUser).test_app_handlingDetailsAndHandling()

@@ -9,20 +9,22 @@ from common.constant_all import getConstant
 from requests_toolbelt import MultipartEncoder
 
 class confirm():
+    def __init__(self,dataObject):
+        self.dataObject = dataObject
     # 进入待确认列表页面
     def test_web_UnconfirmedList(self):
         hjxt_id = writeAndReadTextFile().test_read_systemId('呼叫系统')
-        dqr_url = getConstant.IP+"/dcms/bmsAdmin/PlCaseUpdateAndDel-toMakesurelist.action?menuId=4028338158eb8df90158ebfbdd7c002b&keywords="+hjxt_id
+        dqr_url = getConstant.IP_WEB_91+"/dcms/bmsAdmin/PlCaseUpdateAndDel-toMakesurelist.action?menuId=4028338158eb8df90158ebfbdd7c002b&keywords="+hjxt_id
         dqr_header = {
             "Cookie":writeAndReadTextFile().test_readCookies()
         }
         dqr_res = requests.get(dqr_url,headers=dqr_header,allow_redirects=False)
         return dqr_res
 
-    def test_web_UnconfirmedDetail(self,dataObject):
+    def test_web_UnconfirmedDetail(self):
         dqrresObj = self.test_web_UnconfirmedList()
         dqrres = dqrresObj.text
-        login_url = getConstant.IP_WEB_180+"/dcms/bms/login.jsp"
+        login_url = getConstant.IP_WEB_91+"/dcms/bms/login.jsp"
         if '<span id="pagemsg"' in dqrres:
             # print("待确认：查询列表成功")
             dqrNumber = re.compile('<label>总共(.*?)页,(.*?)条记录</label>').search(dqrres).group(2)
@@ -31,7 +33,7 @@ class confirm():
                 dqr_menuId = re.compile('<input type="hidden" name="menuId" id="menuId" value="(.*?)"/>').search(dqrres).group(1)
                 dqrId = re.compile('<input name="ids" id="ids" type="checkbox" value="(.*?)" />').search(dqrres).group(1)
                 dqr_updateCaseGetUrl = re.compile('updateCaseGetUrl=(.*?)"').search(dqrres).group(1)
-                dqrDetail_url = getConstant.IP+"/dcms/ccsCase/Case-callinput.action?id="+dqrId+"&menuId="+dqr_menuId+"&keyword=&updateCaseGetUrl="+dqr_updateCaseGetUrl
+                dqrDetail_url = getConstant.IP_WEB_91+"/dcms/ccsCase/Case-callinput.action?id="+dqrId+"&menuId="+dqr_menuId+"&keyword=&updateCaseGetUrl="+dqr_updateCaseGetUrl
                 dqrDetail_header = {
                     "Cookie":writeAndReadTextFile().test_readCookies()
                 }
@@ -44,10 +46,10 @@ class confirm():
                     dqr_select_eventtypeoneid = dqr_result.find('select', attrs={'id': 'eventtypeoneid'})
                     dqr_select_eventtypetwoid = dqr_result.find('select', attrs={'id': 'eventtypetwoid'})
                     dqr_select_needconfirm = dqr_result.find('select', attrs={'id': 'needconfirm'})
-                    if dataObject != {}:
-                        loginUser = dataObject['loginUser']
-                        dqr_needconfirm = dataObject['needconfirm']
-                        dqr_isFh = dataObject['isFh']
+                    if self.dataObject != {}:
+                        loginUser = self.dataObject['loginUser']
+                        dqr_needconfirm = self.dataObject['needconfirm']
+                        dqr_isFh = self.dataObject['isFh']
                     else:
                         loginItems = writeAndReadTextFile().test_read_appLoginResult()
                         loginUser = loginItems['wggly']['user']#核实人
@@ -100,7 +102,7 @@ class confirm():
                     dqr_dealWay = re.compile('<input type="radio" id="(.*?)" name="dealWay" checked>(.*?)</input>').search(dqrDetail_res).group(1)
                     #位置描述
                     dqr_fieldintro = re.compile('<textarea id="fieldintro" cols="30" rows="2" name="fieldintro" oninput="(.*?)">(.*?)</textarea>').search(dqrDetail_res).group(2)
-                    qr_url = getConstant.IP_WEB_180+"/dcms/ccsCase/Case-callToCaseStart.action"
+                    qr_url = getConstant.IP_WEB_91+"/dcms/ccsCase/Case-callToCaseStart.action"
                     webdata = writeAndReadTextFile().test_read_txt('E:/test/dcms/ChengGuan/testFile/queRen/querenanjuan_web.txt')
                     picpath = "E:/test/dcms/ChengGuan/testFile/img/8.png"
                     dqr_img_value = ('8.png', open(picpath,'rb'),'multipart/form-data')
@@ -133,11 +135,11 @@ class confirm():
                             "eventtypeone.id":dqr_eventtypeoneid,
                             "eventtypetwo.id":dqr_eventtypetwoid,
                             "startConditionId":"", #这里是立案条件
-                            "regioncode.id":dataObject['regioncodeId'],
-                            "bgcode.id":dataObject['bgcodeId'],
+                            "regioncode.id":self.dataObject['regioncodeId'],
+                            "bgcode.id":self.dataObject['bgcodeId'],
                             "objcode":"",
-                            "bgadminid.id":loginUser['id'],
-                            "bgadminid2":loginUser['name'],#管理员名称
+                            "bgadminid.id":self.dataObject['loginUser']['id'],
+                            "bgadminid2":self.dataObject['loginUser']['name'],#管理员名称
                             "gridid":dqr_gridid,
                             "needconfirm":dqr_needconfirm,
                             "description":dqr_description,

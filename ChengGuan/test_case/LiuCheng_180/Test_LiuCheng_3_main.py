@@ -64,7 +64,7 @@ class MyTest2(unittest.TestCase):     #封装测试环境的初始化和还原�
         dataObject['fieldintro'] = '吉林市 丰满区 江南街道 南山社区 南山社区第四网格 ' #位置描述
         # dataObject['needconfirm'] = getConstant.NEEDCONFIRM_YES #核实
         # dataObject['isFh'] = getConstant.ISFH_NO #回访
-        zfj_res = submitOrder().test_app_submitOrder(dataObject)
+        zfj_res = submitOrder(dataObject).test_app_submitOrder()
         if zfj_res:
             dict_mark["zfj_sb"] = str(number)
             writeAndReadTextFile().test_write_txt(markPath,json.dumps(dict_mark))
