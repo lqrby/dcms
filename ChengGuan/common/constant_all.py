@@ -3,11 +3,7 @@
 # @Time    : 2018-07-09 14:00
 # constant/constant_1.py
 # 常量部分（固定不变使用频繁的参数维护在此处）
-#正式库ip地址
-#IP = 'http://122.137.242.15'  
-#uat服务ip地址
-#IP = 'http://122.137.242.91'
-#180服务ip地址
+
 from PIL import Image
 import unittest
 from selenium import webdriver
@@ -31,9 +27,9 @@ from selenium import webdriver
 import time
 from PIL import ImageGrab
 class getConstant():
-    IP = "http://219.149.226.180"
-    # IP = "http://122.137.242.91"
-    # IP = "http://122.137.242.15"
+    # IP = "http://219.149.226.180"
+    IP = "http://122.137.242.91"
+    #IP = "http://122.137.242.15"
     # IP_WEB_180 = "http://219.149.226.180:7897"
     # IP_APP_180 = "http://219.149.226.180:7880"
     PORT_7897 = ":7897" #180服务城管>接口
@@ -136,11 +132,17 @@ class getConstant():
     BJ_YLLH_LD = "4028838358b04eb70158b2c22d265256" #古树名木
     BJ_YLLH_LD = "4028838358b04eb70158b2c2cea7525a" #绿地栅栏
 
-
+    #待派发列表url
+    dpf_ListUrl = '/dcms/cwsCase/Case-dispatchlist.action?casestate=20&menuId=4028338158a414bd0158a484daae000e&keywords=402880ea2f6bd924012f6c521e8c0034'
+    #待调整列表url
+    dtz_ListUrl = '/dcms/cwsCase/Case-adjustlist.action?casestate=40&menuId=402880822f9490ad012f949b98b4004c&keywords=402880eb2f90e905012f9138a5fb00a4'
+    #派发/调整/挂起
+    pf_url = '/dcms/cwsCase/Case-dispatch.action'
+    
+    #申请非正常结案url
+    sqfzcja_url = '/dcms/cwsCase/Case-applyabnormal.action'
 
     
-
-
 
 
 
