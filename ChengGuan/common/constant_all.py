@@ -27,9 +27,9 @@ from selenium import webdriver
 import time
 from PIL import ImageGrab
 class getConstant():
-    # IP = "http://219.149.226.180"
-    IP = "http://122.137.242.91"
-    #IP = "http://122.137.242.15"
+    IP = "http://219.149.226.180"
+    # IP = "http://122.137.242.91"
+    ####IP = "http://122.137.242.15"
     # IP_WEB_180 = "http://219.149.226.180:7897"
     # IP_APP_180 = "http://219.149.226.180:7880"
     PORT_7897 = ":7897" #180服务城管>接口

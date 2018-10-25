@@ -7,7 +7,10 @@ def test_app_ReportPicture(imgUrl,picturePath):
     for i,img in enumerate(picturePath):
         files = {'upload': ('image', open(img,'rb'),'multipart/form-data')}
         objsbres = requests.post(url=imgUrl,files=files).text
-        obj_result = re.compile("<issuc>(.*?)</issuc>").search(objsbres).group()
+        if '<issuc>' in objsbres:
+            obj_result = re.compile("<issuc>(.*?)</issuc>").search(objsbres).group()
+        else:
+            obj_result = False
         if obj_result:
             print("图片%d上传成功"%i)
         else:
