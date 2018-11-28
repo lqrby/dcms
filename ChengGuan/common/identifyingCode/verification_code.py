@@ -93,14 +93,14 @@ def verificationCode(im):
     joinImgValue = []
 
     for im4 in image_split_arr:
-
+        # print(im4)
         guess = []
 
         #将切割得到的验证码小片段与每个训练片段进行比较
         for image in imageset:
-
+            
             for x,y in image.items():
-
+                
                 if len(y) != 0:
 
                     guess.append( ( v.relation(y[0],buildvector(im4)),x) )
@@ -117,7 +117,7 @@ def verificationCode(im):
 
         # print("验证码是：",text)
 
-    return text
+    return text,image_split_arr
 
 # if __name__ == "__main__":
 #     filePath = 'E:/test/dcms/ChengGuan/common/img/174yzm.png'

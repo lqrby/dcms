@@ -27,8 +27,8 @@ from selenium import webdriver
 import time
 from PIL import ImageGrab
 class getConstant():
-    # IP = "http://219.149.226.180"
-    IP = "http://122.137.242.91"
+    IP = "http://219.149.226.180"
+    # IP = "http://122.137.242.91"
     ####IP = "http://122.137.242.15"
     # IP_WEB_180 = "http://219.149.226.180:7897"
     # IP_APP_180 = "http://219.149.226.180:7880"
@@ -129,8 +129,8 @@ class getConstant():
 
     #园林绿化>小类
     BJ_YLLH_LD = "4028838358b04eb70158b2c27d4f5258" #绿地
-    BJ_YLLH_LD = "4028838358b04eb70158b2c22d265256" #古树名木
-    BJ_YLLH_LD = "4028838358b04eb70158b2c2cea7525a" #绿地栅栏
+    BJ_YLLH_GSMM = "4028838358b04eb70158b2c22d265256" #古树名木
+    BJ_YLLH_LDSL = "4028838358b04eb70158b2c2cea7525a" #绿地栅栏
 
     #待派发列表url
     dpf_ListUrl = '/dcms/cwsCase/Case-dispatchlist.action?casestate=20&menuId=4028338158a414bd0158a484daae000e&keywords=402880ea2f6bd924012f6c521e8c0034'

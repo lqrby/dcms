@@ -80,14 +80,9 @@ def image_split(img, outDir, count, p_w):
         nextX = sort[0]['x_pos']
         # print("第",i+1,"次的结束坐标是：",nextX)
         box = (beforeX, 0, nextX, h) # (切割的起始横坐标，起始纵坐标，切割结束的横坐标（宽度），切割的高度)
-        # print("****",box)
-        
-        # inletter == False
-        
-        # time.sleep(2)
         # print(img.crop(box))
         # img.crop(box).save("F:/code/case/image/"+outDir+".png")
-        img.crop(box).save("E:/test/dcms/ChengGuan/common/image/"+ outDir + str(i) + ".png")
+        # img.crop(box).save("E:/test/dcms/ChengGuan/common/image/"+ outDir + str(i) + ".png")
         # time.sleep(2)
         letters.append(img.crop(box))
         beforeX = nextX
