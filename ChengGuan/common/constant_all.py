@@ -27,9 +27,9 @@ from selenium import webdriver
 import time
 from PIL import ImageGrab
 class getConstant():
-    IP = "http://219.149.226.180"
-    # IP = "http://122.137.242.91"
-    #IP = "http://122.137.242.15"
+    # IP = "http://219.149.226.180"
+    IP = "http://122.137.242.91"
+    # IP = "http://122.137.242.15"
     # IP_WEB_180 = "http://219.149.226.180:7897"
     # IP_APP_180 = "http://219.149.226.180:7880"
     PORT_7897 = ":7897" #180服务城管>接口
@@ -108,7 +108,7 @@ class getConstant():
     BJ_JTSS = "402881795961e05b015961e8c6660002" #交通设施
     BJ_GGSS = "402880923338d4ff013339bb523e0d1d" #公共设施
     BJ_SRHJ = "402880923338d4ff013339158e0606b5" #市容环境
-    BJ_YLLH = "402880923338d4ff013339a131470a1a" #园林绿化
+    BJ_YLLH = "402880923338d4ff013339a131470a1a" #园林绿化设施
 
     #部件小类
     #交通设施>小类
@@ -135,10 +135,25 @@ class getConstant():
     BJ_SRHJ_GGCS = "402881795961e05b015961f494e40018" #公共厕所
     BJ_SRHJ_LJJ = "402881795961e05b015961f4c7b6001a" #垃圾间
 
-    #园林绿化>小类
+    #园林绿化设施>小类
     BJ_YLLH_LD = "4028838358b04eb70158b2c27d4f5258" #绿地
+    BJ_YLLH_DS = "8a8a84835c3dcaea015c48f712ae047d" #雕塑
+    BJ_YLLH_PQ = "8a8a84835c3dcaea015c48f7dab1047f" #喷泉
+    
+    BJ_YLLH_HDS = "8a8a84835c3dcaea015c48f5f4ab0479" #行道树
+    BJ_YLLH_DLS = "8a8a84825c3dc7cb015c48f633f404e3" #独立树
     BJ_YLLH_GSMM = "4028838358b04eb70158b2c22d265256" #古树名木
-    BJ_YLLH_LDSL = "4028838358b04eb70158b2c2cea7525a" #绿地栅栏
+    BJ_YLLH_LDHL = "4028838358b04eb70158b2c2cea7525a" #绿地护栏
+    BJ_YLLH_HSSS = "8a8a84835c3dcaea015c48f693f8047b" #护树设施
+    BJ_YLLH_HJHB = "8a8a84825c3dc7cb015c48f6ce8e04e5" #花架花钵
+    BJ_YLLH_JTZY = "8a8a84825c3dc7cb015c48f7537d04e7" #街头坐椅
+    BJ_YLLH_LDWHSS = "8a8a84825c3dc7cb015c48f7a39104e9" #绿地维护设施
+    BJ_YLLH_QTYLSS = "8a8a84825c3dc7cb015c48f80f9904eb" #其他园林绿化设施
+
+
+
+
+
 
     #待派发列表url
     dpf_ListUrl = '/dcms/cwsCase/Case-dispatchlist.action?casestate=20&menuId=4028338158a414bd0158a484daae000e&keywords=402880ea2f6bd924012f6c521e8c0034'
@@ -149,6 +164,18 @@ class getConstant():
     
     #申请非正常结案url
     sqfzcja_url = '/dcms/cwsCase/Case-applyabnormal.action'
+
+
+
+    #构建维护系统>>用户权限配置
+    authority_XJCC = "402883845f295831015f296be837003d"        #巡检抽查
+    authority_YYWR = "8a8a848260e4cad20160e80d173a1a61"        #油烟污染
+    authority_DCKH = "8a8a848261464b200161543976571a61"        #督查考核
+    authority_JTJT = "8a8a8482645fd43301645fd8461c0020"        #静态交通
+    authority_DBZD = "402883835baa13f2015bad850b66000c"        #督办指导
+    authority_WFJJ = "8a8a84835f9608f8015fa4f582f61c5d"        #违法建筑
+    authority_LT = "8a8a848361464faa01615438e5051c37"          #论坛
+    authority_LD = "8a8a84835adcc7b3015ba3ec8296345f"          #领导
 
     
 
