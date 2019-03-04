@@ -22,7 +22,6 @@ class submitOrder():
             self.ip = getConstant.IP
         self.app_header = {
             "User-Agent": "Android/8.0",
-            # "Content-Type":"application/x-www-form-urlencoded",
             "Connection":"Keep-Alive",
             "Accept-Encoding":"gzip"
         }

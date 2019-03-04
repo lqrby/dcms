@@ -23,14 +23,19 @@ class fileFandling():
             self.ip = getConstant.IP+getConstant.PORT_7897
         else:
             self.ip = getConstant.IP
+
         self.app_header = {
             "User-Agent":"Android/8.0",
-            # "Content-Type":"application/x-www-form-urlencoded",
             "Connection":"Keep-Alive",
             "Accept-Encoding":"gzip"
         }
+        
         self.header = {
-            "Cookie":"writeAndReadTextFile().test_readCookies()"
+            "User-Agent":"Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/71.0.3578.98 Safari/537.36",
+            "Accept":"text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8",
+            "Accept-Encoding":"gzip, deflate",
+            "Accept-Language":"zh-CN,zh;q=0.9,en;q=0.8",
+            "Cookie":writeAndReadTextFile().test_readCookies()
         }
     #web查询待处理案卷列表    
     def test_web_PendingList(self):
