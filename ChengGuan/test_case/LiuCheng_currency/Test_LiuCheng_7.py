@@ -32,7 +32,7 @@ class MyTest2(unittest.TestCase):     #封装测试环境的初始化和还原�
         
     
     #执法局上报案卷（移动端）
-    def test_3gongDan(self):
+    def gongDan(self):
         time.sleep(random.randint(1,3)) 
         markPath = getConstant.PROJECT_PATH+"/common/numberMark.txt"
         mark = writeAndReadTextFile().test_read_txt(markPath)
@@ -63,7 +63,7 @@ class MyTest2(unittest.TestCase):     #封装测试环境的初始化和还原�
 
 
     #web端立案   
-    def test_4liAn(self):
+    def liAn(self):
         time.sleep(random.randint(1,3)) 
         lianData = {}
         lianData['resultprocess'] = "立案"
@@ -76,7 +76,7 @@ class MyTest2(unittest.TestCase):     #封装测试环境的初始化和还原�
 
 
     # #web端派发时挂起
-    def test_5guaQi(self):
+    def guaQi(self):
         time.sleep(random.randint(1,2))  
         pf_loginItem = self.loginItems['qsdw']['user']
         outDir = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())
@@ -92,7 +92,7 @@ class MyTest2(unittest.TestCase):     #封装测试环境的初始化和还原�
             logging.info("*****5.web挂起完毕*****")
 
     #挂账》恢复
-    def test_6huiFu(self):
+    def huiFu(self):
         gzItem = {}
         gzItem['resultprocess'] = '恢复'
         gzItem['operatingComments'] = '恢复案卷流程'
@@ -101,7 +101,7 @@ class MyTest2(unittest.TestCase):     #封装测试环境的初始化和还原�
             logging.info("*****6.web挂账案卷恢复成功*****")  
 
     # #web端派发>申请非正常结案
-    def test_7feiZhengChangJieAn(self):
+    def feiZhengChangJieAn(self):
         time.sleep(random.randint(1,2))  
         pf_loginItem = self.loginItems['qsdw']['user']
         pf_loginItem['limittime'] = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())
@@ -116,9 +116,10 @@ class MyTest2(unittest.TestCase):     #封装测试环境的初始化和还原�
             logging.info("*****7.web申请非正常结案完毕*****")    
 
     #批示（批准结案）
-    def test_8piZhunJieAn(self):
+    def piShi(self):
         time.sleep(random.randint(1,2)) 
         dataItem = {}
+        dataItem['oderNumber'] = self.oderNumber
         dataItem['resultprocess'] = "批准"
         dataItem['leaderComments'] = "批准了"
         psres = Approval(dataItem).stayApprovalDetail()
@@ -132,6 +133,21 @@ class MyTest2(unittest.TestCase):     #封装测试环境的初始化和还原�
     @classmethod
     def tearDownClass(cls): 
         logging.info("***流程结束***")
+
+
+
+    def test_liucheng_1(self):
+        self.oderNumber = '201902270025'
+        for i in range(1):
+            # self.gongDan()
+            # self.liAn()
+            # self.paiFa()
+            # self.chuLi()
+            # self.tiaoZhengPiShi()
+            self.piShi()
+            # self.daiTiaoZheng()
+            # self.chuLis()
+            # self.fuHe()
 
 if __name__=="__main__":
     unittest.main()

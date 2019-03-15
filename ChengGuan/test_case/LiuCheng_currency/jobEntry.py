@@ -93,10 +93,8 @@ class submitOrder():
         mystr = web_res.find("errorCode")
         if mystr != -1:
             print("XXXXXXXXXXweb工单录入失败XXXXXXXXXX")
-            return False
         elif ('Set-Cookie' in webres.headers):
             print("xxxxxxxxx对不起您未登录，请登录后再上报工单xxxxxxxx")
-            return False
         else:
             print("web工单录入成功")  
             return True
@@ -169,9 +167,9 @@ class submitOrder():
             "eventoneid":self.orderData['eventoneid'],#大
             "eventtwoid":self.orderData['eventtwoid']
         }
-        sb_respons = requests.post(smsubmiturl,sm_data,henders = self.app_header,timeout = 20)
+        sb_respons = requests.post(smsubmiturl,sm_data,headers = self.app_header,timeout = 20)
         res = sb_respons.text
-        sb_respons.connection.colse()
+        sb_respons.connection.close()
         smsb_list = json.loads(res)
         if 'message' in smsb_list:
             print("市民-案卷上报成功")

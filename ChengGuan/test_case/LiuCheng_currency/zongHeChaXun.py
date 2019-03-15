@@ -26,7 +26,6 @@ class colligateQuery():
 
         self.header = {
             "Cookie":writeAndReadTextFile().test_readCookies(),
-            "Upgrade-Insecure-Requests": "1",
             "User-Agent": "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/69.0.3497.100 Safari/537.36",
             "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8",
             "Accept-Encoding": "gzip, deflate",
@@ -38,7 +37,58 @@ class colligateQuery():
             "Connection":"Keep-Alive",
             "Accept-Encoding":"gzip"
         }
-        
+        self.keywords = writeAndReadTextFile().test_read_systemId('呼叫系统')
+
+
+    # 综合查询》条件查询
+    def selectOder(self):
+        oderid = ""
+        # 上报日期
+        selectUrl = self.ip+"/dcms/bmsUniversal/UniversalCaseQuery-list.action"
+        selectData = {
+            "isExport":"", 
+            "caseid":"", #time.strftime("%Y%m%d"), # 20190314
+            "casestateid.id":"", 
+            "pf":"", 
+            "source.id":"", 
+            "id":"", 
+            "description":self.loginItems['description'],
+            "fieldintro":"", 
+            "regioncode":"", 
+            "bgadminid.id":"",
+            "starttime": str(time.strftime("%Y-%m-%d"))+' 00:00:00',
+            "endstarttime":"", 
+            "chengbanbumenId":"", 
+            "eorc.id":"", 
+            "eventtypeone.id":"", 
+            "eventtypetwo.id":"", 
+            "deptid":"", 
+            "zxuserid":"", 
+            "page.pageNo": "1",
+            "menuId": "4028838358b7f73b0158b9e7f3480c59",
+            "keywords": self.keywords
+        }
+        select_Result = requests.post(selectUrl,selectData,headers = self.header,allow_redirects = False, timeout = 20)
+        selectResult = select_Result.text
+        if '<span id="pagemsg"' in selectResult:
+            count = re.compile('<label>总共(.*?)页,(.*?)条记录</label>').search(selectResult).group(2)
+            if count == "1":
+                mysoup = BeautifulSoup(selectResult,'html.parser')
+                table = mysoup.find('table')
+                oderid = table.find_all('td')[0].get_text()  #re.compile('<tr id="(.*?)"').search(str(table)).group(1)
+                return oderid.strip()
+            elif count > "1":
+                print("查询结果又多条案卷，请您确认并输入工单号")
+                oderid = input("输入工单号")
+                return oderid
+            else:
+                print("查询结果为空！！！")
+        elif 'location' in select_Result.headers and '/dcms/bms/login' in select_Result.headers['location']:
+            print("对不起，请您先登录web端！！！")
+        else:
+            print("XXXXXXXXXXXXXX查询出错XXXXXXXXXXXXX")
+
+
     # WEB端综合查询列表列表（默认查询当天的案卷）
     def test_web_zongHeList(self):
         zhcxurl = self.ip+"/dcms/bmsUniversal/UniversalCaseQuery-list.action?menuId={}&keywords={}".format(self.menuId,self.keywords)

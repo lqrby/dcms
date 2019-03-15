@@ -1,22 +1,41 @@
 
+正式库可用功能
+
+1.新增用户、配置权限、删除用户
+2.
 
 
-PC端
 
-1. pc端登录 : test_2web_chengguan_login.py    OK
-2. pc端上报案卷 : test_3web_hjxt_entry.py     OK
-3. pc端案卷确认 : test_3web_hjxt_queRen.py    OK
-3. pc端坐席立案 : test_4web_hjxt_liAn.py      OK
-4. pc端派发案卷 : test_5web_hjxt_paiFa.py     OK
-5. PC端处理案卷 : test_6web_hjxt_chuLi.py     OK
-6. pc端案卷回访 : test_7web_hjxt_huiFang.py   OK
-10.pc端删除案卷 : test_10web_deleteFile.py    OK
+城管所有功能
+PC端     
+        登录                     ok
+        工单录入                  ok
+        确认工单                  ok
+        立案                      ok
+        派发                      ok
+        处理                      ok
+        回访                      ok
+        结案
+        挂起                      ok
+        调整批示                  ok
+        待调整                    ok
+        调整控制                  OK
+        批示                     ok
+        导出                     ok
+        新增用户、配置权限、删除用户      ok
+        来源统计
+        兴趣点图标上传
+        综合查询
 
+移动端   
+        apk登录
+        案卷上报
+        核实案卷
+        处理案卷
+        复核案卷
+        快速上报处理
+        巡检上报
 
-市民id : dc7e8a6efc52452081b1aad1b9a94a88
-执法局id : 8a8a84825c269b40015c2ac045e0005b
-权属单位id : 402883845dc59a63015dc68f5b7b034c
-网格管理员id : 402883845acbc792015aee5feb020045
 
 
 更新日期2.28

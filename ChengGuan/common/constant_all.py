@@ -46,10 +46,13 @@ class getConstant():
     NEEDCONFIRM_NO = "0"
 
 
-    #核实有效:402880822f3eca29012f3ed0218c0002   核实无效:402880822f3eca29012f3ecf72020001
-    HSYX = '402880822f3eca29012f3ed0218c0002'
-    HSWX = '402880822f3eca29012f3ecf72020001'
+    HSYX = '402880822f3eca29012f3ed0218c0002' #核实有效
+    HSWX = '402880822f3eca29012f3ecf72020001' #核实无效
 
+    FHYX = '402880822f3eca29012f3ed146b30006' #复核有效
+    FHWX = '402880822f3eca29012f3ed1984d0007' #复核无效
+
+    
     #处理方式(复核1，回访0)
     ISFH_YES = "1"
     ISFH_NO = "0"
@@ -171,7 +174,7 @@ class getConstant():
     authority_XJCC = "402883845f295831015f296be837003d"        #巡检抽查
     authority_YYWR = "8a8a848260e4cad20160e80d173a1a61"        #油烟污染
     authority_DCKH = "8a8a848261464b200161543976571a61"        #督查考核
-    authority_JTJT = "8a8a8482645fd43301645fd8461c0020"        #静态交通
+    authority_JTJT = "8a8a848f645fa58401645fb6ab3e008e"        #静态交通
     authority_DBZD = "402883835baa13f2015bad850b66000c"        #督办指导
     authority_WFJJ = "8a8a84835f9608f8015fa4f582f61c5d"        #违法建筑
     authority_LT = "8a8a848361464faa01615438e5051c37"          #论坛

@@ -35,7 +35,15 @@ class MyTest(unittest.TestCase):     #封装测试环境的初始化和还原的
                 'qsdw':{'role':'6','logonname':'cshbj','logonpassword':'hbj!123456'},
                 'zfj':{'role':'5','logonname':'cszfj','logonpassword':'zfj!123456'},
             }
-            
+        elif '91' in getConstant.IP:
+            ip = getConstant.IP
+            userData = { 
+                'sm':{'loginName':'13161577834','password':'111111'},
+                'wggly':{'role':'2','logonname':'glyld','logonpassword':'gly!123456'},
+                'qsdw':{'role':'6','logonname':'hbjld','logonpassword':'hbj!123456'},
+                'zfj':{'role':'5','logonname':'zfjld','logonpassword':'zfj!123456'},
+                
+            }
         else:
             ip = getConstant.IP
             userData = { 
@@ -56,9 +64,9 @@ class MyTest(unittest.TestCase):     #封装测试环境的初始化和还原的
         
     #web端登录
     def test_1webLogin_lc5(self):
-        webLogin = self.loginObj.test_web_login()
-        while webLogin==False:
-            webLogin = self.loginObj.test_web_login()
+        self.loginObj.test_web_login()
+        # while webLogin==False:
+        #     webLogin = self.loginObj.test_web_login()
         logging.info("*****1.web端登录完毕*****")
 
     #移动端登录

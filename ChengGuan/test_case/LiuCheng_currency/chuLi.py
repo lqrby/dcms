@@ -37,11 +37,37 @@ class fileFandling():
             "Accept-Language":"zh-CN,zh;q=0.9,en;q=0.8",
             "Cookie":writeAndReadTextFile().test_readCookies()
         }
-    #web查询待处理案卷列表    
+        self.keywords = writeAndReadTextFile().test_read_systemId('协调系统')
+
+
+    #web查询待处理案卷列表  
+    # web端处理 headers=self.header必须是处理人的cookie,所有必须先登录处理人
+    #   
     def test_web_PendingList(self):
-        dcl_url = self.ip+"/dcms//cwsCase/Case-deallist.action?casestate=30&menuId=402880822f9490ad012f949be0e80053&keywords=402880eb2f90e905012f9138a5fb00a4"
+        trItem = ""
+        dcl_url = self.ip+"/dcms//cwsCase/Case-deallist.action?casestate=30&menuId=402880822f9490ad012f949be0e80053&keywords="+self.keywords
         respons = requests.get(url = dcl_url,headers=self.header,timeout = 15)
+        dclItem = respons.text
         respons.connection.close()
+        if '<span id="pagemsg"' in dclItem:
+            number= re.compile('<span id="pagemsg" style="(.*?)"><label>总共(.*?)页,(.*?)条记录</label></span>').search(dclItem).group(3)
+            if number > '0':
+                result = BeautifulSoup(dclItem,'html.parser')
+                divObj = result.find('div', attrs={'class':'mainContentTableContainer'})
+                table = divObj.findAll('table')[1]
+                table.findAll('tr')[0].extract()
+                for tr in table.findAll('tr'):
+                    td_number = tr.findAll('td')[-1]
+                    if td_number == self.loginUser['oderNumber']:
+                        trItem = tr
+                        break
+                return trItem
+            else:
+                print("web端待处理列表暂时为空！！！")
+        elif '<title>登录</title>' in dclItem:
+            print("对不起请您先登录！！！")
+        else:
+            print("XXXXXXXXXXXXXXXX查询待处理列表出错XXXXXXXXXXXXXXXXX")
         # print("待处理列表",respons)
         return respons
 
@@ -49,18 +75,11 @@ class fileFandling():
     def test_web_handlingDetailsAndHandling(self):
         # 获取待处理列表
         clres = self.test_web_PendingList()
-        res = clres.text
-        result = BeautifulSoup(res,'html.parser')
-        divObj = result.find('div', attrs={'class':'mainContentTableContainer'})
-        dcl_tr = divObj.findAll('table')[1].findAll('tr')[1]
-        str_tr = str(dcl_tr)
-        # print("res的类型是：",tables)
-        number= re.compile('<span id="pagemsg" style="(.*?)"><label>总共(.*?)页,(.*?)条记录</label></span>').search(res).group(3)
-        if int(number)>0:
+        if clres:
             pattern = re.compile(r'<tr[\s\S]*id="(.*?)"[\s\S]*onclick="casedo[\(](.*?),(.*?),(.*?),(.*?),this[\)]">')
-            dclid = pattern.search(str_tr).group(1)
-            dcl_menuid = pattern.search(str_tr).group(2).strip("'")
-            dcl_taskprocess = pattern.search(str_tr).group(5).strip("'")
+            dclid = pattern.search(clres).group(1)
+            dcl_menuid = pattern.search(clres).group(2).strip("'")
+            dcl_taskprocess = pattern.search(clres).group(5).strip("'")
             # 待处理详情url
             dclxq_url = self.ip+"/dcms/cwsCase/Case-dealview.action?id="+dclid+"&menuId="+dcl_menuid+"&taskprocess="+dcl_taskprocess
             dclxq_cookies = writeAndReadTextFile().test_readCookies()
@@ -105,7 +124,7 @@ class fileFandling():
                 "Cookie":writeAndReadTextFile().test_readCookies()
             }
             clresult = requests.post(cl_url,data = m ,headers = cl_header)
-            # cl_result = clresult.text
+            cl_result = clresult.text
             clresult.connection.close()
             return cl_result.text
         else:
@@ -116,6 +135,7 @@ class fileFandling():
 #移动端案卷处理==================================================================================
 #查询app待处理案卷列表
     def test_app_PendingList(self):
+        dclitem = {}
         app_dcl_url = self.ip+"/dcms/PwasAdmin/MobileCase-deallist.action"
         app_dcl_data = {
             "casestate":"30",
@@ -131,88 +151,79 @@ class fileFandling():
         app_respons = apprespons.text
         apprespons.connection.close()
         if 'success' in app_respons:
-            return app_respons
+            result = json.loads(app_respons)
+            for item in result['data']:
+                if item['caseid'] == self.loginUser['oderNumber']:
+                    dclitem = item
+                    break
+            return dclitem
         else:
-            return False
+            print("XXXXXXXXXXXXXXXXX获取待处理列表失败XXXXXXXXXXXXXXXXX")
     
        
     #进入待处理案卷详情并处理
     def test_app_handlingDetailsAndHandling(self):
         # 获取待处理列表
-        ajlb_Result = self.test_app_PendingList()
-        if ajlb_Result != False:
-            ajlbResult = json.loads(ajlb_Result)
-            # print("待处理：案卷列表查询成功")
-            if ajlbResult['count']>0:
-                ajxqItem = ajlbResult['data'][0]
-                cl_url = self.ip+"/dcms/PwasAdmin/MobileCase-deal.action"
-                cl_data = {
-                    "operatingComments":self.loginUser['operatingComments'],
-                    "username":self.loginUser['name'],
-                    "stateId":ajxqItem['stateId'],
-                    "isFh":ajxqItem['isFh'],                               
-                    "deptid":self.loginUser['deptid'],
-                    "deptname":ajxqItem['dealDeptName'],
-                    "caseid":ajxqItem['id'],
-                    "resultprocess":"案件回访",
-                    "userid":self.loginUser['id'],
-                    "taskprocess":ajxqItem['taskID']
-                }
-                cl_res = requests.post(cl_url,cl_data,headers = self.app_header,timeout = 20)
-                clres = json.loads(cl_res.text)
-                if 'message' in clres and clres['message'] == 'success':
-                    print("案卷处理成功")
-                    if 'imgPath' in self.loginUser:
-                        print("正在上传处理图片...")
-                        # 上传图片地址
-                        imgUrl = self.ip+"/dcms/PwasAdmin/PwasAdmin-imageup.action?imagetype=image&idcase="+clres['id']+"&prochisid="+clres['taskid']
-                        picpath = self.loginUser['imgPath']
-                        test_app_ReportPicture(imgUrl,picpath)
-                    else:
-                        print("处理案卷未上传图片")
-                    return True
+        dclResult = self.test_app_PendingList()
+        if dclResult:
+            cl_url = self.ip+"/dcms/PwasAdmin/MobileCase-deal.action"
+            cl_data = {
+                "operatingComments":self.loginUser['operatingComments'],
+                "username":self.loginUser['name'],
+                "stateId":dclResult['stateId'],
+                "isFh":dclResult['isFh'],                               
+                "deptid":self.loginUser['deptid'],
+                "deptname":dclResult['dealDeptName'],
+                "caseid":dclResult['id'],
+                "resultprocess":"案件回访",
+                "userid":self.loginUser['id'],
+                "taskprocess":dclResult['taskID']
+            }
+            cl_res = requests.post(cl_url,cl_data,headers = self.app_header,timeout = 20)
+            clres = json.loads(cl_res.text)
+            if 'message' in clres and clres['message'] == 'success':
+                print("案卷处理成功")
+                if 'imgPath' in self.loginUser:
+                    print("正在上传处理图片......")
+                    # 上传图片地址
+                    imgUrl = self.ip+"/dcms/PwasAdmin/PwasAdmin-imageup.action?imagetype=image&idcase="+clres['id']+"&prochisid="+clres['taskid']
+                    picpath = self.loginUser['imgPath']
+                    test_app_ReportPicture(imgUrl,picpath)
                 else:
-                    print("XXXXXXXXXX处理案卷时出现错误XXXXXXXXXX")
-                    return False
-                cl_res.connection.close()
+                    print("处理案卷未上传图片")
+                return True
             else:
-                print("00000待处理列表暂时为空00000")
-                return False
+                print("XXXXXXXXXX处理案卷时出现错误XXXXXXXXXX")
+            cl_res.connection.close()
         else:
-            print("XXXXXXXXXXXXXXXXX获取待处理列表失败XXXXXXXXXXXXXXXXX")
-            return False
+            print("00000待处理列表暂时为空00000")
+        
     
     #移动端案卷处理>申请调整==================================================================================
     def test_requestAdjustment(self):
-        dcl_Result = self.test_app_PendingList()
-        if dcl_Result != False:
-            dclResult = json.loads(dcl_Result)
-            # print("待处理：案卷列表查询成功")
-            if dclResult['count']>0:
-                ajxqItem = dclResult['data'][0]
-                sqtz_url = self.ip+"/dcms/PwasAdmin/MobileCase-applyadjust.action"
-                sqtz_data = {
-                    "operatingComments":self.loginUser['operatingComments'],
-                    "username":self.loginUser['name'],
-                    "stateId":ajxqItem['stateId'],
-                    "deptid":self.loginUser['deptid'],
-                    "deptname":ajxqItem['dealDeptName'],
-                    "caseid":ajxqItem['id'],
-                    "resultprocess":self.loginUser['resultprocess'],
-                    "applyReason":self.loginUser['applyReason'],
-                    "userid":self.loginUser['id'],
-                    "taskprocess":ajxqItem['taskID']
-                }
-                sqtz_res = requests.post(sqtz_url,sqtz_data,headers = self.app_header,timeout = 20)
-                sqtzres = json.loads(sqtz_res.text)
-                sqtz_res.connection.close()
-                if 'message' in sqtzres and sqtzres['message'] == 'success':
-                    print("***************申请调整成功*************")
-                    return True
-            else:
-                print("待处理列表为空！！！")
-                return False
-
+        dclResult = self.test_app_PendingList()
+        if dclResult:
+            sqtz_url = self.ip+"/dcms/PwasAdmin/MobileCase-applyadjust.action"
+            sqtz_data = {
+                "operatingComments":self.loginUser['operatingComments'],
+                "username":self.loginUser['name'],
+                "stateId":dclResult['stateId'],
+                "deptid":self.loginUser['deptid'],
+                "deptname":dclResult['dealDeptName'],
+                "caseid":dclResult['id'],
+                "resultprocess":self.loginUser['resultprocess'],
+                "applyReason":self.loginUser['applyReason'],
+                "userid":self.loginUser['id'],
+                "taskprocess":dclResult['taskID']
+            }
+            sqtz_res = requests.post(sqtz_url,sqtz_data,headers = self.app_header,timeout = 20)
+            sqtzres = json.loads(sqtz_res.text)
+            sqtz_res.connection.close()
+            if 'message' in sqtzres and sqtzres['message'] == 'success':
+                print("***************申请调整成功*************")
+                return True
+        else:
+            print("待处理列表中没有该工单号:{}".format(self.loginUser['oderNumber']))
  
 
 

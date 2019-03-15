@@ -25,9 +25,12 @@ class allLogin():
         if '180' in self.url:
             name = 'zx'
             password = 'zx!123456'
-        else:
+        elif '15' in self.url:
             name = 'gaoquan'
             password = 'gq!123456'
+        else:
+            name = 'syl'
+            password = 'syl!123456'
         authCode,image_split_arr = test_login_authCode(self.driver,self.url) #获取验证码
         while authCode == "" :
             time.sleep(random.randint(1,2))
@@ -65,29 +68,29 @@ class allLogin():
                 time.sleep(random.randint(1,3))
                 self.test_web_login()
 
-    #市民登录
-    # def test_app_sm_login(self):  
-    #     loginName = self.userData['sm']['loginName']
-    #     password = self.userData['sm']['password']
-    #     if '180' in getConstant.IP:
-    #         ip = getConstant.IP+getConstant.PORT_7880
-    #     else:
-    #         ip = getConstant.IP
-    #     sm_header = {
-    #         "Cache-Control":"no-cache/no-store",
-    #         "Connection":"Keep-Alive",
-    #         "Accept-Encoding":"gzip",
-    #         "User-Agent":"okhttp/3.2.0"
-    #     }
-    #     smloginurl = ip+"/publicworkstation/userManage/pwdLogin.action?loginName="+loginName+"&password="+password+"&systemversion=7.0&token=&appversion=16&phonemodel=HONOR%20BLN-AL30&operatesystem=Android&is_login="
-    #     sm_respons = requests.get(url = smloginurl,headers = sm_header,timeout = 20)
-    #     sm_respons.connection.close()
-    #     if '查询成功' in sm_respons.text:
-    #         print("市民apk:登录成功")
-    #         return json.loads(sm_respons.text)
-    #     else:
-    #         print("XXXXXXXXXXXXXXXXXX市民apk:登录失败XXXXXXXXXXXXXXXXXXX")
-    #         return False
+    # 市民登录
+    def test_app_sm_login(self):  
+        loginName = self.userData['sm']['loginName']
+        password = self.userData['sm']['password']
+        if '180' in getConstant.IP:
+            ip = getConstant.IP+getConstant.PORT_7880
+        else:
+            ip = getConstant.IP
+        sm_header = {
+            "Cache-Control":"no-cache/no-store",
+            "Connection":"Keep-Alive",
+            "Accept-Encoding":"gzip",
+            "User-Agent":"okhttp/3.2.0"
+        }
+        smloginurl = ip+"/publicworkstation/userManage/pwdLogin.action?loginName="+loginName+"&password="+password+"&systemversion=7.0&token=&appversion=16&phonemodel=HONOR%20BLN-AL30&operatesystem=Android&is_login="
+        sm_respons = requests.get(url = smloginurl,headers = sm_header,timeout = 20)
+        sm_respons.connection.close()
+        if '查询成功' in sm_respons.text:
+            print("市民apk:登录成功")
+            return json.loads(sm_respons.text)
+        else:
+            print("XXXXXXXXXXXXXXXXXX市民apk:登录失败XXXXXXXXXXXXXXXXXXX")
+            return False
         
     #执法局登录 
     def test_app_zfj_login(self):
@@ -155,8 +158,8 @@ class allLogin():
             return False
 
     def test_app_allLogin(self):
-        # sm = self.test_app_sm_login()
-        sm = 'sm'
+        sm = self.test_app_sm_login()
+        # sm = 'sm'
         zfj = self.test_app_zfj_login()
         qsdw = self.test_app_qsdw_login()
         wggly = self.test_app_wggly_login()
@@ -165,6 +168,7 @@ class allLogin():
             path = "E:/test/dcms/ChengGuan/common/appLoginResult.txt"
             writeAndReadTextFile().test_write_txt(path,str(loginObj))
             print("移动端:*apk登录成功")
+            return True
             
 
 # if __name__=="__main__":

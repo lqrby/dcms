@@ -169,7 +169,7 @@ class MyTest2(unittest.TestCase):     #封装测试环境的初始化和还原�
         else:
             logging.info("XXXXXXXXX8.移动端权属单位处理失败XXXXXXXXX")
 
-    回访 web回访
+    # 回访 web回访
     def test_9fuHe(self):
         hfItem = {}
         hfItem['resultprocess'] = '回访通过'

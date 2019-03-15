@@ -110,14 +110,15 @@ class MyTest(unittest.TestCase):     #封装测试环境的初始化和还原的
             logging.info("*****6.移动端权属单位申请调整成功*****")
 
     
-    #调整批示    
+    #调整批示》批准、不批准    
     def tiaoZhengPiShi(self):
         time.sleep(random.randint(1,2)) 
         dataItem = {}
+        dataItem['oderNumber'] = self.oderNumber
         dataItem['resultprocess'] = "批准"
         dataItem['leaderComments'] = "批准了"
         tzpsOK = adjustmentApproval(dataItem).adjustmentApprovalDetail()
-        if tzpsOK != False:
+        if tzpsOK:
             logging.info("*****7.web端调整批示成功(%s)*****"%dataItem['resultprocess'])
 
     #待调整（相当于派发）
@@ -164,15 +165,16 @@ class MyTest(unittest.TestCase):     #封装测试环境的初始化和还原的
             logging.info("*****10.移动端网格管理员复核出现问题*****")
 
     def test_liucheng_1(self):
+        self.oderNumber = '201805080180'
         for i in range(1):
-            self.gongDan()
-            self.liAn()
-            self.paiFa()
-            self.chuLi()
+            # self.gongDan()
+            # self.liAn()
+            # self.paiFa()
+            # self.chuLi()
             self.tiaoZhengPiShi()
-            self.daiTiaoZheng()
-            self.chuLis()
-            self.fuHe()
+            # self.daiTiaoZheng()
+            # self.chuLis()
+            # self.fuHe()
     
     @classmethod
     def tearDownClass(cls): 

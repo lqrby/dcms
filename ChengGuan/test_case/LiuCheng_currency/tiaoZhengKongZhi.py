@@ -32,43 +32,39 @@ class adjustControl():
 
     #待调整控制列表
     def adjustControlList(self):
+        item = ""
         dtzkz_url = self.ip+'/dcms/cwsCase/Case-controlAdjustmentlist.action?menuId=2c94bc953241df11013241e097840012&keywords='+self.keywords
         dtzkz_res = requests.get(dtzkz_url,headers = self.header,allow_redirects=False,timeout = 20)
+        dtzkzRes = dtzkz_res.text
         dtzkz_res.connection.close()
-        if '<span id="pagemsg"' in dtzkz_res.text:
-            dtzkznumber = re.compile('<label>总共(.*?)页,(.*?)条记录</label>').search(dtzkz_res.text).group(2)
+        if '<span id="pagemsg"' in dtzkzRes:
+            dtzkznumber = re.compile('<label>总共(.*?)页,(.*?)条记录</label>').search(dtzkzRes).group(2)
             if dtzkznumber > "0":
-                return dtzkz_res.text
+                mysoup = BeautifulSoup(dtzkzRes,'html.parser')
+                table = mysoup.findAll('table')[1]
+                table.findAll('tr')[0].extract()
+                for tr in table.findAll('tr'):
+                    nyrid = tr.findAll('td')[1].get_text()
+                    if nyrid == self.dataItem['id']:
+                        item = tr 
+                        #re.compile('<tr id="(.*?)"').search(str(tr)).group(1)
+                        # ids = tr.find_all('td')[0]['value']
+                        break
+                return item
             else:
-                print("待调整批示列表暂时为空！！！")
-                return False
+                print("待调整控制列表暂时为空！！！")
         elif 'location' in dtzkz_res.headers and '/dcms/bms/login.jsp' in dtzkz_res.headers['location']:
             print("对不起，请您先登录web端！！！")
-            return False
         else:
             print("XXXXXXXXXXXXXXXXXXXXXXXX获取列表出错XXXXXXXXXXXXXXXXXXXXXXXX")
-            return False
 
 
-
+    #控制开关
     def adjustControlDetail(self):
-        dtzkz_list = self.adjustControlList()
-        if dtzkz_list != False:
-            mysoup = BeautifulSoup(dtzkz_list,'html.parser')
-            table = mysoup.findAll('table')[1]
-            table.findAll('tr')[0].extract()
-            ids = ""
-            if self.dataItem['id']:
-                for tr_item in table.findAll('tr'):
-                    nyrid = tr_item.findAll('td')[1].get_text()
-                    if nyrid == self.dataItem['id']:
-                        ids = re.compile('<tr id="(.*?)"').search(str(tr_item)).group(1)
-                        a_text = tr_item.find('a').get_text()
-            else:
-                tr_item = table.findAll('tr')[0]
-                ids = re.compile('<tr id="(.*?)"').search(str(tr_item)).group(1)
-                a_text = tr_item.find('a').get_text()
-            
+        tzkzItem = self.adjustControlList()
+        if tzkzItem:
+            ids = re.compile('<tr id="(.*?)"').search(str(tzkzItem)).group(1)
+            a_text = tzkzItem.find('a').get_text()
             if ids:
                 if a_text == "关闭":
                     kzUrl = self.ip+"/dcms/cwsCase/Case-batchCloseAjust.action" 
@@ -79,14 +75,19 @@ class adjustControl():
                 kzRes.connection.close()
                 if kzRes.status_code == 302:
                     print("{}成功！！！！！！！！！".format(a_text))
+                else:
+                    print("XXXXXXXXXXXXXXX工单号:{}调整控制失败XXXXXXXXXXXXXX".format(a_text))
             else:
-                print("XXXXXXXXXX对不起，您输入的工单号有误XXXXXXXXXX")
+                print("XXXXXXXXXXXXXXXXXX严重的错误，id居然为空XXXXXXXXXXXXXXXXXX")
+                
+        else:
+            print("XXXXXXXXXX对不起，您输入的工单号有误XXXXXXXXXX")
             
            
 
 if __name__ == "__main__":
     dataItem = {}
-    dataItem['id'] = ""
+    dataItem['id'] = "201903010023"
     adjustControl(dataItem).adjustControlDetail()
     # adjustControl(dataItem).adjustControlList()
 

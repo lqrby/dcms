@@ -29,27 +29,46 @@ class reviewAndReturnVisit():
             "Accept-Language":"zh-CN,zh;q=0.9,en;q=0.8",
             "Cookie":writeAndReadTextFile().test_readCookies()
         }
+        self.keywords = writeAndReadTextFile().test_read_systemId('呼叫系统')
     # WEB端案卷回访
     #查询待回访案卷列表    
     def test_returnVisitList(self):
-        dhf_url = self.ip+"/dcms/cwsCase/Case-hflist.action?casestate=55&menuId=2c94ccad37c600e30137c607846b0003&keywords=402880ea2f6bd924012f6c521e8c0034"
-        respons = requests.get(url = dhf_url,headers=self.header,timeout=20)
-        respons.connection.close()
-        return respons.text
+        dhfItem = ""
+        dhf_url = self.ip+"/dcms/cwsCase/Case-hflist.action?casestate=55&menuId=2c94ccad37c600e30137c607846b0003&keywords="+self.keywords
+        dhf_respons = requests.get(url = dhf_url,headers=self.header,timeout=20)
+        dhfrespons = dhf_respons.text
+        dhf_respons.connection.close()
+        if '<span id="pagemsg"' in dhfrespons:
+            number= re.compile('<span id="pagemsg" style="(.*?)"><label>总共(.*?)页,(.*?)条记录</label></span>').search(dhfrespons).group(3)
+            if number > '0':
+                result = BeautifulSoup(dhfrespons,'html.parser')
+                divObj = result.find('div', attrs={'class':'mainContentTableContainer'})
+                table = divObj.findAll('table')[1]
+                table.find_all('tr')[0].extract()
+                for tr in table.find_all('tr'):
+                    text = tr.find_all('td')[-3].get_text()
+                    if text == self.hfItem['oderNumber']:
+                        dhfItem = tr
+                        break
+                return dhfItem
+            else:
+                print("待回访列表暂时为空！！！")
+        elif '登录' in dhfrespons:
+            print("对不起请您先登录！！！")
+        else:
+            print("XXXXXXXXXXXXXXXX查询待回访列表出错XXXXXXXXXXXXXX")
+        
+        return dhf_respons.text
 
     #进入待回访案卷详情并回访
     def test_returnDetailsAndVisit(self):
         # 获取待回访列表
-        res = self.test_returnVisitList()
-        number= re.compile('<span id="pagemsg" style="(.*?)"><label>总共(.*?)页,(.*?)条记录</label></span>').search(res).group(3)
-        if int(number)>0:
-            result = BeautifulSoup(res,'html.parser')
-            divObj = result.find('div', attrs={'class':'mainContentTableContainer'})
-            obj_tr = divObj.findAll('table')[1].findAll('tr')[1]
-            dhfobj = re.compile(r'<tr[\s\S]*id="(.*?)"[\s\S]*onclick="casedo[\(](.*?),(.*?),(.*?),(.*?),this[\)]">')
-            dhfid = dhfobj.search(str(obj_tr)).group(1)
-            dhf_menuid = dhfobj.search(str(obj_tr)).group(2).strip("'")
-            dhf_taskprocess = dhfobj.search(str(obj_tr)).group(5).strip("'")
+        dhfResItem = self.test_returnVisitList()
+        if dhfResItem:
+            dhfobj = re.compile('<tr[\s\S]*id="(.*?)"[\s\S]*onclick="casedo[\(](.*?),(.*?),(.*?),(.*?),this[\)]">')
+            dhfid = dhfobj.search(str(dhfResItem)).group(1)
+            dhf_menuid = dhfobj.search(str(dhfResItem)).group(2).strip("'")
+            dhf_taskprocess = dhfobj.search(str(dhfResItem)).group(5).strip("'")
             # 待回访详情url
             dclxq_url = self.ip+"/dcms/cwsCase/Case-hf.action?id="+dhfid+"&menuId="+dhf_menuid+"&taskprocess="+dhf_taskprocess
             dclxqrespons = requests.get(url = dclxq_url,headers=self.header,timeout = 20)
@@ -72,7 +91,6 @@ class reviewAndReturnVisit():
                 "operatingComments":self.hfItem['operatingComments'],
                 "sentence":""
             }
-            
             hfresult = requests.post(hf_url,hf_data,headers = self.header,timeout = 20)
             hf_result = hfresult.text
             hfresult.connection.close()
@@ -81,15 +99,14 @@ class reviewAndReturnVisit():
                 return True
             elif hf_result==1:
                 print("回访：重复回访",hf_result)
-                return False
             return hf_result
         else:
             print("待回访列表暂无数据！！！")
-            return False
 
     # ==================================================================================================
-    #网格员apk查询案卷列表    
+    #网格员apk查询待复核列表    
     def test_app_returnVisitList(self):
+        dfhOBJ = {}
         dhf_url = self.ip+"/dcms/pwasCase/Case-checkList.action"
         wgglydfh_data = {
             "page.pageSize":"20",
@@ -100,58 +117,58 @@ class reviewAndReturnVisit():
         wgglyrespons = wggly_respons.text
         wggly_respons.connection.close()
         if 'count' in wgglyrespons:
-            # print("案卷列表查询成功")
-            return wgglyrespons
+            dcl_count = re.compile('<caseCheckList count="(.*?)"').search(wgglyrespons).group(1)
+            if dcl_count > '0':
+                fhresult = BeautifulSoup(wgglyrespons,'lxml')
+                for caseCheckRecord in fhresult.find_all('casecheckrecord'):
+                    caseid = caseCheckRecord.find('caseid').get_text()
+                    if caseid == self.hfItem['oderNumber']:
+                        dfhOBJ = caseCheckRecord
+                        break
+                return dfhOBJ   
+            else:
+                print("待复核列表暂时为空！！！")
+            
         elif 'errorCode' in wgglyrespons and wgglyrespons['errorCode']=='2':
             print("************对不起请您先登录网格管理员apk*************")
-            return False
         else:
             print("XXXXXXXXXX意想不到的错误XXXXXXXXXX")
-            return False
+        
 
     #进入案卷详情并复核
     def test_app_returnDetailsAndVisit(self):
         # 获取列表
-        dfh_list = self.test_app_returnVisitList()
-        if dfh_list != False:
-            dcl_count = re.compile('<caseCheckList count="(.*?)"').search(dfh_list).group(1)
-            if int(dcl_count)>0:
-                wgglydclId = re.compile('<id>(.*?)</id>').search(dfh_list).group(1)
-                cl_url = self.ip+"/dcms/pwasCase/Case-pdacheckCase.action"
-                cl_data = {
-                    "id":wgglydclId,
-                    "checkdesc":self.hfItem['checkdesc'],
-                    "casestateid.id":"402880822f3eca29012f3ed146b30006", #状态
-                    "checkid.id":self.hfItem['id'],
-                    "taskprocess":""
-                }
-                clres = requests.post(cl_url,cl_data,headers = self.app_header,timeout = 20)
-                cl_res = clres.text
-                result_data= re.compile('<caseInputInfo><issuc>(.*?)</issuc><caseprochisid>(.*?)</caseprochisid><idcase>(.*?)</idcase></caseInputInfo>').search(cl_res)
-                issuc = result_data.group(1)
-                caseprochisid = result_data.group(2)
-                idcase = result_data.group(3)
-                if issuc:
-                    # print("案卷复核成功")
-                    if 'imgPath' in self.hfItem:
-                        # 上传图片地址
-                        imgUrl = self.ip+"/dcms/PwasAdmin/PwasAdmin-imageup.action?imagetype=image&idcase="+idcase+"&prochisid="+caseprochisid
-                        picpath = self.hfItem['imgPath']
-                        test_app_ReportPicture(imgUrl,picpath)
-                    else:
-                        print("复核案卷未上传图片")
-                    return True
+        dfhDetalOBJ = self.test_app_returnVisitList()
+        if dfhDetalOBJ:
+            cl_url = self.ip+"/dcms/pwasCase/Case-pdacheckCase.action"
+            cl_data = {
+                "id":dfhDetalOBJ.id.get_text(),
+                "checkdesc":self.hfItem['checkdesc'],
+                "casestateid.id":self.hfItem['casestateid'], #状态402880822f3eca29012f3ed146b30006
+                "checkid.id":self.hfItem['id'],
+                "taskprocess":""
+            }
+            clres = requests.post(cl_url,cl_data,headers = self.app_header,timeout = 20)
+            cl_res = clres.text
+            result_data= re.compile('<caseInputInfo><issuc>(.*?)</issuc><caseprochisid>(.*?)</caseprochisid><idcase>(.*?)</idcase></caseInputInfo>').search(cl_res)
+            issuc = result_data.group(1)
+            caseprochisid = result_data.group(2)
+            idcase = result_data.group(3)
+            if issuc:
+                # print("案卷复核成功")
+                if 'imgPath' in self.hfItem:
+                    # 上传图片地址
+                    imgUrl = self.ip+"/dcms/PwasAdmin/PwasAdmin-imageup.action?imagetype=image&idcase="+idcase+"&prochisid="+caseprochisid
+                    picpath = self.hfItem['imgPath']
+                    test_app_ReportPicture(imgUrl,picpath)
                 else:
-                    print("XXXXXXXXXX上报失败XXXXXXXXXX")
-                    return False
-                clres.connection.close()
+                    print("复核案卷未上传图片")
+                return True
             else:
-                print("待复核列表暂时为空")
-                return False
-        
+                print("XXXXXXXXXX上报失败XXXXXXXXXX")
+            clres.connection.close()
         else:
-            return False
-
+            print("待复核列表中没有该工单号！！！")
 
 # if __name__=="__main__": 
 #     test_reviewAndReturnVisit().test_returnDetailsAndVisit()

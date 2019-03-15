@@ -23,53 +23,11 @@ from common.constant_all import getConstant
 class MyTest(unittest.TestCase):     #封装测试环境的初始化和还原的类  
     @classmethod
     def setUpClass(cls): #放对数据可操作的代码，如对mysql、momgodb的初始化等,这里不对数据库进行操作！  
-        cls.driver = webdriver.Chrome("D:/python/chromeDriverSever/chromedriver.exe")
-        logging.info("***打开浏览器***")
-        # 初始化登录数据及登录类对象
-        userData = {}
-        if '180' in getConstant.IP:
-            ip = getConstant.IP+getConstant.PORT_7897
-            userData = { 
-                'sm':{'loginName':'13161577834','password':'123456'},
-                'wggly':{'role':'2','logonname':'csgly','logonpassword':'123456'},
-                'qsdw':{'role':'6','logonname':'cshbj','logonpassword':'123456'},
-                'zfj':{'role':'5','logonname':'cszfj','logonpassword':'123456'},
-            
-            }
-        else:
-            ip = getConstant.IP
-            userData = { 
-                'sm':{'loginName':'13161577834','password':'111111'},
-                'wggly':{'role':'2','logonname':'gly','logonpassword':'111111'},
-                'qsdw':{'role':'6','logonname':'hbj','logonpassword':'111111'},
-                'zfj':{'role':'5','logonname':'zfj','logonpassword':'111111'},
-                
-            }
-        
-        url= ip+'/dcms/bms/login.jsp'
-        print("url:",url)
-        cls.loginObj = allLogin(cls.driver,url,userData)
         # 初始化移动端登录人员集合对象
         cls.loginItems = writeAndReadTextFile().test_read_appLoginResult()
         #获取cookies
         cls.cookies = writeAndReadTextFile().test_readCookies()
-
     
-    # #web端登录
-    # def test_01webLogin_lc5(self):
-    #     webLogin = self.loginObj.test_web_login()
-    #     while webLogin==False:
-    #         webLogin = self.loginObj.test_web_login()
-    #     logging.info("*****1.web端登录完毕*****")
-        
-
-    # #移动端登录
-    # def test_02apkLogin_lc5(self):
-    #     time.sleep(random.randint(1,3)) 
-    #     appLogin = self.loginObj.test_app_allLogin()
-    #     while appLogin == False:
-    #         appLogin = self.loginObj.test_app_allLogin()
-    #     logging.info("*****2.移动端登录完毕*****")
     
     #移动端市民上报案卷
     def test_03gongDan_lc2(self):

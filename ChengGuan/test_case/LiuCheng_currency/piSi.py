@@ -32,6 +32,7 @@ class Approval():
 
     #待批示列表
     def stayApprovalList(self):
+        item = {}
         dps_url = self.ip+'/dcms/cwsCase/Case-chiefapprovelist.action?casestate=35&menuId=402880822f9490ad012f949b44980045&keywords='+self.keywords
         dpsRespons = requests.get(dps_url,headers = self.header,timeout = 20)
         dps_res = dpsRespons.text
@@ -39,7 +40,18 @@ class Approval():
         if '<span id="pagemsg"' in dps_res:
             dtznumber = re.compile('<label>总共(.*?)页,(.*?)条记录</label>').search(dps_res).group(2)
             if dtznumber > "0":
-                return dps_res
+                dps_result = BeautifulSoup(dps_res,'html.parser')
+                dps_result.find('div', attrs={'class':'mainContentTableContainer'})
+                dps_table = dps_result.findAll('table')[1]
+                dps_table.findAll('tr')[0].extract()
+                for tr in dps_table.findAll('tr'):
+                    tdvalue = tr.findAll('td')[-3].get_text()
+                    if 'oderNumber' in self.dataItem and tdvalue == self.dataItem['oderNumber']:
+                        menuId = re.compile('<input type="hidden" id="menuId" name="menuId" value="(.*?)" />').search(dps_res).group(1)
+                        tr['menuId'] = menuId
+                        item =  tr
+                        break
+                return item
             else:
                 print("待批示列表暂时为空！！！")
                 return False
@@ -51,20 +63,14 @@ class Approval():
             return False
 
 
-
+    # 批示案卷
     def stayApprovalDetail(self):
-        dps_list = self.stayApprovalList()
-        # print("待调整列表：",dtzps_list)
-        if dps_list != False:
-            dps_result = BeautifulSoup(dps_list,'html.parser')
-            dpsResult = dps_result.find('div', attrs={'class':'mainContentTableContainer'})
-            dps_tr = dpsResult.findAll('table')[1].findAll('tr')[1]
-            # print("dps_list",dps_list)
-            menuId = re.compile('<input type="hidden" id="menuId" name="menuId" value="(.*?)"').search(dps_list).group(1)
-            dpsList = re.compile(r'<tr id="(.*?)"[\s\S]*onclick="casedo[\(](.*?),(.*?),(.*?),(.*?),this[\)]">').search(str(dps_tr))
+        dpsObj = self.stayApprovalList()
+        if dpsObj:
+            dpsList = re.compile(r'<tr id="(.*?)"[\s\S]*onclick="casedo[\(](.*?),(.*?),(.*?),(.*?),this[\)]">').search(str(dpsObj))
             id = dpsList.group(1)
             taskprocess = dpsList.group(5).strip("'")
-            xqurl = self.ip+"/dcms/cwsCase/Case-chiefapproveview.action?id="+id+"&menuId="+menuId+"&taskprocess="+taskprocess
+            xqurl = self.ip+"/dcms/cwsCase/Case-chiefapproveview.action?id="+id+"&menuId="+dpsObj['menuId']+"&taskprocess="+taskprocess
             ps_Respons = requests.get(xqurl,headers = self.header,timeout = 20)
             res = ps_Respons.text
             ps_Respons.connection.close()
@@ -73,7 +79,7 @@ class Approval():
                 ps_url = self.ip+"/dcms/cwsCase/Case-chiefapprove.action"
                 ps_data = {
                     "taskcasestateid":taskcasestateid,
-                    "menuId":menuId,
+                    "menuId":dpsObj['menuId'],
                     "taskprocess":taskprocess,
                     "casestate":"",	
                     "resultprocess":self.dataItem['resultprocess'],	#批准
@@ -83,18 +89,16 @@ class Approval():
                 }
                 pishi_res = requests.post(ps_url,data = ps_data,headers = self.header,timeout = 20)
                 ps_res = pishi_res.text
+                pishi_res.connection.close()
                 if ps_res == "0":
                     print("******批示完成(%s)******"%self.dataItem['resultprocess'])
                     return True
                 elif ps_res == "1":
                     print("___________________对不起，不可以重复批示_________________")
-                    return False
                 else:
                     print("XXXXXXXXXXXXXXXXXXX批示出错(%s)XXXXXXXXXXXXXXXXXX"%self.dataItem['resultprocess'])
-                    return False
             else:
                 print("XXXXXXXXXXXXXXXXXXX进入批示案卷详情出错XXXXXXXXXXXXXXXXXXX")
-                return False
 
 
 # if __name__ == "__main__":

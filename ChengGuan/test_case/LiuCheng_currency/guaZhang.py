@@ -34,70 +34,82 @@ class hangUp():
             
     #web查询挂起案卷列表    
     def test_hangUpList(self):
+        guaqiItem = {}
         gzlist_url = self.ip+"/dcms/cwsCase/Case-losseslist.action?casestate=21&menuId=2c94d09f3087787d013087ea6943007b&keywords=402880eb2f90e905012f9138a5fb00a4"
-        gzrespons = requests.get(url = gzlist_url,headers=self.header,timeout = 20)
+        gzrespons = requests.get(url = gzlist_url,headers=self.header,allow_redirects=False,timeout = 20)
         gz_respons = gzrespons.text
         gzrespons.connection.close()
-        if '<title>挂账事件列表</title>' in gz_respons:
-            return gz_respons
+        if '<span id="pagemsg"' in gz_respons:
+            listcount = re.compile('<label>总共(.*?)页,(.*?)条记录</label>').search(gz_respons).group(2)
+            if listcount > '0':
+                gqlist = BeautifulSoup(gz_respons,'html.parser')
+                guaqiList = gqlist.find('div', attrs={'class': 'mainContentTableContainer'})
+                guaqiTable = guaqiList.findAll('table')[1]
+                guaqiTable.findAll('tr')[0].extract()
+                for tr in guaqiTable.findAll('tr'):
+                    tdvalue = tr.findAll('td')[-3].get_text()
+                    if 'oderNumber' in self.loginUser and tdvalue == self.loginUser['oderNumber']:
+                        guaqiItem =  tr
+                        break
+                return guaqiItem
+            else:
+                print("挂起列表暂时为空！！！")
+            
+        elif 'Location' in gzrespons.headers and '/dcms/bms/login' in gzrespons.headers['Location']:
+            print("对不起，请您先登录web端")
         else:
-            print("XXXXXXXXXXXXXXXXXXXXXXX查询挂起列表出错XXXXXXXXXXXXXXXXXXXXXXX")
-            return False
+            print("XXXXXXXXXX挂起列表查询出错XXXXXXXXXX",gz_respons)
+
 
     #web进入挂起案卷详情并处理
     def test_hangUpDetail(self):
-        gq_list = self.test_hangUpList() # 获取挂起列表
-        if gq_list != False:
-            gq_num = re.compile('<label>总共(.*?)页,(.*?)条记录</label>').search(gq_list).group(2)
-            if gq_num > "0":
-                gq_result = BeautifulSoup(gq_list,'html.parser')
-                gqdiv = gq_result.find('div', attrs={'class':'mainContentTableContainer'})
-                gq_tr = gqdiv.findAll('table')[1].findAll('tr')[1]
-                pattern = re.compile(r'<tr[\s\S]*id="(.*?)"[\s\S]*onclick="casedo[\(](.*?),(.*?),(.*?),(.*?),this[\)]">').search(str(gq_tr))
-                gqid = pattern.group(1)
-                gq_menuid = pattern.group(2).strip("'")
-                gq_taskprocess = pattern.group(5).strip("'")
-                gqdetail_url = self.ip+'/dcms/cwsCase/Case-lossesview.action?id='+gqid+'&menuId='+gq_menuid+'&taskprocess='+gq_taskprocess
-                gqres = requests.get(gqdetail_url,headers = self.header,timeout = 20)
-                gq_res = gqres.text
-                gqres.connection.close()
-                if '<title>挂账案卷</title>' in gq_res:
-                    taskcasestateid = re.compile('<input type="hidden" id="taskcasestateid" name="taskcasestateid" value="(.*?)"/>').search(gq_res).group(1)
-                    if 'resultprocess' in self.loginUser:
-                        resultprocess = self.loginUser['resultprocess']
-                    else:
-                        resultprocess = ""
-
-                    if 'operatingComments' in self.loginUser:
-                        operatingComments = self.loginUser['operatingComments']
-                    else:
-                        operatingComments = ""
-                    gqdata = {
-                        "taskcasestateid": taskcasestateid,
-                        "menuId": gq_menuid,
-                        "casestate": "",
-                        "id": gqid,
-                        "taskprocess": gq_taskprocess,
-                        "resultprocess": resultprocess,
-                        "operatingComments": operatingComments,
-                        "sentence": ""
-                    }
-                    hf_url = self.ip+'/dcms/cwsCase/Case-losses.action'
-                    hfres = requests.post(hf_url,gqdata,headers = self.header,allow_redirects=False,timeout = 20)
-                    hfres.connection.close()
-                    if 'location' in hfres.headers and '/Case-losseslist.action' in hfres.headers['location']:
-                        print("************************恢复案卷成功************************")
-                        return True
-                    elif 'location' in hfres.headers and '/dcms/bms/login' in hfres.headers['location']:
-                        print("XXXXXXXXXXXXXXXXXXXXXXXXXXXXX对不起，请您先登录XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
-                        return False
+        gq_obj = self.test_hangUpList() # 获取挂起列表
+        if gq_obj:
+            pattern = re.compile(r'<tr[\s\S]*id="(.*?)"[\s\S]*onclick="casedo[\(](.*?),(.*?),(.*?),(.*?),this[\)]">').search(str(gq_obj))
+            gqid = pattern.group(1)
+            gq_menuid = pattern.group(2).strip("'")
+            gq_taskprocess = pattern.group(5).strip("'")
+            gqdetail_url = self.ip+'/dcms/cwsCase/Case-lossesview.action?id='+gqid+'&menuId='+gq_menuid+'&taskprocess='+gq_taskprocess
+            gqres = requests.get(gqdetail_url,headers = self.header,timeout = 20)
+            gq_res = gqres.text
+            gqres.connection.close()
+            if '<title>挂账案卷</title>' in gq_res:
+                taskcasestateid = re.compile('<input type="hidden" id="taskcasestateid" name="taskcasestateid" value="(.*?)"/>').search(gq_res).group(1)
+                if 'resultprocess' in self.loginUser:
+                    resultprocess = self.loginUser['resultprocess']
                 else:
-                    print("XXXXXXXXXXXXXXXXXXXXXX进入挂账案卷详情出错XXXXXXXXXXXXXXXXXXXXXX")
-                    return False
-            else:
-                print("00000000000000挂起列表暂时为空000000000000000")
-                return False
-        else:
-            return False
+                    resultprocess = ""
 
+                if 'operatingComments' in self.loginUser:
+                    operatingComments = self.loginUser['operatingComments']
+                else:
+                    operatingComments = ""
+                gqdata = {
+                    "taskcasestateid": taskcasestateid,
+                    "menuId": gq_menuid,
+                    "casestate": "",
+                    "id": gqid,
+                    "taskprocess": gq_taskprocess,
+                    "resultprocess": resultprocess,
+                    "operatingComments": operatingComments,
+                    "sentence": ""
+                }
+                hf_url = self.ip+'/dcms/cwsCase/Case-losses.action'
+                hfres = requests.post(hf_url,gqdata,headers = self.header,allow_redirects=False,timeout = 20)
+                hfres.connection.close()
+                if 'location' in hfres.headers and '/Case-losseslist.action' in hfres.headers['location']:
+                    print("************************恢复案卷成功************************")
+                    return True
+                elif 'location' in hfres.headers and '/dcms/bms/login' in hfres.headers['location']:
+                    print("XXXXXXXXXXXXXXXXXXXXXXXXXXXXX对不起，请您先登录XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            else:
+                print("XXXXXXXXXXXXXXXXXXXXXX进入挂账案卷详情出错XXXXXXXXXXXXXXXXXXXXXX")
+        else:
+            print("挂起列表中没有该工单号:{}".format(self.loginUser['oderNumber']))
+    
+
+            
+# if __name__ == "__main__":
+#     loginUser = {}
+#     hangUp(loginUser).test_hangUpDetail()
         
