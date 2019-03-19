@@ -22,6 +22,7 @@ class allLogin():
             "Accept-Encoding":"gzip"
         }
     def test_web_login(self):  #登录的方法
+        mark = 0
         if '180' in self.url:
             name = 'zx'
             password = 'zx!123456'
@@ -61,12 +62,15 @@ class allLogin():
                 print("web登录成功")    
                 return True
             else:
+                mark = mark + 1
                 print("XXXXXXXXXXXXXweb登录失败,用户名密码或验证码错误XXXXXXXXXXXXXXX")
-                for i,imgItem in enumerate(image_split_arr):
-                    outDir = time.strftime("%Y%m%d%H%M%S", time.localtime()) 
-                    imgItem.save("E:/test/dcms/ChengGuan/common/image/"+ outDir + str(i) + ".png")
-                time.sleep(random.randint(1,3))
-                self.test_web_login()
+                if mark <= 3:
+                    for i,imgItem in enumerate(image_split_arr):
+                        outDir = time.strftime("%Y%m%d%H%M%S", time.localtime()) 
+                        imgItem.save("E:/test/dcms/ChengGuan/common/image/"+ outDir + str(i) + ".png")
+                    time.sleep(random.randint(1,3))
+                    self.test_web_login()
+                return False
 
     # 市民登录
     def test_app_sm_login(self):  
@@ -169,6 +173,8 @@ class allLogin():
             writeAndReadTextFile().test_write_txt(path,str(loginObj))
             print("移动端:*apk登录成功")
             return True
+        else:
+            self.test_app_allLogin()
             
 
 # if __name__=="__main__":

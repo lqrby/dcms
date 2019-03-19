@@ -2,7 +2,7 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-    <title>城管接口测试报告</title>
+    <title>180城管接口测试报告</title>
     <meta name="generator" content="HTMLTestRunner 0.8.2"/>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     
@@ -188,12 +188,12 @@ function showOutput(id, name) {
 </script>
 
 <div class="heading">
-<h1>城管接口测试报告</h1>
-<p class="attribute"><strong>Start Time:</strong> 2018-08-11 11:49:32</p>
-<p class="attribute"><strong>Duration:</strong> 0:00:12.716602</p>
+<h1>180城管接口测试报告</h1>
+<p class="attribute"><strong>Start Time:</strong> 2019-03-19 17:22:05</p>
+<p class="attribute"><strong>Duration:</strong> 0:00:52.232832</p>
 <p class="attribute"><strong>Status:</strong> Error 1</p>
 
-<p class="description">城管测试用例执行情况:</p>
+<p class="description">180城管测试用例执行情况:</p>
 </div>
 
 
@@ -222,7 +222,7 @@ function showOutput(id, name) {
 </tr>
 
 <tr class="errorClass">
-    <td>test_chengGuanLiuCheng_main.MyTest</td>
+    <td>Test_LiuCheng_15.MyTest</td>
     <td>1</td>
     <td>0</td>
     <td>0</td>
@@ -231,7 +231,7 @@ function showOutput(id, name) {
 </tr>
 
 <tr id="ft1.1" class="none">
-    <td class="errorCase"><div class="testcase">test_hujiaoMain</div></td>
+    <td class="errorCase"><div class="testcase">test_liucheng</div></td>
     <td colspan="5" align="center">
 
     <!--css div popup start-->
@@ -245,19 +245,19 @@ function showOutput(id, name) {
         </div>
         <pre>
         
-ft1.1: start test
-fdata: b'iVBORw0KGgoAAAANSUhEUgAAAFAAAAAeCAYAAAC7Q5mxAAAAIElEQVR4nO3BMQEAAADCoPVPbQlPoAAAAAAAAAAAAPgbJZ4AAUzV1ckAAAAASUVORK5CYII='
-@@@验证码是： None
+ft1.1: 值： (0.6882382152513672, 'r')
 Traceback (most recent call last):
-  File "E:\test\jenkins_dcms\ChengGuan\test_case\HuJiaoXiTong\test_chengGuanLiuCheng_main.py", line 27, in setUp
-    webLogin = allLogin().test_web_login(self.driver)
-  File "E:\test\jenkins_dcms\ChengGuan\test_case\HuJiaoXiTong\test_login.py", line 45, in test_web_login
-    driver.find_element_by_name('code').send_keys(authCode)
-  File "D:\python\lib\site-packages\selenium\webdriver\remote\webelement.py", line 478, in send_keys
-    {'text': "".join(keys_to_typing(value)),
-  File "D:\python\lib\site-packages\selenium\webdriver\common\utils.py", line 150, in keys_to_typing
-    for i in range(len(val)):
-TypeError: object of type 'NoneType' has no len()
+  File "E:\test\dcms\ChengGuan\test_case\formal\Test_LiuCheng_15.py", line 69, in test_liucheng
+    webLogin = self.loginObj.test_web_login()
+  File "D:\python\lib\site-packages\login\login.py", line 34, in test_web_login
+    authCode,image_split_arr = test_login_authCode(self.driver,self.url) #获取验证码
+  File "D:\python\lib\site-packages\login\chengguan_authCode.py", line 48, in test_login_authCode
+    text,image_split_arr = verificationCode(frame4)
+  File "e:\test\dcms\ChengGuan\common\identifyingCode\verification_code.py", line 106, in verificationCode
+    guess.append( ( v.relation(y[0],buildvector(im4)),x) )
+  File "E:/test/dcms/ChengGuan/common/identifyingCode\VectorCompare_05.py", line 29, in relation
+    return topvalue / (self.magnitude(concordance1) * self.magnitude(concordance2))
+ZeroDivisionError: float division by zero
 
 
         </pre>

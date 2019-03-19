@@ -5,7 +5,6 @@ import json,random
 import sys,re
 sys.path.append("E:/test/dcms/ChengGuan")
 import time
-from test_case.LiuCheng_currency.login import allLogin
 # import xml.etree.ElementTree as ET
 from bs4 import BeautifulSoup,SoupStrainer
 from config.Log import logging
@@ -99,7 +98,7 @@ class colligateQuery():
             print("WEB端综合查询列表成功")
             return zhcx_res.text
         elif zhcx_res.status_code == 302:
-            print("XXXXXXXXXXXXXXXXXXX您还未登录XXXXXXXXXXXXXXXXXXX")
+            print("XXXXXXXXXXXXXXXXXXX您还未登录web端XXXXXXXXXXXXXXXXXXX")
             return False
         else:
             print("XXXXXXXXXXXXXXXXXWEB端综合查询列表出错XXXXXXXXXXXXXXXXXX")
@@ -192,57 +191,57 @@ class colligateQuery():
                 print("导个毛线，综合查询列表暂无数据！！！")
     #==================================================================================================================
     #app移动端综合查询模块(综合查询列表)
-    def test_app_zongHeList(self):
-        appzhcxurl = self.ip+"/dcms/pwasCase/Case-pdacaseprochislist.action"
-        appData = {
-            "eorc.id":"", 
-            "description":"", 
-            "startdate":"", 
-            "eventtypeone.id":"", 
-            "page.pageSize":"20",
-            "casestateid.id":"", 
-            "bgadminid.id":self.loginItems['zfj']['user']['id'],
-            "eventtypetwo.id":"",
-            "bgcode.id":"", 
-            "enddate":"", 
-            "page.pageNo":"1"
-        }
-        appzhcx_res = requests.post(appzhcxurl,appData,headers = self.app_header, allow_redirects=False,timeout = 20)
-        appzhcx_res.connection.close()
-        if appzhcx_res.status_code == 200 and '<caseQueryList count=' in appzhcx_res.text:
-            return appzhcx_res.text
-        elif appzhcx_res.status_code == 302:
-            print("XXXXXXXXXXXXXXXXXXX您还未登录XXXXXXXXXXXXXXXXXXX")
-            return False
-        else:
-            print("XXXXXXXXXXXXXXXXX综合查询列表出错XXXXXXXXXXXXXXXXXX")
-            return False
+    # def test_app_zongHeList(self):
+    #     appzhcxurl = self.ip+"/dcms/pwasCase/Case-pdacaseprochislist.action"
+    #     appData = {
+    #         "eorc.id":"", 
+    #         "description":"", 
+    #         "startdate":"", 
+    #         "eventtypeone.id":"", 
+    #         "page.pageSize":"20",
+    #         "casestateid.id":"", 
+    #         "bgadminid.id":self.loginItems['zfj']['user']['id'],
+    #         "eventtypetwo.id":"",
+    #         "bgcode.id":"", 
+    #         "enddate":"", 
+    #         "page.pageNo":"1"
+    #     }
+    #     appzhcx_res = requests.post(appzhcxurl,appData,headers = self.app_header, allow_redirects=False,timeout = 20)
+    #     appzhcx_res.connection.close()
+    #     if appzhcx_res.status_code == 200 and '<caseQueryList count=' in appzhcx_res.text:
+    #         return appzhcx_res.text
+    #     elif appzhcx_res.status_code == 302:
+    #         print("XXXXXXXXXXXXXXXXXXX您还未登录apkXXXXXXXXXXXXXXXXXXX")
+    #     else:
+    #         print("XXXXXXXXXXXXXXXXX综合查询列表出错XXXXXXXXXXXXXXXXXX")
 
     #app移动端综合查询中的案卷详情     
-    def test_app_anJuanDetail(self):
-        zongHeList = self.test_app_zongHeList()
-        count = re.compile('count="(.*?)"').search(zongHeList).group(1)
-        if count > "0":
-            print("综合查询列表成功")
-            zongHe_List = BeautifulSoup(zongHeList,'xml')
-            caseQueryRecordArr = zongHe_List.findAll('caseQueryRecord')
-            for caseQueryRecord in caseQueryRecordArr:
-                # print("编码是:",caseQueryRecord.idcase.string,
-                #       "状态是:",caseQueryRecord.casestateid.string)
-                detailUrl = self.ip+"/dcms/PwasAdmin/PwasAdmin-getImg.action"  
-                detailData = {'caseId':caseQueryRecord.idcase.string}
-                appDetailRes = requests.post(detailUrl,detailData,headers = self.app_header, allow_redirects=False,timeout = 20)
-                appDetailRes.connection.close()
-                if 'success' in appDetailRes.text:
-                    detailObj = json.loads(appDetailRes.text)
-                    if detailObj['data']:
-                        print("案卷详情是：",detailObj['data'])
-                    else:
-                        print("XXXXXXXXXXXX案卷单号:{}该案卷详情中的流转记录有错误XXXXXXXXXXXXX".format(caseQueryRecord.caseid.string))
+    # def test_app_anJuanDetail(self):
+    #     zongHeList = self.test_app_zongHeList()
+    #     if zongHeList:
+    #         print("zongHeList",zongHeList)
+    #         count = re.compile('count="(.*?)"').search(zongHeList).group(1)
+    #         if count > "0":
+    #             print("综合查询列表成功！")
+    #             zongHe_List = BeautifulSoup(zongHeList,'xml')
+    #             caseQueryRecordArr = zongHe_List.findAll('caseQueryRecord')
+    #             for caseQueryRecord in caseQueryRecordArr:
+    #                 # print("编码是:",caseQueryRecord.idcase.string,
+    #                 #       "状态是:",caseQueryRecord.casestateid.string)
+    #                 detailUrl = self.ip+"/dcms/PwasAdmin/PwasAdmin-getImg.action"  
+    #                 detailData = {'caseId':caseQueryRecord.idcase.string}
+    #                 appDetailRes = requests.post(detailUrl,detailData,headers = self.app_header, allow_redirects=False,timeout = 20)
+    #                 appDetailRes.connection.close()
+    #                 if 'success' in appDetailRes.text:
+    #                     detailObj = json.loads(appDetailRes.text)
+    #                     if detailObj['data']:
+    #                         print("案卷详情是：",detailObj['data'])
+    #                     else:
+    #                         print("XXXXXXXXXXXX案卷单号:{}该案卷详情中的流转记录有错误XXXXXXXXXXXXX".format(caseQueryRecord.caseid.string))
 
-        else:
-            print("综合查询列表为空！！！")
-        
+    #         else:
+    #             print("综合查询列表为空！！！")
+            
                 
 
 if __name__=="__main__": 
@@ -256,4 +255,4 @@ if __name__=="__main__":
     # a = colligateQuery(loginItems).test_app_zongHeList()
     # print(a)
     #案卷查询列表、案卷详情
-    colligateQuery(loginItems).test_app_anJuanDetail()
+    # colligateQuery(loginItems).test_app_anJuanDetail()
