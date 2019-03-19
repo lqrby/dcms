@@ -126,7 +126,7 @@ class fileFandling():
             clresult = requests.post(cl_url,data = m ,headers = cl_header)
             cl_result = clresult.text
             clresult.connection.close()
-            return cl_result.text
+            return cl_result
         else:
             print("待处理列表暂无数据！！！")
             return False
