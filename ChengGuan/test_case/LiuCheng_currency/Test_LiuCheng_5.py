@@ -169,16 +169,16 @@ class MyTest2(unittest.TestCase):     #封装测试环境的初始化和还原�
         else:
             logging.info("XXXXXXXXX8.移动端权属单位处理失败XXXXXXXXX")
 
-    # 回访 web回访
-    def test_9fuHe(self):
-        hfItem = {}
-        hfItem['resultprocess'] = '回访通过'
-        hfItem['operatingComments'] = '回访用户很满意。'
-        ff_result = reviewAndReturnVisit(hfItem).test_returnDetailsAndVisit()
-        if ff_result:
-            logging.info("*****9.web端回访完毕*****")
-        else:
-            logging.info("XXXXXXXXXX9.web端回访失败XXXXXXXXXX")
+    # # 回访 web回访
+    # def test_9fuHe(self):
+    #     hfItem = {}
+    #     hfItem['resultprocess'] = '回访通过'
+    #     hfItem['operatingComments'] = '回访用户很满意。'
+    #     ff_result = reviewAndReturnVisit(hfItem).test_returnDetailsAndVisit()
+    #     if ff_result:
+    #         logging.info("*****9.web端回访完毕*****")
+    #     else:
+    #         logging.info("XXXXXXXXXX9.web端回访失败XXXXXXXXXX")
 
     @classmethod
     def tearDownClass(cls): 

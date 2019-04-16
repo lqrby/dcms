@@ -18,6 +18,8 @@ from fuHeAndHuiFang import reviewAndReturnVisit
 from common.writeAndReadText import writeAndReadTextFile
 from common.constant_all import getConstant
 from zongHeChaXun import colligateQuery
+from piSi import Approval
+from tiaoZhengPiSi import adjustmentApproval
 
 class ProcessSet():
     def __init__(self):
@@ -49,36 +51,35 @@ class ProcessSet():
         mark = writeAndReadTextFile().test_read_txt(markPath)
         dict_mark = json.loads(mark)
         number = int(dict_mark['web_sb'])+1
-        orderData = {}
         # userItem = self.loginItems['wggly'] #网格管理员
         picpath = "E:/test/dcms/ChengGuan/testFile/img/1.png"
         img_value = ('1.png', open(picpath,'rb'),'multipart/form-data')
-        orderData['mposl'] = '14088659.985423975'
-        orderData['mposb'] = '5442040.762812978'
-        orderData['menuId'] = '402880822f9490ad012f949eb313008a'
-        orderData['isFh'] = userItem['isFh']
-        orderData['street'] = '220204002'
-        orderData['p_name'] = '董楚楚'
-        orderData['p_sex'] = '女'
-        orderData['p_job'] = '教师'
-        orderData['p_phone'] = '0102864987'
-        orderData['other_phone'] = '15866993322'
-        orderData['feedback'] = '手机'
-        orderData['source'] = '402880822f47692b012f4774e5710010'  #案卷来源
-        orderData['eorc'] = getConstant.EORCID_SJ   #案卷类型
-        orderData['eventtypeone'] = getConstant.SJ_XCGG   #事件大类
-        orderData['eventtypetwo'] = getConstant.SJ_XCGG_FFXGG  #小类
-        orderData['regioncode'] = '220204'
-        orderData['bgcode'] = '220204002'
-        orderData['bgadminid'] = userItem['id']
-        orderData['bgadminid2'] = userItem['name']
-        orderData['gridid'] = '220204002003'
-        orderData['needconfirm'] = userItem['needconfirm']
-        orderData['description'] = '流程一，非法小广告'+str(number)
-        orderData['dealWay'] = 'on'
-        orderData['fieldintro'] = '吉林市 船营区 南京街道 怀德社区'
-        orderData['upload'] = img_value
-        gdlr_res = submitOrder(orderData).test_web_submitOrder()
+        userItem['mposl'] = '14088659.985423975'
+        userItem['mposb'] = '5442040.762812978'
+        userItem['menuId'] = '402880822f9490ad012f949eb313008a'
+        # userItem['isFh'] = userItem['isFh']
+        userItem['street'] = '220204002'
+        userItem['p_name'] = '董楚楚'
+        userItem['p_sex'] = '女'
+        userItem['p_job'] = '教师'
+        userItem['p_phone'] = '0102864987'
+        userItem['other_phone'] = '15866993322'
+        userItem['feedback'] = '手机'
+        userItem['source'] = '402880822f47692b012f4774e5710010'  #案卷来源
+        # userItem['eorc'] = userItem['eorc']   #案卷类型
+        # userItem['eventtypeone'] = userItem['eventtypeone']   #事件大类
+        # userItem['eventtypetwo'] = userItem['eventtypetwo']  #小类
+        userItem['regioncode'] = '220204'
+        userItem['bgcode'] = '220204002'
+        userItem['bgadminid'] = userItem['hsfhUser']['id']
+        userItem['bgadminid2'] = userItem['hsfhUser']['name']
+        userItem['gridid'] = '220204002003'
+        # userItem['needconfirm'] = userItem['needconfirm']  #是否核实
+        userItem['description'] = '流程一，非法小广告'+str(number)
+        userItem['dealWay'] = 'on'
+        userItem['fieldintro'] = '吉林市 船营区 南京街道 怀德社区'
+        userItem['upload'] = img_value
+        gdlr_res = submitOrder(userItem).test_web_submitOrder()
         if gdlr_res:
             dict_mark["web_sb"] = str(number)
             writeAndReadTextFile().test_write_txt(markPath,json.dumps(dict_mark))
@@ -97,14 +98,16 @@ class ProcessSet():
         dict_mark = json.loads(mark)
         number = int(dict_mark['zfj_sb'])+1
         # orderData = self.loginItems['zfj']['user']
-        orderData['eorcid'] = getConstant.EORCID_SJ #事部件类型 
+
+        orderData['id'] = orderData['sbUser']['id']
+        # orderData['eorcid'] = getConstant.EORCID_SJ #事部件类型 
         orderData['fieldintro'] = '吉林市 高新开发区 高新开发区街道 恒厦社区 恒厦社区第九网格'
         orderData['mposl'] = '14088524.212997204'
         orderData['description'] = '流程三，路面不干净'+str(number)
-        orderData['eventtypeoneId'] = getConstant.SJ_SRHJ #大类  市容环境
+        # orderData['eventtypeoneId'] = getConstant.SJ_SRHJ #大类  市容环境
         orderData['gridid'] = '22020600100109'
         # orderData['bgadminId'] =  #上报人id
-        orderData['eventtypetwoId'] = getConstant.SJ_SRHJ_DLBJ #小类   道路不洁
+        # orderData['eventtypetwoId'] = getConstant.SJ_SRHJ_DLBJ #小类   道路不洁
         orderData['mposb'] = '5437559.658689937'#执法局上报案卷（移动端）
         sb_picpath1 = "E:/test/dcms/ChengGuan/testFile/img/24.png"
         sb_picpath2 = "E:/test/dcms/ChengGuan/testFile/img/25.png"
@@ -128,7 +131,8 @@ class ProcessSet():
         mark = writeAndReadTextFile().test_read_txt(markPath)
         dict_mark = json.loads(mark)
         number = int(dict_mark['zfj_sb'])+1
-        # orderData = self.loginItems['zfj']['user']
+        orderData['id'] = orderData['sbUser']['id']
+        orderData['name'] = orderData['sbUser']['name']
         orderData['fieldintro'] = '吉林市 市管主街路 越山路 越山路 越山路（沙河子广场-解放中路）'
         orderData['gridid'] = '22029904000101'
         orderData['description'] = '流程五，建筑垃圾,渣土管理'+str(number)
@@ -153,15 +157,12 @@ class ProcessSet():
         mark = writeAndReadTextFile().test_read_txt(markPath)
         dict_mark = json.loads(mark)
         number = int(dict_mark['wggly_sb'])+1
-        # orderData = self.loginItems['wggly']['user']
-        orderData['eorcid'] = getConstant.EORCID_BJ #事部件类型 
+        orderData['id'] = orderData['sbUser']['id']
+        orderData['name'] = orderData['sbUser']['name']
         orderData['fieldintro'] = '吉林市 高新开发区 高新开发区街道 恒厦社区 恒厦社区第九网格'
         orderData['mposl'] = '14088524.212997204'
         orderData['description'] = "流程四，道路不干净，环境脏乱差"+str(number)
-        orderData['eventtypeoneId'] = getConstant.BJ_JTSS #大类  市容环境
         orderData['gridid'] = '22020600100109'
-        # orderData['bgadminId'] =  #上报人id
-        orderData['eventtypetwoId'] = getConstant.BJ_JTSS_DXTD #小类   道路不洁
         orderData['mposb'] = '5437559.658689937'
         sb_picpath1 = "E:/test/dcms/ChengGuan/testFile/img/26.png"
         sb_picpath2 = "E:/test/dcms/ChengGuan/testFile/img/27.png"
@@ -187,7 +188,8 @@ class ProcessSet():
         mark = writeAndReadTextFile().test_read_txt(markPath)
         dict_mark = json.loads(mark)
         number = int(dict_mark['sm_sb'])+1
-        # orderData = self.loginItems['sm']['result']
+        orderData['id'] = orderData['sbUser']['id']
+        orderData['name'] = orderData['sbUser']['name']
         orderData['longitude'] = '14090823.883200558'
         orderData['latitude'] = '5446737.409308622'
         orderData['complaincontent'] = '流程二，设施脏污'+str(number) #描述
@@ -196,9 +198,9 @@ class ProcessSet():
         orderData['gridid'] = '220202003001'
         orderData['wxsource'] = 'GZHJB'
         orderData['imgurl'] = '/image/20181008/f7bffd2e16154c8f817f5fc1b442f21d.jpg'
-        orderData['eorcid'] = getConstant.EORCID_SJ
-        orderData['eventoneid'] = getConstant.SJ_SGGL
-        orderData['eventtwoid'] = getConstant.SJ_SGGL_WZJL
+        orderData['is_login'] = orderData['sbUser']['is_login']
+        orderData['token'] = orderData['sbUser']['token']
+        orderData['phoneNumber'] = orderData['sbUser']['phoneNumber']
         res = submitOrder(orderData).test_app_sm_submitOrder()
         if res:
             dict_mark["sm_sb"] = str(number)
@@ -214,34 +216,30 @@ class ProcessSet():
         web端坐席确认案卷
         """
         time.sleep(random.randint(1,3))
-        # dataObject = self.loginItems['zfj']['user']#核实人
-        # userItem['oderNumber'] = self.oderNumber #工单号
-        userItem['eorcId'] = getConstant.EORCID_SJ #事件
-        userItem['eventtypeoneId'] = getConstant.SJ_SGGL #大类
-        userItem['eventtypetwoId'] = getConstant.SJ_SGGL_WZJL #小类
-        userItem['regioncodeId'] = '220206' #高新开发区
-        userItem['bgcodeId'] = '220206001' #高新开发区街道	
-        # dataObject['gridId'] = '22020600100706' #万米网格
-        # dataObject['fieldintro'] = '吉林市 高新开发区 高新开发区街道 日升社区 日升社区第六网格' #位置描述
-        userItem['needconfirm'] = getConstant.NEEDCONFIRM_YES #核实
-        userItem['isFh'] = getConstant.ISFH_YES #复核
+        userItem['id'] = userItem['hsfhUser']['id']
+        userItem['name'] = userItem['hsfhUser']['name']
+        userItem['mposl'] = '14088724.001551798' #经度
+        userItem['mposb'] = '5448421.821538827'  #维度
+        userItem['regioncodeId'] = '220299' #区编码
+        userItem['bgcodeId'] = '220299027' #街道编码	
+
         qr_picpath = "E:/test/dcms/ChengGuan/testFile/img/36.png"
         qr_img = ('img.png', open(qr_picpath,'rb'),'multipart/form-data')
         userItem['upload'] = qr_img
         qr_res = confirm(userItem).test_web_UnconfirmedDetail()
         if qr_res:
             logging.info("*****4.web确认案卷完毕*****")
-            return True
+        return qr_res
 
 
 
-    #执法局核实案卷(移动端)
     def heShi(self,userItem):
         """
         #移动端apk核实案卷
         """
         time.sleep(random.randint(1,2))
-        # loginItem_hs = self.loginItems['zfj']
+        userItem['id'] = userItem['hsfhUser']['id']
+        userItem['name'] = userItem['hsfhUser']['name']
         hs_picpath1 = "E:/test/dcms/ChengGuan/testFile/img/10.png"
         hs_picpath2 = "E:/test/dcms/ChengGuan/testFile/img/11.png"
         # userItem['oderNumber'] = self.oderNumber #工单号
@@ -249,8 +247,8 @@ class ProcessSet():
         userItem['casestateid'] = getConstant.HSYX
         hs_res = verify(userItem).test_app_daiHeShiDetail()
         if hs_res:
-            logging.info("*****5.执法局核实案卷完毕(%s)*****"%(userItem['oderNumber']))
-            return True
+            logging.info("*****执法局核实案卷完毕(%s)*****"%(userItem['oderNumber']))
+        return hs_res
 
 
     def liAn(self,oderNumber):
@@ -263,11 +261,11 @@ class ProcessSet():
         lianData['resultprocess'] = "立案"
         lianData['operatingComments'] = "批准立案"
         lian_result = setUpCase(lianData).test_detailsAndFiling()
-        if lian_result:
-            logging.info("4.web立案完毕")
-            return True
-        else:
-            logging.info("XXXXXXXXXXXXXXXX4.web立案失败XXXXXXXXXXXXXXX")
+        # if lian_result:
+        #     logging.info("4.web立案完毕")
+        # else:
+        #     logging.info("XXXXXXXXXXXXXXXX4.web立案失败XXXXXXXXXXXXXXX")
+        return lian_result
 
 
 
@@ -276,8 +274,10 @@ class ProcessSet():
         web端坐席派发 》派发
         """
         time.sleep(random.randint(1,2))
-        # userItem = self.loginItems['qsdw']['user']
-        # userItem['oderNumber'] = self.oderNumber #工单号
+        userItem['id'] = userItem['hsfhUser']['id']
+        userItem['name'] = userItem['hsfhUser']['name']
+        userItem["deptname"] = userItem['hsfhUser']['deptname']
+        userItem["deptid"] = userItem['hsfhUser']['deptid']
         userItem['resultprocess'] = "派发"
         userItem['limittime'] = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())
         userItem['operatingComments'] = "尽快处理"
@@ -286,46 +286,81 @@ class ProcessSet():
         #派发url
         userItem['pf_url'] = getConstant.pf_url
         paifa_result = distribution(userItem).test_sendDetailsAndSendOut()
-        if paifa_result:
-            logging.info("*****7.web派发完毕*****")
-            return True
+        # if paifa_result:
+        #     logging.info("*****7.web派发完毕*****")
+        return paifa_result
+
+
+    # def paiFa_guaQi(self,userItem): 
+    #     """
+    #     web端坐席派发 》挂起
+    #     """
+    #     time.sleep(random.randint(1,2))  
+    #     outDir = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())
+    #     # userItem['oderNumber'] = self.oderNumber
+    #     userItem['resultprocess'] = "挂账"
+    #     userItem['limittime'] = outDir
+    #     userItem['operatingComments'] = "先挂起，暂时不知道派发部门"
+    #     #待派发列表url
+    #     userItem['pflist_url'] = getConstant.dpf_ListUrl
+    #     #派发url
+    #     userItem['pf_url'] = getConstant.pf_url
+    #     paifa_result = distribution(userItem).test_sendDetailsAndSendOut()
+    #     # if paifa_result:
+    #     #     logging.info("5.web挂起完毕")
+    #     return paifa_result
         
 
-
-    def paiFa_guaQi(self,userItem): 
-        """
-        web端坐席派发 》挂起
-        """
-        time.sleep(random.randint(1,2))  
-        # pf_loginItem = self.loginItems['qsdw']['user']
-        outDir = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())
-        # userItem['oderNumber'] = self.oderNumber
-        userItem['resultprocess'] = "挂账"
-        userItem['limittime'] = outDir
-        userItem['operatingComments'] = "先挂起，暂时不知道派发部门"
-        #待派发列表url
-        userItem['pflist_url'] = getConstant.dpf_ListUrl
-        #派发url
-        userItem['pf_url'] = getConstant.pf_url
-        paifa_result = distribution(userItem).test_sendDetailsAndSendOut()
-        if paifa_result:
-            logging.info("5.web挂起完毕")
-            return True
-
     
-    def huiFu(self):
+    
+    def guaQi(self,oderNumber):
         """
         web端坐席挂账》恢复
         """
         time.sleep(random.randint(1,2)) 
         gzItem = {}
-        # gzItem['oderNumber'] = self.oderNumber
+        gzItem['oderNumber'] = oderNumber
         gzItem['resultprocess'] = '恢复'
         gzItem['operatingComments'] = '恢复案卷流程'
         gz_res = hangUp(gzItem).test_hangUpDetail()
-        if gz_res:
-            logging.info("6.web挂账案卷恢复成功")
-            return True
+        # if gz_res:
+        #     logging.info("6.web挂账案卷恢复成功")
+        return gz_res
+
+
+    
+    def piShi(self,oderNumber):
+        """
+        协同系统》派发时申请非正常结案》批示
+        """
+        time.sleep(random.randint(1,2)) 
+        dataItem = {}
+        dataItem['oderNumber'] = oderNumber
+        dataItem['resultprocess'] = "批准"
+        dataItem['leaderComments'] = "批准了"
+        psres = Approval(dataItem).stayApprovalDetail()
+        # if psres:
+        #     logging.info("*****8.web批示完毕(%s)*****"%dataItem['resultprocess'])  
+        # else:
+        #     logging.info("*****8.web批示出错(%s)*****"%dataItem['resultprocess'])  
+        return psres
+
+
+       
+    def tiaoZhengPiShi(self,oderNumber):
+        """
+        调整批示》批准、不批准 
+        """
+        time.sleep(random.randint(1,2)) 
+        dataItem = {}
+        dataItem['oderNumber'] = oderNumber
+        dataItem['resultprocess'] = "批准"
+        dataItem['leaderComments'] = "批准了"
+        tzpsOK = adjustmentApproval(dataItem).adjustmentApprovalDetail()
+        if tzpsOK:
+            logging.info("*****7.web端调整批示成功(%s)*****"%dataItem['resultprocess'])
+        return tzpsOK
+
 
 
     # 处理 移动端权属单位apk处理 
@@ -334,7 +369,8 @@ class ProcessSet():
         移动端apk处理 [zfj,qsdw]
         """
         time.sleep(random.randint(1,2)) 
-        # cl_loginItem = self.loginItems['qsdw']['user']
+        userItem['id'] = userItem['hsfhUser']['id']
+        userItem['name'] = userItem['hsfhUser']['name']
         userItem['resultprocess'] = '处理结束'
         userItem['operatingComments'] = '处理完成1'
         cl_picpath1 = "E:/test/dcms/ChengGuan/testFile/img/9.png"
@@ -343,7 +379,7 @@ class ProcessSet():
         cl_result = fileFandling(userItem).test_app_handlingDetailsAndHandling()
         if cl_result:
             logging.info("8.移动端权属单位处理完毕")
-            return True
+        return cl_result
 
     # 复核 网格管理员apk复核 
     def fuHe(self,userItem):
@@ -353,18 +389,28 @@ class ProcessSet():
         time.sleep(random.randint(1,3)) 
         fh_picpath1 = "E:/test/dcms/ChengGuan/testFile/img/6.png"
         fh_picpath2 = "E:/test/dcms/ChengGuan/testFile/img/7.png"
-        # fh_loginUser = self.loginItems['wggly']['user']
-        # userItem['oderNumber'] = self.oderNumber
+        userItem['id'] = userItem['hsfhUser']['id']
+        userItem['name'] = userItem['hsfhUser']['name']
         userItem['casestateid'] = getConstant.FHYX  #复核通过、复核不通过
         userItem['checkdesc'] = '经复核有效'
         userItem['imgPath'] = [fh_picpath1,fh_picpath2]
         fh_result = reviewAndReturnVisit(userItem).test_app_returnDetailsAndVisit()
         if fh_result:
             logging.info("9.移动端网格管理员复核完毕")
-            return True
+        return fh_result
     
 
-    
+    def huiFang(self,userItem):
+        """
+        坐席回访【回访通过，回访不通过】
+        """
+        userItem['resultprocess'] = '回访通过'
+        userItem['operatingComments'] = '回访用户很满意。'
+        ff_result = reviewAndReturnVisit(userItem).test_returnDetailsAndVisit()
+        if ff_result:
+            logging.info("*****9.web端回访完毕*****")
+        return ff_result
+
 
 
     # def test_liucheng_1(self):

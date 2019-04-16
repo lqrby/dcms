@@ -57,7 +57,7 @@ class submitOrder():
                 "feedback":self.orderData['feedback'],
                 "source.id":self.orderData['source'],
                 "id":"",
-                "eorc.id":self.orderData['eorc'],
+                "eorc.id":self.orderData['eorcid'],
                 "eventtypeone.id":self.orderData['eventtypeone'],
                 "eventtypetwo.id":self.orderData['eventtypetwo'],
                 "startConditionId":"", #立案条件
@@ -112,10 +112,10 @@ class submitOrder():
             "mposl":self.orderData['mposl'],
             "description":self.orderData['description'],
             "objcode":"",
-            "eventtypeone.id":self.orderData['eventtypeoneId'], #大类  市容环境
+            "eventtypeone.id":self.orderData['eventtypeone'], #大类  市容环境
             "gridid":self.orderData['gridid'],
             "bgadminid.id":self.orderData['id'], #上报人id
-            "eventtypetwo.id":self.orderData['eventtypetwoId'], #小类   道路不洁
+            "eventtypetwo.id":self.orderData['eventtypetwo'], #小类   道路不洁
             "mposb":self.orderData['mposb']
         }
         #提交app案卷上报
@@ -164,8 +164,8 @@ class submitOrder():
             "imgurl":self.orderData['imgurl'],#ok
             "userid":self.orderData['id'],  #id
             "eorcid":self.orderData['eorcid'],
-            "eventoneid":self.orderData['eventoneid'],#大
-            "eventtwoid":self.orderData['eventtwoid']
+            "eventoneid":self.orderData['eventtypeone'],#大类
+            "eventtwoid":self.orderData['eventtypetwo'] #小类
         }
         sb_respons = requests.post(smsubmiturl,sm_data,headers = self.app_header,timeout = 20)
         res = sb_respons.text

@@ -30,16 +30,17 @@ class hangUp():
             "Accept-Language":"zh-CN,zh;q=0.9,en;q=0.8",
             "Cookie":writeAndReadTextFile().test_readCookies()
             }
-           
+        self.keywords = writeAndReadTextFile().test_read_systemId('协调系统')   
             
     #web查询挂起案卷列表    
     def test_hangUpList(self):
         guaqiItem = {}
-        gzlist_url = self.ip+"/dcms/cwsCase/Case-losseslist.action?casestate=21&menuId=2c94d09f3087787d013087ea6943007b&keywords=402880eb2f90e905012f9138a5fb00a4"
+        gzlist_url = self.ip+"/dcms/cwsCase/Case-losseslist.action?casestate=21&menuId=2c94d09f3087787d013087ea6943007b&keywords={}".format(self.keywords)
         gzrespons = requests.get(url = gzlist_url,headers=self.header,allow_redirects=False,timeout = 20)
         gz_respons = gzrespons.text
         gzrespons.connection.close()
         if '<span id="pagemsg"' in gz_respons:
+            print("------------------------------------------")
             listcount = re.compile('<label>总共(.*?)页,(.*?)条记录</label>').search(gz_respons).group(2)
             if listcount > '0':
                 gqlist = BeautifulSoup(gz_respons,'html.parser')
@@ -54,6 +55,7 @@ class hangUp():
                 return guaqiItem
             else:
                 print("挂起列表暂时为空！！！")
+                return listcount
             
         elif 'Location' in gzrespons.headers and '/dcms/bms/login' in gzrespons.headers['Location']:
             print("对不起，请您先登录web端")
@@ -65,6 +67,7 @@ class hangUp():
     def test_hangUpDetail(self):
         gq_obj = self.test_hangUpList() # 获取挂起列表
         if gq_obj:
+            print("是否进入这里了？？？？")
             pattern = re.compile(r'<tr[\s\S]*id="(.*?)"[\s\S]*onclick="casedo[\(](.*?),(.*?),(.*?),(.*?),this[\)]">').search(str(gq_obj))
             gqid = pattern.group(1)
             gq_menuid = pattern.group(2).strip("'")
@@ -104,8 +107,9 @@ class hangUp():
                     print("XXXXXXXXXXXXXXXXXXXXXXXXXXXXX对不起，请您先登录XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
             else:
                 print("XXXXXXXXXXXXXXXXXXXXXX进入挂账案卷详情出错XXXXXXXXXXXXXXXXXXXXXX")
-        else:
+        elif gq_obj == {}:
             print("挂起列表中没有该工单号:{}".format(self.loginUser['oderNumber']))
+            return gq_obj
     
 
             

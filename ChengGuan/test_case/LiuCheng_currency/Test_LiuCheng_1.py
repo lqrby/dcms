@@ -35,28 +35,31 @@ class MyTest(unittest.TestCase):     #封装测试环境的初始化和还原的
         """
         pc端工单录入
         """
-        # 核实、复核[wggly,zfj]
+        # 用户对象
         zfjUser = self.loginItems['zfj']['user']
         wgyUser = self.loginItems['wggly']['user']
         qsdwUser = self.loginItems['qsdw']['user']
         smUser = self.loginItems['sm']['result']
-        processOBJ = ProcessSet()
+        
+        hsfhUser = zfjUser
+        chuliUser = qsdwUser
         # 工单上报
-        wgyUser['needconfirm'] = getConstant.NEEDCONFIRM_YES #是否核实
-        wgyUser['isFh'] = getConstant.ISFH_YES #是否复核
-        gongdan = processOBJ.gongDan(wgyUser)
+        processOBJ = ProcessSet()
+        hsfhUser['needconfirm'] = getConstant.NEEDCONFIRM_YES #是否核实
+        hsfhUser['isFh'] = getConstant.ISFH_YES #是否复核
+        gongdan = processOBJ.gongDan(hsfhUser)
         if gongdan:
             print("请您耐心等待大约一分钟......")
             time.sleep(random.randint(50,60))
             self.oderid = colligateQuery(gongdan).selectOder()
             if self.oderid:
                 print("成功获取上报案卷单号:{}".format(self.oderid))   
+
                 # 案卷核实[wggly,zfj]
-                zfjUser['oderNumber'] = self.oderid
-                qsdwUser['oderNumber'] = self.oderid
-                wgyUser['oderNumber'] = self.oderid
-                smUser['oderNumber'] = self.oderid
-                heshi = processOBJ.heShi(wgyUser)
+                hsfhUser['oderNumber'] = self.oderid
+                chuliUser['oderNumber'] = self.oderid
+
+                heshi = processOBJ.heShi(hsfhUser)
                 if heshi:
                     time.sleep(random.randint(5,8))
                     lian = processOBJ.liAn(self.oderid)
@@ -65,10 +68,10 @@ class MyTest(unittest.TestCase):     #封装测试环境的初始化和还原的
                         paifa = processOBJ.paiFa(qsdwUser)
                         if paifa:
                             time.sleep(random.randint(5,8))
-                            chuli = processOBJ.chuLi(qsdwUser) # 权属单位处理
+                            chuli = processOBJ.chuLi(chuliUser) # 权属单位处理
                             if chuli:
                                 time.sleep(random.randint(5,8))
-                                fuhe = processOBJ.fuHe(wgyUser) # 复核
+                                fuhe = processOBJ.fuHe(hsfhUser) # 复核
                                 if fuhe:
                                     print("流程走完啦，帅呆了！！！")
 

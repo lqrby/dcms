@@ -27,7 +27,7 @@ class setUpCase():
             
     #查询待立案列表    
     def test_toBePutOnRecordList(self):
-        dlaid = ''
+        dlaid = {}
         list_url = self.ip+"/dcms/cwsCase/Case-startlist.action?menuId=4028338158a414bd0158a4848a7f000d&keywords=402880ea2f6bd924012f6c521e8c0034"
         respons = requests.get(url = list_url,headers=self.header,allow_redirects=False,timeout = 20)
         respons.connection.close()
@@ -42,18 +42,16 @@ class setUpCase():
                 for tr in table[0].findAll('tr'):
                     tdvalue = tr.findAll('td')[-3].get_text()
                     if 'oderNumber' in self.lianData and tdvalue == self.lianData['oderNumber']:
-                        dlaid =  tr['id']
+                        dlaid = tr['id']
                         break
                 return dlaid
             else:
                 print("待立案列表暂时为空！！！")
-            
+                return listcount
         elif ('Set-Cookie' in respons.headers):
             print("对不起，请您先登录web端")
-            return False
         else:
             print("XXXXXXXXXX待立案列表查询出错XXXXXXXXXX")
-            return False
 
     #进入详情并立案
     def test_detailsAndFiling(self):
@@ -134,6 +132,7 @@ class setUpCase():
                 print("立案: 立案失败，返回值是：",lian_result.text)
         else:
             print("待立案列表中没有该工单号:{}".format(self.lianData['oderNumber']))
+            return orderId
         
 
 

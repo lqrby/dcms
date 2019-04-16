@@ -85,9 +85,9 @@ class readExcel():
         if ('Set-Cookie' in r.headers):
             print("请您先登录")
         elif '用户名已经存在' in r.text:
-            print("返回结果",r.text)
+            print("结果",r.text)
         else:
-            print("返回结果",r.text)
+            print("错误信息:",r.text)
         r.connection.close()
 
 if __name__ == "__main__":

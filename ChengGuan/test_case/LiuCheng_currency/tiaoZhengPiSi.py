@@ -62,7 +62,7 @@ class adjustmentApproval():
 
     def adjustmentApprovalDetail(self):
         dtzpsObj = self.adjustmentApprovalList()
-        print("待调整批示案卷详情：",dtzpsObj)
+        # print("待调整批示案卷详情：",dtzpsObj)
         if dtzpsObj:
             dtzps_list = re.compile(r'<tr id="(.*?)"[\s\S]*onclick="casedo[\(](.*?),(.*?),(.*?),(.*?),this[\)]">').search(str(dtzpsObj))
             dtzid = dtzps_list.group(1)
@@ -97,8 +97,9 @@ class adjustmentApproval():
                     print("XXXXXXXXXXXXXXXXXXX调整批示出错(%s)XXXXXXXXXXXXXXXXXX"%self.dataItem['resultprocess'])
             else:
                 print("XXXXXXXXXXXXXXXXXXX进入调整批示案卷详情出错XXXXXXXXXXXXXXXXXXX")
-        else:
+        elif dtzpsObj == {}:
             print("待调整批示列表中不存在该工单号{}".format(self.dataItem['oderNumber']))
+            return dtzpsObj
 
 
 

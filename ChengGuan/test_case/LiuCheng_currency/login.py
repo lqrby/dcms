@@ -59,12 +59,15 @@ class allLogin():
                 # 把cookie写入txt文件
                 cook_path = "E:/test/dcms/ChengGuan/common/cookie.txt"
                 writeAndReadTextFile().test_write_txt(cook_path,cookiestr)
-                print("web登录成功")    
+                print("web登录成功")  
+                for i,imgItem in enumerate(image_split_arr):
+                    outDir = time.strftime("%Y%m%d%H%M%S", time.localtime()) 
+                    imgItem.save("E:/test/dcms/ChengGuan/common/image/"+ outDir + str(i) + ".png")  
                 return True
             else:
                 mark = mark + 1
                 print("XXXXXXXXXXXXXweb登录失败,用户名密码或验证码错误XXXXXXXXXXXXXXX")
-                if mark <= 3:
+                if mark <= 300:
                     for i,imgItem in enumerate(image_split_arr):
                         outDir = time.strftime("%Y%m%d%H%M%S", time.localtime()) 
                         imgItem.save("E:/test/dcms/ChengGuan/common/image/"+ outDir + str(i) + ".png")

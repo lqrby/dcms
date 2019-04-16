@@ -23,6 +23,7 @@ class distribution():
             "Accept-Language":"zh-CN,zh;q=0.9,en;q=0.8",
             "Cookie":writeAndReadTextFile().test_readCookies()
         }
+        self.keywords = writeAndReadTextFile().test_read_systemId('呼叫系统')
 
     #查询待派发案卷列表    
     def test_PendingDistributionList(self):
@@ -46,7 +47,6 @@ class distribution():
                 return dpftr
             else:
                 print("待派发列表暂时为空！！！")
-                
         elif '<title>登录</title>' in respons:
             print("对不起请您先登录PC端")
         else:
@@ -55,7 +55,6 @@ class distribution():
     #进入待派发案卷详情并派发
     def test_sendDetailsAndSendOut(self):
         dpf_tr = self.test_PendingDistributionList() # 获取待派发列表
-        # print("待派发列表返回值",pf_res)
         if dpf_tr:
             Matching_result = re.compile(r'<tr[\s\S]*id="(.*?)"[\s\S]*onclick="casedo[\(](.*?),(.*?),(.*?)casestate=(.*?),(.*?),this[\)]">').search(str(dpf_tr))
             dpf_id = Matching_result.group(1)
@@ -128,6 +127,7 @@ class distribution():
                 print("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX进入待派发案卷详情出错XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
         else:
             print("待派发列表中没有该工单号:{}".format(self.item['oderNumber']))
+            return dpf_tr
 
 
 

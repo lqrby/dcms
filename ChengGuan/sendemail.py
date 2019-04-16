@@ -15,8 +15,8 @@ class Mailer(object):
     self.mail_content = mailcontent
     ##### email服务器配置 #####
     self.mail_host = "smtp.qq.com"
-    self.mail_user = "1640464937@qq.com"
-    self.mail_pass = "plixxiabopvdfdcc"
+    self.mail_user = "748862180@qq.com"
+    self.mail_pass = "ahitxintkngibbha"
     self.mail_postfix = "qq.com"
  
   def sendMail(self):
@@ -25,7 +25,7 @@ class Mailer(object):
     currentTime = time.strftime("%Y-%m-%d %H:%M:%S", timeArray)
     me = self.mail_user + "<" + self.mail_user + "@" + self.mail_postfix + ">"
     msg = MIMEMultipart()
-    msg['Subject'] = currentTime+'180城管系统接口测试'
+    msg['Subject'] = currentTime+'180城管系统接口测试6666666666666666'
     msg['From'] = me
     msg['To'] = ";".join(self.mail_list)
  
@@ -40,7 +40,7 @@ class Mailer(object):
  
 #      首先是xlsx类型的附件
     #xlsxpart = MIMEApplication(open('E:/test/dcms/JiangChengJiShi/test_report/TestRunner.html', 'rb').read())
-    xlsxpart = MIMEApplication(open('E:/test/jenkins_dcms/ChengGuan/test_report/TestRunner.html', 'rb').read())
+    xlsxpart = MIMEApplication(open('D:/myFile/jenkins/workspace/myPipeline/ChengGuan/test_report/TestRunner.html', 'rb').read())
     xlsxpart.add_header('Content-Disposition', 'attachment', filename='TestRunner.html')
     msg.attach(xlsxpart)
  

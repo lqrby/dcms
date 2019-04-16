@@ -42,18 +42,29 @@ class colligateQuery():
 
 
     # 综合查询》条件查询
-    def selectOder(self):
+    def selectOder(self,oderId):
         oderid = ""
+        if 'description' in self.loginItems:
+            description = self.loginItems['description']
+        else:
+            description = ""
+        if oderId:
+            oderid = oderId
+        else:
+            oderid = ""
+        print("查询描述：",description)
+        print("案卷id：",oderid)
+        oderObj = {}
         # 上报日期
         selectUrl = self.ip+"/dcms/bmsUniversal/UniversalCaseQuery-list.action"
         selectData = {
             "isExport":"", 
-            "caseid":"", #time.strftime("%Y%m%d"), # 20190314
+            "caseid":"", #工单id
             "casestateid.id":"", 
             "pf":"", 
             "source.id":"", 
-            "id":"", 
-            "description":self.loginItems['description'],
+            "id":oderid, 
+            "description":description,
             "fieldintro":"", 
             "regioncode":"", 
             "bgadminid.id":"",
@@ -66,24 +77,37 @@ class colligateQuery():
             "deptid":"", 
             "zxuserid":"", 
             "page.pageNo": "1",
-            "menuId": "4028838358b7f73b0158b9e7f3480c59",
+            "menuId": self.menuId,
             "keywords": self.keywords
         }
         select_Result = requests.post(selectUrl,selectData,headers = self.header,allow_redirects = False, timeout = 20)
         selectResult = select_Result.text
         if '<span id="pagemsg"' in selectResult:
+            print("66666666666666666666666666666666666")
             count = re.compile('<label>总共(.*?)页,(.*?)条记录</label>').search(selectResult).group(2)
             if count == "1":
                 mysoup = BeautifulSoup(selectResult,'html.parser')
                 table = mysoup.find('table')
-                oderid = table.find_all('td')[0].get_text()  #re.compile('<tr id="(.*?)"').search(str(table)).group(1)
-                return oderid.strip()
+                oderid = table.find_all('tr')[1]['id']
+                oderDetailUrl = self.ip+"/dcms/cwsCase/Case-caseinfo.action?id={}&menuId={}".format(oderid.strip(), self.menuId)
+                oder_Detail = requests.get(oderDetailUrl, headers = self.header, timeout = 20)
+                oderDetail = oder_Detail.text
+                oder_Detail.connection.close()
+                if '流转记录' in oderDetail:
+                    print("88888888888888888888")
+                    detailsoup = BeautifulSoup(oderDetail,'html.parser')
+                    oderId = detailsoup.find('input', attrs={'id':'id'})
+                    oderStatus = detailsoup.find('input', attrs={'id':'taskcasestateid'})
+                    oderObj['oderid'] = oderId['value']
+                    oderObj['status'] = oderStatus['value']
+                    # oderObj['oderNumber'] = oderid.strip()
+                    return oderObj
             elif count > "1":
                 print("查询结果又多条案卷，请您确认并输入工单号")
                 oderid = input("输入工单号")
-                return oderid
+                self.selectOder(oderid)
             else:
-                print("查询结果为空！！！")
+                print("查询结果为空！！！\n 返回值是：",selectResult)
         elif 'location' in select_Result.headers and '/dcms/bms/login' in select_Result.headers['location']:
             print("对不起，请您先登录web端！！！")
         else:
@@ -227,8 +251,6 @@ class colligateQuery():
             zongHe_List = BeautifulSoup(zongHeList,'xml')
             caseQueryRecordArr = zongHe_List.findAll('caseQueryRecord')
             for caseQueryRecord in caseQueryRecordArr:
-                # print("编码是:",caseQueryRecord.idcase.string,
-                #       "状态是:",caseQueryRecord.casestateid.string)
                 detailUrl = self.ip+"/dcms/PwasAdmin/PwasAdmin-getImg.action"  
                 detailData = {'caseId':caseQueryRecord.idcase.string}
                 appDetailRes = requests.post(detailUrl,detailData,headers = self.app_header, allow_redirects=False,timeout = 20)

@@ -99,7 +99,9 @@ class Approval():
                     print("XXXXXXXXXXXXXXXXXXX批示出错(%s)XXXXXXXXXXXXXXXXXX"%self.dataItem['resultprocess'])
             else:
                 print("XXXXXXXXXXXXXXXXXXX进入批示案卷详情出错XXXXXXXXXXXXXXXXXXX")
-
+        elif dpsObj == {}:
+            print("待批示列表中没有该工单号:{}".format(self.dataItem['oderNumber']))
+            return dpsObj
 
 # if __name__ == "__main__":
 #     dataItem = {}

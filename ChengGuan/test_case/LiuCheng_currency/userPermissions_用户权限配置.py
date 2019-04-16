@@ -45,7 +45,7 @@ class PermissionConfiguration():
         users = requests.post(selecturl,selectdata,headers = self.header,allow_redirects=False,timeout = 20)
         allUsers = users.text
         if "无人员" in allUsers:
-            print('未查询到',username)
+            print('未查询到',self.uname)
         elif 'Location' in users.headers and '/dcms/bms/login' in users.headers['Location']:
             print("对不起！请您先登录")
         else:

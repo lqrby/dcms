@@ -152,7 +152,6 @@ class SourceStatistics():
                 time.sleep(random.randint(1,2)) 
                 if daochures.status_code == 200:
                     if "记录" in export_obj :
-                        print("根据当前条件查询结果为空！！！")
                         print("来源统计》案卷来源:{},业务单位:{},根据当前条件查询结果为空！！！".format(option.get_text(),department.get_text()))
                     else:
                         print("来源统计》案卷来源:{},业务单位:{},并且全部导出成功".format(option.get_text(),department.get_text()))

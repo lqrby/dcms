@@ -26,7 +26,7 @@ class verify():
         }
     # 网格员进入待核实列表
     def test_app_heShiList(self):
-        dhsItem = ""
+        dhsItem = {}
         dhsurl = self.ip+"/dcms/pwasCase/Case-confirmList.action"
         dhs_data = {
             "page.pageSize":"20",
@@ -42,12 +42,13 @@ class verify():
                 dhsList_soup = BeautifulSoup(dhsListRsult,'lxml')
                 for casecheckrecord in dhsList_soup.findAll('casecheckrecord'):
                     caseid = casecheckrecord.find('caseid').get_text()
-                    if caseid == self.loginUser['oderNumber']:
+                    if caseid == self.loginUser['oderId']:
                         dhsItem = casecheckrecord
                         break
                 return dhsItem
             else:
                 print("待核实列表暂时为空！！！")
+                return count
         elif 'Location' in dhsListRes.headers and '/dcms/bms/login' in dhsListRes.headers['Location']:
             print("对不起，请您先登录")
         else:
@@ -92,7 +93,9 @@ class verify():
             else:
                 print("XXXXXXXXXXXXXXXXXXXXXXXXXXXX核实失败XXXXXXXXXXXXXXXXXXXXXXXXXXX")
     
-                
+        else:
+            print("待核实列表中没有该工单号:{}".format(self.loginUser['oderNumber']))
+            return dhsResult
                 
 
 # if __name__=="__main__": 

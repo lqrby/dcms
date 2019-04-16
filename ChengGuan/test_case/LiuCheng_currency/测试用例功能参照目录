@@ -189,3 +189,28 @@ PC端
 
 执法局>巡检抽查：7890
 其它:端口均为7897
+
+
+
+
+
+
+
+
+<option value="402880822f43b3b3012f43b7e6890002">待批示</option>
+    <option value="402880822f3eca29012f3ecf72020001">核实无效</option>
+    <option value="402880822f3eca29012f3ed1edb10008">正常结案</option>
+    <option value="402880e52f2f6b2f012f2f6b73850001">待核实</option>
+    <option value="4028838358f201550159053b7291029f">待确认</option>
+    <option value="402880822f47b025012f47b52ad00001">待调整</option>
+    <option value="2c94d0af3071fe28013072cde8f50060">挂起</option>
+    <option value="2c94d09630911a840130911d8e220014">作废</option>
+    <option value="402880822f3eca29012f3ed0b1f50004">待处理</option>
+    <option value="402880e72fd38e40012fd38fdc9e000b">调整批示</option>
+    <option value="402880822f3eca29012f3ed102470005">待复核</option>
+    <option value="402880822f3eca29012f3ed1984d0007">复核未通过</option>
+    <option value="402880822f52960a012f52b829d60008">已非正常结案</option>
+    <option value="402880822f3eca29012f3ed0218c0002">待立案</option>
+    <option value="402880822f3eca29012f3ed146b30006">复核通过</option>
+    <option value="2c94ccad37c5c36f0137c5d0b01a0003">待回访</option>
+    <option value="402880822f3eca29012f3ed07d390003">待派发</option>

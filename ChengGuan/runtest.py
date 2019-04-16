@@ -6,14 +6,11 @@ import sys
 sys.path.append("E:/test/dcms/ChengGuan")
 from HTMLTestRunner import HTMLTestRunner
 import time,sys,os
-from imp import reload
+# from imp import reload
+# from importlib import reload
 # from config.Log import logging
 default_encoding ='utf-8'
 
-# if sys.getdefaultencoding() != default_encoding:
-#     reload(sys)
-#     sys.getdefaultencoding() 
-#     'utf-8'
  #定义测试用例的目录为当前目录  
 test_dir = "./test_case/formal"
 

@@ -152,11 +152,15 @@ class fileFandling():
         apprespons.connection.close()
         if 'success' in app_respons:
             result = json.loads(app_respons)
-            for item in result['data']:
-                if item['caseid'] == self.loginUser['oderNumber']:
-                    dclitem = item
-                    break
-            return dclitem
+            if result['count'] > 0:
+                for item in result['data']:
+                    if item['caseid'] == self.loginUser['oderNumber']:
+                        dclitem = item
+                        break
+                return dclitem
+            else:
+                print("待处理列表暂时为空！！！")
+                return app_respons['count']
         else:
             print("XXXXXXXXXXXXXXXXX获取待处理列表失败XXXXXXXXXXXXXXXXX")
     
@@ -196,34 +200,35 @@ class fileFandling():
                 print("XXXXXXXXXX处理案卷时出现错误XXXXXXXXXX")
             cl_res.connection.close()
         else:
-            print("00000待处理列表暂时为空00000")
+            print("待处理列表中没有该工单号:{}".format(self.loginUser['oderNumber']))
+            return dclResult
         
     
-    #移动端案卷处理>申请调整==================================================================================
-    def test_requestAdjustment(self):
-        dclResult = self.test_app_PendingList()
-        if dclResult:
-            sqtz_url = self.ip+"/dcms/PwasAdmin/MobileCase-applyadjust.action"
-            sqtz_data = {
-                "operatingComments":self.loginUser['operatingComments'],
-                "username":self.loginUser['name'],
-                "stateId":dclResult['stateId'],
-                "deptid":self.loginUser['deptid'],
-                "deptname":dclResult['dealDeptName'],
-                "caseid":dclResult['id'],
-                "resultprocess":self.loginUser['resultprocess'],
-                "applyReason":self.loginUser['applyReason'],
-                "userid":self.loginUser['id'],
-                "taskprocess":dclResult['taskID']
-            }
-            sqtz_res = requests.post(sqtz_url,sqtz_data,headers = self.app_header,timeout = 20)
-            sqtzres = json.loads(sqtz_res.text)
-            sqtz_res.connection.close()
-            if 'message' in sqtzres and sqtzres['message'] == 'success':
-                print("***************申请调整成功*************")
-                return True
-        else:
-            print("待处理列表中没有该工单号:{}".format(self.loginUser['oderNumber']))
+    # #移动端案卷处理>申请调整==================================================================================
+    # def test_requestAdjustment(self):
+    #     dclResult = self.test_app_PendingList()
+    #     if dclResult:
+    #         sqtz_url = self.ip+"/dcms/PwasAdmin/MobileCase-applyadjust.action"
+    #         sqtz_data = {
+    #             "operatingComments":self.loginUser['operatingComments'],
+    #             "username":self.loginUser['name'],
+    #             "stateId":dclResult['stateId'],
+    #             "deptid":self.loginUser['deptid'],
+    #             "deptname":dclResult['dealDeptName'],
+    #             "caseid":dclResult['id'],
+    #             "resultprocess":self.loginUser['resultprocess'],
+    #             "applyReason":self.loginUser['applyReason'],
+    #             "userid":self.loginUser['id'],
+    #             "taskprocess":dclResult['taskID']
+    #         }
+    #         sqtz_res = requests.post(sqtz_url,sqtz_data,headers = self.app_header,timeout = 20)
+    #         sqtzres = json.loads(sqtz_res.text)
+    #         sqtz_res.connection.close()
+    #         if 'message' in sqtzres and sqtzres['message'] == 'success':
+    #             print("***************申请调整成功*************")
+    #             return True
+    #     else:
+    #         print("待处理列表中没有该工单号:{}".format(self.loginUser['oderNumber']))
  
 
 

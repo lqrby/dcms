@@ -155,9 +155,10 @@ class reviewAndReturnVisit():
             caseprochisid = result_data.group(2)
             idcase = result_data.group(3)
             if issuc:
-                # print("案卷复核成功")
+                print("案卷复核完成")
                 if 'imgPath' in self.hfItem:
                     # 上传图片地址
+                    print("正在上传复核图片......")
                     imgUrl = self.ip+"/dcms/PwasAdmin/PwasAdmin-imageup.action?imagetype=image&idcase="+idcase+"&prochisid="+caseprochisid
                     picpath = self.hfItem['imgPath']
                     test_app_ReportPicture(imgUrl,picpath)
@@ -168,7 +169,9 @@ class reviewAndReturnVisit():
                 print("XXXXXXXXXX上报失败XXXXXXXXXX")
             clres.connection.close()
         else:
-            print("待复核列表中没有该工单号！！！")
+            print("待复核列表中没有该工单号{}".format(self.hfItem['oderNumber']))
+            return dfhDetalOBJ
+
 
 # if __name__=="__main__": 
 #     test_reviewAndReturnVisit().test_returnDetailsAndVisit()

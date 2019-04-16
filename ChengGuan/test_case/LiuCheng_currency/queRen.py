@@ -27,7 +27,7 @@ class confirm():
 
     # 待确认流程
     def test_UnconfirmedDetal(self):
-        #进入待确认列表页面
+        #进入待确认列表
         dqrdetalurl = self.ip+"/dcms/bmsAdmin/PlCaseUpdateAndDel-toMakesurelist.action"
         dqrdetaldata = {
             "menuId":"4028338158eb8df90158ebfbdd7c002b",
@@ -36,11 +36,10 @@ class confirm():
         dqrRes = requests.get(dqrdetalurl,params=dqrdetaldata,headers = self.header,allow_redirects=False,timeout = 20)
         dqrRespon = dqrRes.text
         dqrRes.connection.close()
-        
         dqrItem = {}
         if '<span id="pagemsg"' in dqrRespon:
             dqrNumber = re.compile('<label>总共(.*?)页,(.*?)条记录</label>').search(dqrRespon).group(2)
-            if int(dqrNumber)>0:
+            if dqrNumber > "0":
                 dqr_menuId = re.compile('<input type="hidden" name="menuId" id="menuId" value="(.*?)"/>').search(dqrRespon).group(1)
                 dqr_updateCaseGetUrl = re.compile('updateCaseGetUrl=(.*?)"').search(dqrRespon).group(1)
                 dqrRespons = BeautifulSoup(dqrRespon,'html.parser')
@@ -60,12 +59,13 @@ class confirm():
                 return dqrItem
             else:
                 print("待确认列表暂时为空！！！")
+                return dqrNumber
         elif 'Location' in dqrRes.headers and '/dcms/bms/login' in dqrRes.headers['Location']:
             print("对不起，请您先登录")
         else:
             print("XXXXXXXXXXXXXXXX待确认列表出错XXXXXXXXXXXXXXX")
 
-    #确认案卷
+    #进入确认案卷详情并确认案卷
     def test_web_UnconfirmedDetail(self):
         dqrObj = self.test_UnconfirmedDetal()
         if dqrObj:
@@ -80,7 +80,7 @@ class confirm():
             dqrDetail_res = dqrDetail_result.text
             if '<title>事件录入</title>' in dqrDetail_res:
                 dqr_result = BeautifulSoup(dqrDetail_res,'html.parser')
-                dqr_select_sex = dqr_result.find('select', attrs={'id': 'p_sex'})
+                dqr_sex = dqr_result.find('select', attrs={'id': 'p_sex'})
                 dqr_select_sourceid = dqr_result.find('select', attrs={'id': 'sourceid'})
                 dqr_select_needconfirm = dqr_result.find('select', attrs={'id': 'needconfirm'})
                 if self.dataObject != {}:
@@ -97,7 +97,7 @@ class confirm():
                 dqr_street = re.compile('<input type="hidden"  id="street" name="street" value="(.*?)"/>').search(dqrDetail_res).group(1) 
                 dqr_p_name = re.compile('<input type="text" id="p_name" name="p_name" value="(.*?)"').search(dqrDetail_res).group(1)
                 # 上报人性别
-                p_sex = re.compile('<option selected="(.*?)" value="(.*?)">(.*?)</option>').search(str(dqr_select_sex))
+                p_sex = re.compile('<option selected="(.*?)" value="(.*?)">(.*?)</option>').search(str(dqr_sex))
                 if p_sex != None:
                     dqr_p_sex = p_sex.group(3)
                 else:
@@ -109,28 +109,7 @@ class confirm():
                 # 案卷id
                 # dqr_id = re.compile('<input type="hidden" id="id" name="id" value="(.*?)"/>').search(dqrDetail_res).group(1)
                 # # 案卷类型
-                # dqr_eorcId = re.compile('<option selected="selected" value="(.*?)">(.*?)</option>').search(str(dqr_select_eorcId)).group(1)
-                # # 大类
-                # eventtypeoneid = re.compile('<option selected="selected" value="(.*?)">(.*?)</option>').search(str(dqr_select_eventtypeoneid))
-                # # 小类
-                # eventtypetwoid = re.compile('<option selected="selected" value="(.*?)">(.*?)</option>').search(str(dqr_select_eventtypetwoid))
                 
-                # if dqr_eorcId == getConstant.EORCID_BJ:
-                #     if eventtypeoneid != None and eventtypetwoid != None:
-                #         dqr_eventtypeoneid = eventtypeoneid.group(1)
-                #         dqr_eventtypetwoid = eventtypetwoid.group(1)
-                #     else:
-                #         dqr_eventtypeoneid = getConstant.BJ_GGSS  #部件大类公共设施
-                #         dqr_eventtypetwoid = getConstant.BJ_GGSS_SSJG #部件小类上水井盖
-                # else:
-                #     if eventtypeoneid != None and eventtypetwoid != None:
-                #         dqr_eventtypeoneid = eventtypeoneid.group(1)
-                #         dqr_eventtypetwoid = eventtypetwoid.group(1)
-                #     else:
-                #         dqr_eventtypeoneid = self.dataObject['eventtypeoneId']  #事件大类市容环境
-                #         dqr_eventtypetwoid = self.dataObject['eventtypetwoId'] #事件小类油烟污染
-                        
-
                 #万米网格
                 dqr_gridid = re.compile('<input type="text" id="gridid" readonly name="gridid" value="(.*?)"').search(dqrDetail_res).group(1)    
                 #描述
@@ -147,43 +126,43 @@ class confirm():
                 webdata_list = webdata.split(",")
                 m = MultipartEncoder(
                     fields = {
-                        "mposl":webdata_list[0],
-                        "mposb":webdata_list[1],
-                        "menuId":dqrObj['menuId'],
+                        "mposl":self.dataObject['mposl'], #经度
+                        "mposb":self.dataObject['mposb'], #纬度
+                        "menuId":dqrObj['menuId'], #菜单id
                         "removeFileId":"",	
                         "updateCaseGetUrl":dqrObj['updateCaseGetUrl'],	
-                        "casecallId":dqr_casecallId,	
+                        "casecallId":dqr_casecallId,	#上报人相关，可为空
                         "imageid":"",
                         "px":"",	
                         "py":"",	
                         "deptId":"",
-                        "isFh":self.dataObject['isFh'],
-                        "casesource":dqr_casesource,
+                        "isFh":self.dataObject['isFh'], #是否复核
+                        "casesource":dqr_casesource,  #案卷来源
                         "dispatchDeptname":"",
-                        "street":dqr_street,
-                        "p_name":dqr_p_name,
-                        "p_sex":dqr_p_sex,
+                        "street":dqr_street,  #街道编码
+                        "p_name":dqr_p_name,  #上报人名字
+                        "p_sex":dqr_p_sex,  #性别
                         "p_job":"",
                         "p_phone":"",
-                        "other_phone":dqr_other_phone,
+                        "other_phone":dqr_other_phone,  #上报人手机号
                         "feedback":"",
-                        "source.id":dqr_sourceid,
-                        "id":dqrObj['oderid'],
-                        "eorc.id":self.dataObject['eorcId'],
-                        "eventtypeone.id":self.dataObject['eventtypeoneId'],
-                        "eventtypetwo.id":self.dataObject['eventtypetwoId'],
+                        "source.id":dqr_sourceid,  #来源统计
+                        "id":dqrObj['oderid'],   #工单id
+                        "eorc.id":self.dataObject['eorcid'],
+                        "eventtypeone.id":self.dataObject['eventtypeone'],  #大类
+                        "eventtypetwo.id":self.dataObject['eventtypetwo'],  #小类
                         "startConditionId":"", #这里是立案条件
                         "regioncode.id":self.dataObject['regioncodeId'],
                         "bgcode.id":self.dataObject['bgcodeId'],
                         "objcode":"",
-                        "bgadminid.id":self.dataObject['id'],
+                        "bgadminid.id":self.dataObject['id'],  #管理员id
                         "bgadminid2":self.dataObject['name'],#管理员名称
-                        "gridid":dqr_gridid,
-                        "needconfirm":self.dataObject['needconfirm'],
-                        "description":dqr_description,
-                        "dealWay":self.dataObject['isFh'],
-                        "fieldintro":dqr_fieldintro,
-                        "upload":upload
+                        "gridid":dqr_gridid,   #万米网格
+                        "needconfirm":self.dataObject['needconfirm'],  #是否核实
+                        "description":dqr_description,   #描述
+                        "dealWay":self.dataObject['isFh'],    
+                        "fieldintro":dqr_fieldintro,   #位置描述
+                        "upload":upload   #图片
                     }
                 )
                 
@@ -198,6 +177,7 @@ class confirm():
                 #重定向没有返回值
                 webres = requests.post(url = qr_url, data=m, headers=header,allow_redirects=False,timeout = 20)
                 web_res = webres.text
+                webres.connection.close()
                 mystr = web_res.find("errorCode")
                 if mystr != -1:
                     print("XXXXXXXXXXweb工单确认失败XXXXXXXXXX")
@@ -210,6 +190,7 @@ class confirm():
                     return True
         elif dqrObj == {}:
             print("待确认列表中不存在该工单:{}",format(self.dataObject['oderNumber']))
+            return dqrObj
         else:
             print("XXXXXXXXXXX特么异常了XXXXXXXXXX")
           
